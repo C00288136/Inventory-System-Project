@@ -5,7 +5,7 @@ public class JDBCdemo {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/JDBC";
         String username = "root";
-        String password = "00000000";
+        String password = "";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
