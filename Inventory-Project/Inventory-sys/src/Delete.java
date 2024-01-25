@@ -1,33 +1,27 @@
-import java.sql.*;
+import java . sql .Connection;
+import java . sql .DriverManager;
+import java . sql .PreparedStatement;
+import java . sql .SQLException;
 
-public class Show_database {
+public class Delete {
     public static void main(String [] args) {
 // database URL
         final String DATABASE_URL = "jdbc:mysql://localhost/Inventory";
         Connection connection = null ;
-        ResultSet resultSet = null;
         PreparedStatement pstat = null;
+        int Employee_ID = 100;
+
+        int i=0;
         try {
             // establish connection to database
             connection = DriverManager.getConnection(DATABASE_URL, "root", "" );
 // create Prepared Statement for inserting data into table
-            pstat = connection.prepareStatement("Select * FROM employees;");
-            resultSet = pstat.executeQuery();
+            pstat = connection.prepareStatement("DELETE From Employees Where Emp_ID=?");
+            pstat.setInt(1,Employee_ID);
 
-            ResultSetMetaData metaData = resultSet.getMetaData();
-            int numuberofColumns = metaData.getColumnCount();
-            System.out.println("Employee Table");
-            for (int i=1; i<numuberofColumns;i++)
-                System.out.print(metaData.getColumnName(i) + "\t" );
-            System.out.println();
-
-
-            while (resultSet.next()){
-                for (int i=1; i<numuberofColumns;i++)
-                    System.out.print("|" + resultSet.getObject(i) + "\t\t" );
-                System.out.println();
-            }
-
+// insert data into table
+            i = pstat .executeUpdate();
+            System.out. println ( i + " record successfully added to the table .");
         }
         catch(SQLException sqlException){
             sqlException . printStackTrace () ;
