@@ -3,13 +3,12 @@ import java.sql.*;
 public class Show_database {
     public static void main(String [] args) {
 // database URL
-        final String DATABASE_URL = "jdbc:mysql://localhost/Inventory";
-        Connection connection = null ;
-        ResultSet resultSet = null;
+        Connection connection = DatabaseConnector.connect();
+
+        ResultSet resultSet= null;
         PreparedStatement pstat = null;
         try {
             // establish connection to database
-            connection = DriverManager.getConnection(DATABASE_URL, "root", "" );
 // create Prepared Statement for inserting data into table
             pstat = connection.prepareStatement("Select * FROM employees;");
             resultSet = pstat.executeQuery();
@@ -35,7 +34,7 @@ public class Show_database {
         finally {
             try {
                 pstat . close () ;
-                connection. close () ;
+                DatabaseConnector.disconnect();
             }
             catch (Exception exception){
                 exception . printStackTrace () ;
