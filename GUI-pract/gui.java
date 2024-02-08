@@ -15,6 +15,6 @@ public class gui
 
         int sum = num1+num2;
 
-        JOptionPane.showMessageDialog(null, "The sum is" + sum,"Sum of two Integers: ", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "The sum is " + sum,"Sum of two Integers: ", JOptionPane.PLAIN_MESSAGE);
     }
 }

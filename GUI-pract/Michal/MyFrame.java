@@ -17,7 +17,7 @@ public class MyFrame extends JFrame {
         this.setSize(420,420);// sets size of window 
         this.setVisible(true);//makes this visible 
 
-        ImageIcon image = new ImageIcon("GUI-pract/Michal/logo.png"); // create  a image icon 
+        ImageIcon image = new ImageIcon("logo.png"); // create  a image icon 
         //root path will take images from project folder if its in a seperate folder a relative path is needed
         
         this.setIconImage(image.getImage()); //changes icon of this need the get image otherwise wont work
