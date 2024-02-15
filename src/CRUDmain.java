@@ -11,22 +11,26 @@ public class CRUDmain {
         InsertIntoDbCRUD insert =  new InsertIntoDbCRUD();
         ShowDataBaseCRUD show_database = new ShowDataBaseCRUD();
         DatabaseConnector databaseConnector = new DatabaseConnector();
-        //i can use the base connector but then need the connection class to actual forward the info to the table
+        //I can use the base connector but then need the connection class to actual forward the info to the table
         Connection connection = databaseConnector.connect();
-        System.out.println("Choose which data base you want to view/insert/delete");
-        DisplayTablesNames.printTableNames();
 
-        int choice = Userin.nextInt();
-        Userin.nextLine();
+        int choice;
 
-        while(choice != 0){
+        do{
+            System.out.println("Choose which data base you want to view/insert/delete");
+            DisplayTablesNames.printTableNames();
+            choice = Userin.nextInt();
+            Userin.nextLine();
+
             switch (choice){
 
                 case 1:
                     System.out.println("Do you want to \n1.insert\n2.delete\n3.view table");
-                    String userChoice = Userin.nextLine().toLowerCase();
+                    int userChoice = Userin.nextInt();
+                    Userin.nextLine();
+
                     switch (userChoice){
-                        case "insert":
+                        case 1:
                         System.out.println("Inserting data into Employees table:");
                         System.out.print("Enter Last Name: ");
                         String lastName = Userin.nextLine();
@@ -47,18 +51,18 @@ public class CRUDmain {
 
                         insert.insertIntoEmployees(lastName,firstName,age,phoneNo,address);
                         break;
-                        case "view":
+                        case 3:
                             show_database.showTable("Employees");
                             break;
                     }
-
-
                     break;
                 case 2:
-                    System.out.println("Do you want to \ninsert\ndelete\nview table");
-                    userChoice = Userin.nextLine().toLowerCase();
+                    System.out.println("Do you want to \n1.insert\n2.delete\n3.view table");
+                    userChoice = Userin.nextInt();
+                    Userin.nextLine();
+
                     switch (userChoice) {
-                        case "insert":
+                        case 1:
                             System.out.println("Inserting data into Orders table:");
                             System.out.print("Enter Emp_ID: ");
                             int Emp_Id = Userin.nextInt();
@@ -81,22 +85,71 @@ public class CRUDmain {
 
                             insert.insertIntoOrders(Emp_Id, Stock_id, currentDate, Total, PayStat, Delivery_date);
                             break;
+                        case 3:
+                            show_database.showTable("Orders");
+                            break;
                     }
                     break;
                 case 3:
+                    System.out.println("Do you want to \n1.insert\n2.delete\n3.view table");
+                    userChoice = Userin.nextInt();
+                    Userin.nextLine();
+
+                    switch (userChoice){
+                        case 1:
+                            break;
+                        case 3:
+                            break;
+                    }
                     break;
 
                 case 4:
+                    System.out.println("Do you want to \n1.insert\n2.delete\n3.view table");
+                    userChoice = Userin.nextInt();
+                    Userin.nextLine();
+
+                    switch (userChoice){
+                        case 1:
+                            System.out.println("Inserting data into Stock Items table:");
+                            System.out.print("Enter Name: ");
+                            String name = Userin.nextLine();
+
+                            System.out.print("Enter Quantity in Stock: ");
+                            int quantity = Userin.nextInt();
+
+                            System.out.print("Enter Unit Price: ");
+                            BigDecimal UnitP = Userin.nextBigDecimal();
+
+                            System.out.print("Enter Sale Price: ");
+                            BigDecimal SaleP = Userin.nextBigDecimal();
+
+                            System.out.print("Enter Supplier ID: ");
+                            int Supplier = Userin.nextInt();
+
+                            System.out.println("Enter Aisle Num");
+                            int Aisle = Userin.nextInt();
+
+                            insert.insertIntoStockItems(name,quantity,UnitP,SaleP,Supplier,Aisle);
+                            break;
+                        case 3:
+                            show_database.showTable("Stock_Items");
+                            break;
+
+                    }
                     break;
+                default:
+                    System.out.println("Choice invalid. Try again");
 
             }
         }
+        while(choice != 0);
 
 
 
 
 
         DatabaseConnector.disconnect();
+        Userin.close();
 
     }
 }
