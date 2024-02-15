@@ -9,6 +9,7 @@ public class CRUDmain {
         Scanner Userin = new Scanner(System.in);
         Date currentDate = new Date(System.currentTimeMillis());
         InsertIntoDbCRUD insert =  new InsertIntoDbCRUD();
+        ShowDataBaseCRUD show_database = new ShowDataBaseCRUD();
         DatabaseConnector databaseConnector = new DatabaseConnector();
         //i can use the base connector but then need the connection class to actual forward the info to the table
         Connection connection = databaseConnector.connect();
@@ -16,12 +17,13 @@ public class CRUDmain {
         DisplayTablesNames.printTableNames();
 
         int choice = Userin.nextInt();
+        Userin.nextLine();
 
         while(choice != 0){
             switch (choice){
 
                 case 1:
-                    System.out.println("Do you want to \ninsert\ndelete\nview table");
+                    System.out.println("Do you want to \n1.insert\n2.delete\n3.view table");
                     String userChoice = Userin.nextLine().toLowerCase();
                     switch (userChoice){
                         case "insert":
@@ -45,7 +47,12 @@ public class CRUDmain {
 
                         insert.insertIntoEmployees(lastName,firstName,age,phoneNo,address);
                         break;
+                        case "view":
+                            show_database.showTable("Employees");
+                            break;
                     }
+
+
                     break;
                 case 2:
                     System.out.println("Do you want to \ninsert\ndelete\nview table");
