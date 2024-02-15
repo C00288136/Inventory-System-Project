@@ -1,7 +1,11 @@
+import Dan.JTableExample;
+
+
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.Scanner;
+
 
 public class CRUDmain {
 
@@ -9,7 +13,6 @@ public class CRUDmain {
         Scanner Userin = new Scanner(System.in);
         Date currentDate = new Date(System.currentTimeMillis());
         InsertIntoDbCRUD insert =  new InsertIntoDbCRUD();
-        ShowDataBaseCRUD show_database = new ShowDataBaseCRUD();
         DatabaseConnector databaseConnector = new DatabaseConnector();
         //I can use the base connector but then need the connection class to actual forward the info to the table
         Connection connection = databaseConnector.connect();
@@ -52,7 +55,7 @@ public class CRUDmain {
                         insert.insertIntoEmployees(lastName,firstName,age,phoneNo,address);
                         break;
                         case 3:
-                            show_database.showTable("Employees");
+                            JTableExample emp = new JTableExample("Employees");
                             break;
                     }
                     break;
@@ -86,8 +89,9 @@ public class CRUDmain {
                             insert.insertIntoOrders(Emp_Id, Stock_id, currentDate, Total, PayStat, Delivery_date);
                             break;
                         case 3:
-                            show_database.showTable("Orders");
+                            JTableExample emp = new JTableExample("Orders");
                             break;
+
                     }
                     break;
                 case 3:
@@ -99,6 +103,8 @@ public class CRUDmain {
                         case 1:
                             break;
                         case 3:
+                            JTableExample emp = new JTableExample("Sales");
+
                             break;
                     }
                     break;
@@ -132,7 +138,8 @@ public class CRUDmain {
                             insert.insertIntoStockItems(name,quantity,UnitP,SaleP,Supplier,Aisle);
                             break;
                         case 3:
-                            show_database.showTable("Stock_Items");
+                            JTableExample emp = new JTableExample("Stock_Items");
+
                             break;
 
                     }
