@@ -13,7 +13,7 @@ public class JTableExample extends JFrame {
         tableFrame.setTitle("Table");
 
         // Use JTableData to dynamically fetch data from the database
-        JTableData jTableData = new JTableData("sales");
+        JTableData jTableData = new JTableData(tableName);
         DefaultTableModel model = jTableData.tableModel;
 
         table = new JTable(model);
