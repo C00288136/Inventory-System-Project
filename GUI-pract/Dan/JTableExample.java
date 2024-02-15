@@ -8,7 +8,7 @@ public class JTableExample extends JFrame {
     JFrame tableFrame;
     JTable table;
 
-    JTableExample(String tableName) {
+    public JTableExample(String tableName) {
         tableFrame = new JFrame();
         tableFrame.setTitle("Table");
 
@@ -25,8 +25,4 @@ public class JTableExample extends JFrame {
         tableFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public static void main(String[] args) {
-        // Instantiate the JTableExample class with the desired table name
-        new JTableExample("Employees");
-    }
 }
