@@ -22,7 +22,12 @@ public class JTableExample extends JFrame {
         tableFrame.add(sp);
         tableFrame.setSize(500, 200);
         tableFrame.setVisible(true);
-        tableFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        tableFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+
+    public void disposeWindow(){
+        System.out.println("dispose called");
+        tableFrame.dispose();
     }
 
 }

@@ -12,9 +12,7 @@ public class InsertIntoDbCRUD {
         this.databaseConnector = databaseConnector;
     }
 
-    public InsertIntoDbCRUD() {
-
-    }
+    public InsertIntoDbCRUD() {}
 
     public void insertIntoTable(String tableName, String[] columns, Object[] values) {
         Connection connection = null;

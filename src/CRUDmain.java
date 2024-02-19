@@ -1,3 +1,4 @@
+import Dan.JTableData;
 import Dan.JTableExample;
 
 
@@ -13,6 +14,7 @@ public class CRUDmain {
         Scanner Userin = new Scanner(System.in);
         Date currentDate = new Date(System.currentTimeMillis());
         InsertIntoDbCRUD insert =  new InsertIntoDbCRUD();
+        DeleteCRUD delete = new DeleteCRUD();
         DatabaseConnector databaseConnector = new DatabaseConnector();
         //I can use the base connector but then need the connection class to actual forward the info to the table
         Connection connection = databaseConnector.connect();
@@ -25,14 +27,22 @@ public class CRUDmain {
             choice = Userin.nextInt();
             Userin.nextLine();
 
+            //needed to declare as null to be able to use the objects instead of if statement for update
+            JTableExample table = null ;
+
+
+
             switch (choice){
 
+                //Employees switch
                 case 1:
                     System.out.println("Do you want to \n1.insert\n2.delete\n3.view table");
                     int userChoice = Userin.nextInt();
                     Userin.nextLine();
+                    if (userChoice != 1){ table = new JTableExample("Employees");}
 
                     switch (userChoice){
+
                         case 1:
                         System.out.println("Inserting data into Employees table:");
                         System.out.print("Enter Last Name: ");
@@ -54,20 +64,38 @@ public class CRUDmain {
 
                         insert.insertIntoEmployees(lastName,firstName,age,phoneNo,address);
                         break;
+                        case 2:
+
+                            System.out.println("The table of Employees has been Displayed.\nChoose the id you want to delete : ");
+                            int deleteUser = Userin.nextInt();
+
+                            Userin.nextLine();
+
+                            System.out.println("Are you sure you want to delete ID : " + deleteUser);
+                            String confirmation = Userin.nextLine().toLowerCase();
+                            if (confirmation.equals("yes")){
+                                delete.deleteFromTable("Employees",deleteUser);
+                                table.disposeWindow();
+                            }
+                            table = new JTableExample("Employees");
+
+                            break;
                         case 3:
-                            JTableExample emp = new JTableExample("Employees");
                             break;
                     }
                     break;
+
+                    //Orders Switch
                 case 2:
                     System.out.println("Do you want to \n1.insert\n2.delete\n3.view table");
                     userChoice = Userin.nextInt();
                     Userin.nextLine();
+                    if (userChoice != 1){ table = new JTableExample("Orders");}
 
                     switch (userChoice) {
                         case 1:
                             System.out.println("Inserting data into Orders table:");
-                            System.out.print("Enter Emp_ID: ");
+                            System.out.print("Enter ID: ");
                             int Emp_Id = Userin.nextInt();
 
                             System.out.print("Enter Stock_ID: ");
@@ -88,31 +116,33 @@ public class CRUDmain {
 
                             insert.insertIntoOrders(Emp_Id, Stock_id, currentDate, Total, PayStat, Delivery_date);
                             break;
+                        case 2:
+                            System.out.println("The table of Orders has been Displayed.\nChoose the id you want to delete : ");
+                            int deleteUser = Userin.nextInt();
+                            System.out.println("Are you sure you want to delete ID : " + deleteUser);
+                            String confirmation = Userin.nextLine().toLowerCase();
+                            if (confirmation.equals("yes")){
+                                delete.deleteFromTable("Employees",deleteUser);
+
+                                if (table != null){
+                                    table.dispose();
+                                }
+
+                                table = new JTableExample("Orders");
+                            }
+                            break;
                         case 3:
-                            JTableExample emp = new JTableExample("Orders");
                             break;
 
                     }
                     break;
-                case 3:
-                    System.out.println("Do you want to \n1.insert\n2.delete\n3.view table");
-                    userChoice = Userin.nextInt();
-                    Userin.nextLine();
 
-                    switch (userChoice){
-                        case 1:
-                            break;
-                        case 3:
-                            JTableExample emp = new JTableExample("Sales");
-
-                            break;
-                    }
-                    break;
-
+                    //Stock Switch
                 case 4:
                     System.out.println("Do you want to \n1.insert\n2.delete\n3.view table");
                     userChoice = Userin.nextInt();
                     Userin.nextLine();
+                    if (userChoice != 1){ table = new JTableExample("Employees");}
 
                     switch (userChoice){
                         case 1:
@@ -137,9 +167,22 @@ public class CRUDmain {
 
                             insert.insertIntoStockItems(name,quantity,UnitP,SaleP,Supplier,Aisle);
                             break;
-                        case 3:
-                            JTableExample emp = new JTableExample("Stock_Items");
+                        case 2:
+                            System.out.println("The table of Orders has been Displayed.\nChoose the id you want to delete : ");
+                            int deleteUser = Userin.nextInt();
+                            System.out.println("Are you sure you want to delete ID : " + deleteUser);
+                            String confirmation = Userin.nextLine().toLowerCase();
+                            if (confirmation.equals("yes")){
+                                delete.deleteFromTable("Employees",deleteUser);
 
+                                if (table != null){
+                                    table.dispose();
+                                }
+
+                                table = new JTableExample("Orders");
+                            }
+                            break;
+                        case 3:
                             break;
 
                     }
@@ -150,10 +193,6 @@ public class CRUDmain {
             }
         }
         while(choice != 0);
-
-
-
-
 
         DatabaseConnector.disconnect();
         Userin.close();
