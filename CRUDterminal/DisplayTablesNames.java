@@ -11,8 +11,11 @@ public class DisplayTablesNames {
             Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
             DatabaseMetaData metaData = connection.getMetaData();
             ResultSet resultSet = metaData.getTables(null, null, "%", new String[]{"TABLE"});
+            //used metadata to get the names of the tables printed into the main
 
             System.out.println("Table Names:");
+            //because all the asset folders printed aswell as the tables for the database i had to create a limit of how many tables i want printed
+
             int count = 1;
             int limit = 5;
             while (resultSet.next() && count < limit) {

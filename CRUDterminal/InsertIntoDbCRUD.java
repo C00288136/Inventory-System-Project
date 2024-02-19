@@ -14,6 +14,7 @@ public class InsertIntoDbCRUD {
 
     public InsertIntoDbCRUD() {}
 
+    //method for inserting into the database
     public void insertIntoTable(String tableName, String[] columns, Object[] values) {
         Connection connection = null;
         PreparedStatement pstat = null;
@@ -23,7 +24,7 @@ public class InsertIntoDbCRUD {
             // Get connection from the DatabaseConnector
             connection = databaseConnector.connect();
 
-            // Create Prepared Statement for inserting data into the specified table
+            //using string builder to dynamically insert necessary query data instead of hard coding names
             StringBuilder queryBuilder = new StringBuilder("INSERT INTO ")
                     .append(tableName)
                     .append(" (");
@@ -44,12 +45,19 @@ public class InsertIntoDbCRUD {
                 }
             }
 
+            //what both for loops do is loop through the columns and the values arrays and append them dynamically into the sql query
+            // which can then be executed
+
             queryBuilder.append(")");
 
             String query = queryBuilder.toString();
             pstat = connection.prepareStatement(query);
 
             // Set values for each parameter
+            //because the different tables have different values and in different row this for loop is
+            //checking what type of value the current is and if it is not what it should be it gets cast to that type
+            //j + 1 is used because sql indexing starts at 1
+
             for (int j = 0; j < values.length; j++) {
                 if (values[j] instanceof String) {
                     pstat.setString(j + 1, (String) values[j]);
@@ -67,6 +75,7 @@ public class InsertIntoDbCRUD {
             // Insert data into the table
             i = pstat.executeUpdate();
             System.out.println(i + " record successfully added to " + tableName + ".");
+
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         } finally {
@@ -82,6 +91,7 @@ public class InsertIntoDbCRUD {
         }
     }
 
+    //because as mentioned values are different for each table I made separate methods for inserting into each table
     public void insertIntoEmployees(String lastName, String firstName, int age, long phoneNum, String address) {
         String[] columns = {"LastName", "FirstName", "Age", "Phone_No", "Address"};
         Object[] values = {lastName, firstName, age, phoneNum, address};

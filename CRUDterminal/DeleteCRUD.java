@@ -17,6 +17,7 @@ public class DeleteCRUD {
             connection = databaseConnector.connect();
             DatabaseMetaData metaData = connection.getMetaData();
 
+            //used metadata to dynamically write the query for delecting the user by their primary key
             String idColumnName = null;
             ResultSet resultSet = metaData.getPrimaryKeys(null, null, tableName);
 

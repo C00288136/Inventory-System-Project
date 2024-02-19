@@ -39,6 +39,7 @@ public class CRUDmain {
                     System.out.println("Do you want to \n1.insert\n2.delete\n3.view table");
                     int userChoice = Userin.nextInt();
                     Userin.nextLine();
+                    //setting up a table object to display the data for the delete and view table option
                     if (userChoice != 1){ table = new JTableExample("Employees");}
 
                     switch (userChoice){
@@ -61,7 +62,7 @@ public class CRUDmain {
 
                         System.out.print("Enter Address: ");
                         String address = Userin.nextLine();
-
+                        //insert all the fields to add the new entry into the db
                         insert.insertIntoEmployees(lastName,firstName,age,phoneNo,address);
                         break;
                         case 2:
@@ -72,15 +73,18 @@ public class CRUDmain {
                             Userin.nextLine();
 
                             System.out.println("Are you sure you want to delete ID : " + deleteUser);
+                            //use confirmation to delete the user
                             String confirmation = Userin.nextLine().toLowerCase();
                             if (confirmation.equals("yes")){
                                 delete.deleteFromTable("Employees",deleteUser);
+                                //dispose of the window object and relaunch to see the updated db
                                 table.disposeWindow();
                             }
                             table = new JTableExample("Employees");
 
                             break;
                         case 3:
+                            //nothing needed because the table displays for 2 and 3 anyway
                             break;
                     }
                     break;
@@ -111,7 +115,8 @@ public class CRUDmain {
                             long delivery_in_2 = 2 * 24 * 60 * 60 * 1000L;
                             long currentTime = System.currentTimeMillis();
                             long Delivery = currentTime + delivery_in_2;
-
+                            // found it difficult to insert date into terminal so i just hardcoded it for now
+                            //will be updated for the gui representation
                             Date Delivery_date = new Date(Delivery);
 
                             insert.insertIntoOrders(Emp_Id, Stock_id, currentDate, Total, PayStat, Delivery_date);
@@ -119,17 +124,18 @@ public class CRUDmain {
                         case 2:
                             System.out.println("The table of Orders has been Displayed.\nChoose the id you want to delete : ");
                             int deleteUser = Userin.nextInt();
+
+                            Userin.nextLine();
+
                             System.out.println("Are you sure you want to delete ID : " + deleteUser);
+                            //use confirmation to delete the user
                             String confirmation = Userin.nextLine().toLowerCase();
                             if (confirmation.equals("yes")){
-                                delete.deleteFromTable("Employees",deleteUser);
-
-                                if (table != null){
-                                    table.dispose();
-                                }
-
-                                table = new JTableExample("Orders");
+                                delete.deleteFromTable("Orders",deleteUser);
+                                //dispose of the window object and relaunch to see the updated db
+                                table.disposeWindow();
                             }
+                            table = new JTableExample("Orders");
                             break;
                         case 3:
                             break;
@@ -142,7 +148,7 @@ public class CRUDmain {
                     System.out.println("Do you want to \n1.insert\n2.delete\n3.view table");
                     userChoice = Userin.nextInt();
                     Userin.nextLine();
-                    if (userChoice != 1){ table = new JTableExample("Employees");}
+                    if (userChoice != 1){ table = new JTableExample("stock_items");}
 
                     switch (userChoice){
                         case 1:
@@ -168,29 +174,29 @@ public class CRUDmain {
                             insert.insertIntoStockItems(name,quantity,UnitP,SaleP,Supplier,Aisle);
                             break;
                         case 2:
-                            System.out.println("The table of Orders has been Displayed.\nChoose the id you want to delete : ");
+                            System.out.println("The table of Employees has been Displayed.\nChoose the id you want to delete : ");
                             int deleteUser = Userin.nextInt();
+
+                            Userin.nextLine();
+
                             System.out.println("Are you sure you want to delete ID : " + deleteUser);
+                            //use confirmation to delete the user
                             String confirmation = Userin.nextLine().toLowerCase();
                             if (confirmation.equals("yes")){
-                                delete.deleteFromTable("Employees",deleteUser);
-
-                                if (table != null){
-                                    table.dispose();
-                                }
-
-                                table = new JTableExample("Orders");
+                                delete.deleteFromTable("stock_items",deleteUser);
+                                //dispose of the window object and relaunch to see the updated db
+                                table.disposeWindow();
+                            }
+                            table = new JTableExample("stock_items");
                             }
                             break;
                         case 3:
                             break;
 
+                        default:
+                            System.out.println("Choice invalid. Try again");
                     }
-                    break;
-                default:
-                    System.out.println("Choice invalid. Try again");
 
-            }
         }
         while(choice != 0);
 
