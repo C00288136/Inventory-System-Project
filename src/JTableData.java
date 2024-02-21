@@ -1,3 +1,7 @@
+/*
+ * the following java class is responsible for fetching and processing data from an sql table
+ */
+
 package Dan;
 
 import javax.swing.*;
@@ -11,19 +15,23 @@ public class JTableData {
     DefaultTableModel tableModel;
     String tableName;
 
-    public JTableData(String tableName) {
-        this.tableName = tableName;
+    public JTableData(String tableName) { 
+        this.tableName = tableName;                 //whenever JTableData is initialised it calls for tableName to be specified, connects to db, and sets prepared statement and result set to null
         connection = DatabaseConnector.connect();
         PreparedStatement pstat = null;
         ResultSet resultSet = null;
 
         try {
-            pstat = connection.prepareStatement("Select * FROM "+tableName+";");
+            //preparing, executing query, setting resultSet as result from query
+            pstat = connection.prepareStatement("Select * FROM "+tableName+";"); 
             resultSet = pstat.executeQuery();
+
+            //intialise defaulttablemodel and get metadeta from resultSet
             tableModel = new DefaultTableModel();
             dbMeta = resultSet.getMetaData();
             int ColumnNo = dbMeta.getColumnCount();
 
+            // Populate table model with data from the result set
             for (int i=1; i<ColumnNo; i++)
             {
                 tableModel.addColumn(dbMeta.getColumnName(i));
