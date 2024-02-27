@@ -1,8 +1,8 @@
 /*
- * the following java class is responsible for fetching and processing data from an sql table
+ * the following java class is responsible for fetching and processing data from an sql tableModel
+ * everytime a JTableExample object is created, this is also created alongside it
  */
 
-package Dan;
 
 import javax.swing.*;
 import java.sql.*;

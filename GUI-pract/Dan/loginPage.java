@@ -67,7 +67,7 @@ public class loginPage implements ActionListener {
 
     public boolean validateLogin(String username, String password)
     {
-        Connection connection = DatabaseConnector2.connect(username, password);
+        Connection connection = validateDatabaseConnect.connect(username, password);
         if (connection != null) {
             return true;
         } else {

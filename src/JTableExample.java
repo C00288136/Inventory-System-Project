@@ -2,7 +2,7 @@
  * JTableExample class used to display a JFrame and JTable populated from a database
  */
 
-package Dan;
+
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DatabaseConnector2 {
+public class validateDatabaseConnect {
     //because for all of my parts of this program I am required to connect to the database I will make this class
     //which can be called upon to do it instead of repeating the same code in each file
 

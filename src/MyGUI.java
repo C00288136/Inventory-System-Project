@@ -70,33 +70,7 @@
                     // Add your show connection status logic here
                     break;
                 case "Show Table":
-                    ResultSet resultSet = null;
-                    PreparedStatement pstat = null;
-                    /*try {
-                        pstat = connection.prepareStatement("SELECT * FROM employees;");
-                        resultSet = pstat.executeQuery();
-                        ResultSetMetaData metaData = resultSet.getMetaData();
-
-                        StringBuilder displayText = new StringBuilder();
-
-                        while(resultSet.next())
-                        {
-                            int empID = resultSet.getInt("Emp_ID");
-                            String lastName = resultSet.getString("LastName");
-                            String firstName = resultSet.getString("FirstName");
-                            int age = resultSet.getInt("Age");
-                            int phoneNo = resultSet.getInt("Phone_No");
-                            String address = resultSet.getString("Address");
-
-                            displayText.append("Emp_ID: ").append(empID).append(", LastName: ").append(lastName).append(", FirstName: ").append(firstName).append(", Age: ").append(age).append(", Phone_No: ").append(phoneNo).append(", Address: ").append(address).append("\n");
-                        }
-
-                        // Display the result in a JOptionPane
-                        JOptionPane.showMessageDialog(null, displayText.toString(), "SQL Table Data", JOptionPane.INFORMATION_MESSAGE);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Error accessing database", "Error", JOptionPane.ERROR_MESSAGE);
-                    } */ // fucking shit!
+                    JTableExample table = new JTableExample("Employees");
                     break;
             }
         }
