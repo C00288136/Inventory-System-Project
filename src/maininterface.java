@@ -5,6 +5,7 @@ public class maininterface {
 //initialise frame buttons and panels
 
     JFrame frame = new JFrame("Inventory Main Menu");
+
     JButton TotalSalesB = new JButton("Total Sales");
     JButton TotalProducts = new JButton("Total  Products");
     JButton TotalSupplier = new JButton("Total Suppliers");
@@ -20,6 +21,8 @@ public class maininterface {
     JButton settings = new JButton("Settings");
 
     JPanel nav = new JPanel();
+
+    JPanel graphPanel = new JPanel();
 
     JPanel body = new JPanel();
     JPanel header = new JPanel();
@@ -51,6 +54,49 @@ public class maininterface {
         nav.setLayout(new BoxLayout(nav, BoxLayout.Y_AXIS));
 
 //        TODO create the grid body layout, add graphs and buttons
+//        main menu layout
+body.setLayout(new GridBagLayout());
+GridBagConstraints gbc = new GridBagConstraints();
+
+ImageIcon graph = new ImageIcon("assets/graph.jpeg");
+JLabel imageLabel = new JLabel(graph);
+int imgwidth = 500;
+int imgheight = 300 ;
+
+imageLabel.setPreferredSize(new Dimension(imgwidth,imgheight));
+gbc.gridwidth = 5;
+gbc.gridheight = 1;
+
+
+graphPanel.add(imageLabel);
+gbc.gridx = 0;
+gbc.gridy = 0;
+body.add(graphPanel,gbc);
+
+gbc.gridheight = 1;
+gbc.gridwidth = 1;
+
+gbc.gridx = 0;
+gbc.gridy = 2;
+body.add(TotalSalesB,gbc);
+
+gbc.gridx = 2;
+gbc.gridy = 2;
+body.add(TotalProducts,gbc);
+
+        gbc.gridx = 3;
+        gbc.gridy = 2;
+body.add(TotalSupplier,gbc);
+
+        gbc.gridx = 4;
+        gbc.gridy = 2;
+body.add(Add_item,gbc);
+
+        gbc.gridx = 5;
+        gbc.gridy = 2;
+body.add(Create_order,gbc);
+
+
 
 
 //!!!!! ALWAYS SET VISIBILITY LAST
@@ -61,5 +107,6 @@ public class maininterface {
     public static void main(String[] args) {
 
         maininterface window =new maininterface();
+
     }
 }
