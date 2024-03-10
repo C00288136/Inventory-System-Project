@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class maininterface {
 //initialise frame buttons and panels
@@ -23,6 +25,7 @@ public class maininterface {
     JPanel nav = new JPanel();
 
     JPanel graphPanel = new JPanel();
+    JPanel TablePanel = new JPanel();
 
     JPanel body = new JPanel();
     JPanel header = new JPanel();
@@ -58,17 +61,26 @@ public class maininterface {
 body.setLayout(new GridBagLayout());
 GridBagConstraints gbc = new GridBagConstraints();
 
-ImageIcon graph = new ImageIcon("assets/graph.jpeg");
+/*ImageIcon graph = new ImageIcon("assets/graph.jpeg");
 JLabel imageLabel = new JLabel(graph);
 int imgwidth = 500;
 int imgheight = 300 ;
 
 imageLabel.setPreferredSize(new Dimension(imgwidth,imgheight));
 gbc.gridwidth = 5;
+gbc.gridheight = 1;*/
+
+int tablewidth = 500;
+int tableheight = 500;
+TablePanel.setPreferredSize(new Dimension(tablewidth,tableheight));
+gbc.gridwidth = 5;
 gbc.gridheight = 1;
 
+/*graphPanel.add(imageLabel);
+gbc.gridx = 0;
+gbc.gridy = 0;*/
 
-graphPanel.add(imageLabel);
+graphPanel.add(TablePanel);
 gbc.gridx = 0;
 gbc.gridy = 0;
 body.add(graphPanel,gbc);
@@ -96,8 +108,55 @@ body.add(Add_item,gbc);
         gbc.gridy = 2;
 body.add(Create_order,gbc);
 
+//Action Listener
 
+Inventory.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            // Create and show JTableExample in the body panel
+                JTableExample table = new JTableExample("stock_items");
 
+                TablePanel.removeAll(); // Clear existing components in TablePanel
+                TablePanel.add(table);
+                TablePanel.revalidate(); // Refresh the layout
+                TablePanel.repaint(); // Repaint the panel
+             
+    
+           //TODO implement JTableExample class to appear as panel in gui
+        }
+    });
+
+sales.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+                // Create and show JTableExample in the body panel
+                JTableExample table = new JTableExample("sales");
+
+                TablePanel.removeAll(); // Clear existing components in TablePanel
+                TablePanel.add(table);
+                TablePanel.revalidate(); // Refresh the layout
+                TablePanel.repaint(); // Repaint the panel
+                
+
+                //TODO implement JTableExample class to appear as panel in gui
+        }
+});
+
+orders.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            // Create and show JTableExample in the body panel
+                JTableExample table = new JTableExample("orders");
+
+                TablePanel.removeAll(); // Clear existing components in TablePanel
+                TablePanel.add(table);
+                TablePanel.revalidate(); // Refresh the layout
+                TablePanel.repaint(); // Repaint the panel
+             
+    
+           //TODO implement JTableExample class to appear as panel in gui
+        }
+    });
+
+    
+    
 
 //!!!!! ALWAYS SET VISIBILITY LAST
         frame.setVisible(true);
