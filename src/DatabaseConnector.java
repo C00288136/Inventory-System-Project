@@ -6,7 +6,7 @@ public class DatabaseConnector {
     //because for all of my parts of this program I am required to connect to the database I will make this class
     //which can be called upon to do it instead of repeating the same code in each file
 
-    private static final String URL = "jdbc:mysql://localhost:3306/Inventory";
+    private static final String URL = "jdbc:mysql://localhost:3306/inventory";
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
