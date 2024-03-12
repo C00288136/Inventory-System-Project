@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class maininterface {
@@ -33,25 +34,40 @@ public class maininterface {
 
 
     public maininterface() {
-        frame.setSize(1000, 600);
+        frame.setSize(1600, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.add(nav, BorderLayout.WEST);
         frame.add(header, BorderLayout.NORTH);
         frame.add(body, BorderLayout.CENTER);
 
-        nav.setBackground(Color.blue);
+
         body.setBackground(Color.red);
         header.setBackground(Color.green);
 
-//        nav settings
-        nav.add(home);
-        nav.add(orders);
-        nav.add(sales);
-        nav.add(salesReport);
-        nav.add(Inventory);
-        nav.add(settings);
-        nav.setLayout(new BoxLayout(nav, BoxLayout.Y_AXIS));
+//        header settings
+        int height = 100;
+        header.setPreferredSize(new Dimension(0,height));
+
+// nav settings
+        nav.setBackground(Color.decode("#8764EC"));
+        JButton[] navbuttons = {home, orders, sales, salesReport, Inventory, settings};
+        int navbuttonWidth = 120;
+        int navbuttonHeight = 40;
+        int navverticalGap = 10;
+        nav.setLayout(new GridLayout(0,1));
+
+
+        for (JButton button : navbuttons) {
+            button.setPreferredSize(new Dimension(navbuttonWidth, navbuttonHeight));
+            button.setContentAreaFilled(false);
+            button.setBorderPainted(true);
+            button.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            button.setForeground(Color.WHITE);
+
+            nav.add(button);
+        }
+
 
 //        TODO create the grid body layout, add graphs and buttons
 //        main menu layout
@@ -60,44 +76,79 @@ GridBagConstraints gbc = new GridBagConstraints();
 
 ImageIcon graph = new ImageIcon("assets/graph.jpeg");
 JLabel imageLabel = new JLabel(graph);
-int imgwidth = 500;
-int imgheight = 300 ;
+int imgwidth = 700;
+int imgheight = 400 ;
 
-imageLabel.setPreferredSize(new Dimension(imgwidth,imgheight));
-gbc.gridwidth = 5;
-gbc.gridheight = 1;
+        /* Set border for graphPanel */
+        graphPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(Color.black),
+                        BorderFactory.createEmptyBorder(5,5,5,5)
+                ),
+                BorderFactory.createLineBorder(Color.gray,2)
+        ));
+
+        int graphwidth = 700;
+        int graphheight = 400;
+        graphPanel.setPreferredSize(new Dimension(graphwidth,graphheight));
 
 
-graphPanel.add(imageLabel);
-gbc.gridx = 0;
-gbc.gridy = 0;
-body.add(graphPanel,gbc);
+        gbc.gridwidth = 4;
+        gbc.gridheight = 1;
+        gbc.gridx = 1;
+        gbc.gridy = 0;
 
-gbc.gridheight = 1;
-gbc.gridwidth = 1;
 
-gbc.gridx = 0;
-gbc.gridy = 2;
-body.add(TotalSalesB,gbc);
+        graphPanel.add(imageLabel);
+        body.add(graphPanel, gbc);
 
-gbc.gridx = 2;
-gbc.gridy = 2;
-body.add(TotalProducts,gbc);
+        // Set sizes and spaces for buttons
+        JButton[] buttons = {TotalSalesB, TotalProducts, TotalSupplier, Add_item, Create_order};
+        int buttonWidth = 200;
+        int buttonHeight = 100;
+        int horizontalGap = 20;
+        int verticalGap = 20;
+
+        for (JButton button : buttons) {
+            button.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+            button.setBorder(new EmptyBorder(10,12,15,12));
+            button.setContentAreaFilled(false);
+            button.setBackground(Color.black);
+
+
+        }
+
+        gbc.insets = new Insets(verticalGap, horizontalGap, verticalGap, horizontalGap);
+
+        gbc.gridheight = 1;
+        gbc.gridwidth = 1;
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        body.add(TotalSalesB, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        body.add(TotalProducts, gbc);
 
         gbc.gridx = 3;
         gbc.gridy = 2;
-body.add(TotalSupplier,gbc);
+        body.add(TotalSupplier, gbc);
 
         gbc.gridx = 4;
         gbc.gridy = 2;
-body.add(Add_item,gbc);
+        body.add(recentOrder, gbc);
 
         gbc.gridx = 5;
         gbc.gridy = 2;
-body.add(Create_order,gbc);
+        body.add(bestSeller, gbc);
 
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        body.add(Add_item, gbc);
 
-
+        gbc.gridx = 2;
+        gbc.gridy = 3;
+        body.add(Create_order, gbc);
 
 //!!!!! ALWAYS SET VISIBILITY LAST
         frame.setVisible(true);
