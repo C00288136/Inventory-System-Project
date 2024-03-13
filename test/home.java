@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class home extends JFrame {
+public class home extends JPanel {
     JButton TotalSalesB = new JButton("Total Sales");
     JButton TotalProducts = new JButton("Total  Products");
     JButton TotalSupplier = new JButton("Total Suppliers");
@@ -117,6 +117,8 @@ public class home extends JFrame {
         gbc.gridy = 3;
         add(Create_order, gbc);
         add(Create_order,gbc);
+
+        setVisible(true);
     }
 
 }

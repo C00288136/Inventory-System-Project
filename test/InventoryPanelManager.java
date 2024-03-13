@@ -8,8 +8,14 @@ public class InventoryPanelManager extends JPanel {
     private CardLayout cardLayout;
 
     public InventoryPanelManager() {
+        cardLayout = new CardLayout();
+        setLayout(cardLayout);
 
-        setLayout(new CardLayout());
+        home homePanel = new home();
+        Orders ordersPanel = new Orders();
+
+        add(homePanel, "home");
+        add(ordersPanel,"orders");
     }
 
     // Method to show a specific panel
