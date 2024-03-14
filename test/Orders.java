@@ -3,8 +3,6 @@ import java.awt.*;
 
 public class Orders extends JPanel {
 
-    JPanel orderTable = new JPanel();
-
     JTableExample table = new JTableExample("Orders");
 
     int tablewidth = 700;
@@ -15,3 +13,5 @@ public class Orders extends JPanel {
         setVisible(true);
     }
 }
+
+/* sales salesreport  inventory settings */

@@ -9,7 +9,6 @@ public class NavigationBar extends JPanel {
     JButton home = new JButton("Home");
     JButton orders = new JButton("Orders");
     JButton sales = new JButton("Sales");
-    JButton salesReport = new JButton("Sales Report");
     JButton inventory = new JButton("Inventory");
     JButton settings = new JButton("Settings");
 
@@ -18,7 +17,7 @@ public class NavigationBar extends JPanel {
         setBackground(Color.decode("#8764EC"));
         setLayout(new GridLayout(0, 1));
 
-        JButton[] navbuttons = {home, orders, sales, salesReport, inventory, settings};
+        JButton[] navbuttons = {home, orders, sales, inventory, settings};
         int navbuttonWidth = 120;
         int navbuttonHeight = 40;
 
@@ -45,6 +44,12 @@ public class NavigationBar extends JPanel {
             }
         });
 
+        sales.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchPanel("sales");
+            }
+        });
         // Add action listeners for other buttons
     }
 
