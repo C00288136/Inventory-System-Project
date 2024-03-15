@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Inventory extends JPanel {
 
-    JTableExample dataTable = new JTableExample("Stock_Items");
+    JTableExample dataTable = new JTableExample("inventory");
 
 
     public Inventory(){

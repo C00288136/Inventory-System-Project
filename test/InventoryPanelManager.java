@@ -14,12 +14,14 @@ public class InventoryPanelManager extends JPanel {
         home homePanel = new home();
         Orders ordersPanel = new Orders();
         sales salesPanel = new sales();
+        Inventory inventoryPanel = new Inventory();
 
 
 
         add(homePanel, "home");
         add(ordersPanel,"orders");
         add(salesPanel, "sales");
+        add(inventoryPanel,"inventory");
     }
 
     // Method to show a specific panel

@@ -51,6 +51,13 @@ public class NavigationBar extends JPanel {
             }
         });
         // Add action listeners for other buttons
+
+        inventory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchPanel("inventory");
+            }
+        });
     }
 
     // Method to add panels to switch between
