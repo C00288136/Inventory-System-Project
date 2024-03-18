@@ -70,7 +70,7 @@
                     // Add your show connection status logic here
                     break;
                 case "Show Table":
-                    JTableExample table = new JTableExample("Employees");
+                    JTableExample table = new JTableExample("Orders");
                     break;
             }
         }

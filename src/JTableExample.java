@@ -13,5 +13,9 @@ public class JTableExample extends JPanel {
 
         JScrollPane sp = new JScrollPane(table);
         add(sp);
+
+        // Set preferred size for the JScrollPane to match the preferred size of the table
+        sp.setPreferredSize(table.getPreferredScrollableViewportSize());
     }
+
 }
