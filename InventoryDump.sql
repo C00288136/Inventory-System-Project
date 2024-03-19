@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 01, 2024 at 11:49 AM
+-- Generation Time: Mar 19, 2024 at 06:24 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -32,6 +32,9 @@ USE `Inventory`;
 DROP TABLE IF EXISTS `Employees`;
 CREATE TABLE `Employees` (
   `Emp_ID` int(11) NOT NULL,
+  `Username` varchar(255) NOT NULL,
+  `Password` varchar(255) NOT NULL,
+  `Role` varchar(30) NOT NULL,
   `LastName` varchar(255) NOT NULL,
   `FirstName` varchar(255) DEFAULT NULL,
   `Age` int(11) DEFAULT NULL,
@@ -43,24 +46,26 @@ CREATE TABLE `Employees` (
 -- Dumping data for table `Employees`
 --
 
-INSERT INTO `Employees` (`Emp_ID`, `LastName`, `FirstName`, `Age`, `Phone_No`, `Address`) VALUES
-(101, 'Higgins', 'Bob', 22, '87435384953', '16 hills Av'),
-(106, 'Power', 'Mark', 60, '894623784', '230 Carmody Square'),
-(108, 'Smith', 'John', 30, '555-1234', '123 Main St'),
-(109, 'Johnson', 'Alice', 28, '555-5678', '456 Oak St'),
-(110, 'Williams', 'Robert', 35, '555-9876', '789 Pine St'),
-(111, 'Davis', 'Emily', 22, '555-4321', '101 Elm St'),
-(112, 'Miller', 'Brian', 27, '555-8765', '202 Cedar St'),
-(113, 'Jones', 'Jessica', 32, '555-2345', '303 Birch St'),
-(114, 'Brown', 'Michael', 29, '555-6543', '404 Maple St'),
-(115, 'Wilson', 'Sophia', 26, '555-8765', '505 Walnut St'),
-(116, 'Moore', 'David', 31, '555-3210', '606 Pine St'),
-(117, 'Taylor', 'Emma', 24, '555-7890', '707 Oak St'),
-(118, 'Anderson', 'Christopher', 33, '555-2345', '808 Cedar St'),
-(119, 'Thomas', 'Olivia', 23, '555-8765', '909 Birch St'),
-(120, 'Jackson', 'Daniel', 28, '555-4321', '111 Elm St'),
-(121, 'White', 'Ava', 30, '555-5678', '222 Pine St'),
-(122, 'Harris', 'William', 25, '555-7890', '333 Maple St');
+INSERT INTO `Employees` (`Emp_ID`, `Username`, `Password`, `Role`, `LastName`, `FirstName`, `Age`, `Phone_No`, `Address`) VALUES
+(101, 'admin', '25d55ad283aa400af464c76d713c07ad', '', 'Higgins', 'Bob', 22, '87435384953', '16 hills Av'),
+(106, '', '', '', 'Power', 'Mark', 60, '894623784', '230 Carmody Square'),
+(108, '', '', '', 'Smith', 'John', 30, '555-1234', '123 Main St'),
+(109, '', '', '', 'Johnson', 'Alice', 28, '555-5678', '456 Oak St'),
+(110, '', '', '', 'Williams', 'Robert', 35, '555-9876', '789 Pine St'),
+(111, '', '', '', 'Davis', 'Emily', 22, '555-4321', '101 Elm St'),
+(112, '', '', '', 'Miller', 'Brian', 27, '555-8765', '202 Cedar St'),
+(113, '', '', '', 'Jones', 'Jessica', 32, '555-2345', '303 Birch St'),
+(114, '', '', '', 'Brown', 'Michael', 29, '555-6543', '404 Maple St'),
+(115, '', '', '', 'Wilson', 'Sophia', 26, '555-8765', '505 Walnut St'),
+(116, '', '', '', 'Moore', 'David', 31, '555-3210', '606 Pine St'),
+(117, '', '', '', 'Taylor', 'Emma', 24, '555-7890', '707 Oak St'),
+(118, '', '', '', 'Anderson', 'Christopher', 33, '555-2345', '808 Cedar St'),
+(119, '', '', '', 'Thomas', 'Olivia', 23, '555-8765', '909 Birch St'),
+(120, '', '', '', 'Jackson', 'Daniel', 28, '555-4321', '111 Elm St'),
+(121, '', '', '', 'White', 'Ava', 30, '555-5678', '222 Pine St'),
+(122, '', '', '', 'Harris', 'William', 25, '555-7890', '333 Maple St'),
+(123, '', '', '', 'Die', 'John', 2312, '4281390', 'nvasdiop'),
+(124, '', '', '', 'john', 'dhiua', 31, '312', '3');
 
 -- --------------------------------------------------------
 
@@ -76,14 +81,14 @@ CREATE TABLE `Orders` (
   `OrderDate` date NOT NULL,
   `TotalCost` decimal(4,2) NOT NULL,
   `PaymentStatus` enum('paid','pending') NOT NULL,
-  `Est.Delivery` date NOT NULL
+  `Est_Delivery` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `Orders`
 --
 
-INSERT INTO `Orders` (`Order_ID`, `Emp_ID`, `Stock_ID`, `OrderDate`, `TotalCost`, `PaymentStatus`, `Est.Delivery`) VALUES
+INSERT INTO `Orders` (`Order_ID`, `Emp_ID`, `Stock_ID`, `OrderDate`, `TotalCost`, `PaymentStatus`, `Est_Delivery`) VALUES
 (1, 110, 20, '2024-01-01', 23.55, 'paid', '2024-02-01'),
 (2, 110, 20, '2024-01-01', 23.55, 'paid', '2024-02-01');
 
@@ -258,7 +263,7 @@ ALTER TABLE `Stock_Items`
 -- AUTO_INCREMENT for table `Employees`
 --
 ALTER TABLE `Employees`
-  MODIFY `Emp_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `Emp_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `Orders`
