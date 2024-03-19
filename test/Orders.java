@@ -1,33 +1,18 @@
-
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-
-
 
 public class Orders extends JPanel {
 
+<<<<<<< HEAD
     JButton addOrder = new JButton("Add Order");
     JButton deleteOrder = new JButton("Delete Order");
     JButton amendOrder = new JButton("Amend Order");
-    JButton insert = new JButton("Insert Data");
-    JTextField stockIDField  = new JTextField();
-    JTextField empIDField  = new JTextField();
-    JTextField orderDateField  = new JTextField();
-    JTextField totalCostField  = new JTextField();
-    JTextField PaymentStatusField  = new JTextField();
-    JTextField deliveryDateField = new JTextField();
-    InsertIntoDbCRUD crud = new InsertIntoDbCRUD();
 
-
+=======
+>>>>>>> 6c7d99fd306109e03aacd00433b5b340752026e9
     JTableExample table = new JTableExample("Orders");
 
-    int tablewidth = 800;
+    int tablewidth = 700;
     int tableheight = 400;
     int buttonPanelHeight = 50;
 
@@ -56,55 +41,6 @@ public class Orders extends JPanel {
         buttonPanel.add(deleteOrder);
         buttonPanel.add(amendOrder);
 
-        //Action Listers for buttons
-
-        addOrder.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame addOrderFrame = new JFrame();
-
-                Container contentPane = addOrderFrame.getContentPane();
-                contentPane.setLayout(new GridLayout(7, 2, 5, 5)); // 5 rows, 2 columns
-        
-                contentPane.add(new JLabel("Employee ID:"));
-                contentPane.add(empIDField);
-                contentPane.add(new JLabel("Stock ID:"));
-                contentPane.add(stockIDField);
-                contentPane.add(new JLabel("Order Date:"));
-                contentPane.add(orderDateField);
-                contentPane.add(new JLabel("Total Cost:"));
-                contentPane.add(totalCostField);
-                contentPane.add(new JLabel("Payment Status:"));
-                contentPane.add(PaymentStatusField);
-                contentPane.add(new JLabel("DeliveryDate"));
-                contentPane.add(deliveryDateField);
-                contentPane.add(insert);
-
-
-                insert.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-
-                        int Emp_ID = Integer.parseInt(empIDField.getText());
-                        int Stock_ID = Integer.parseInt(stockIDField.getText());
-                        BigDecimal TotalCost = new BigDecimal(totalCostField.getText());
-                        String PaymentStat = PaymentStatusField.getText();
-                        Date orderDate = Date.valueOf(orderDateField.getText());
-                        Date deliveryDate = Date.valueOf(deliveryDateField.getText());
-                        
-                        crud.insertIntoOrders(Emp_ID,Stock_ID,orderDate,TotalCost,PaymentStat,deliveryDate);
-                    }
-                });
-
-
-        
-                addOrderFrame.pack();
-                addOrderFrame.setLocationRelativeTo(null); // Center the frame on screen
-                addOrderFrame.setVisible(true);
-            }
-        });
-        
-
         // Add the button panel to the bottom of the Orders panel
         add(buttonPanel, BorderLayout.SOUTH);
 
@@ -125,6 +61,7 @@ public class Orders extends JPanel {
     }
 }
 
+<<<<<<< HEAD
 
 /*
  * import javax.swing.*;
@@ -194,3 +131,6 @@ public class Orders extends JPanel {
     }
 }
  */
+=======
+/* sales salesreport  inventory settings */
+>>>>>>> 6c7d99fd306109e03aacd00433b5b340752026e9

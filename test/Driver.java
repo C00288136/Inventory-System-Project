@@ -19,6 +19,7 @@ public class Driver {
         NavigationBar navBar = new NavigationBar(panelManager);
         header head = new header();
 
+
         panelManager.showPanel("home");
         frame.add(navBar, BorderLayout.WEST);
         frame.add(panelManager, BorderLayout.CENTER);
