@@ -1,78 +1,39 @@
 package loginInterface;
 
-import com.mysql.cj.log.Log;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class loginInterface {
+public class loginInterface extends JPanel {
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
+    JLabel userLabel = new JLabel("Username");
+    public JTextField userText = new JTextField();
+    JLabel passwordLabel = new JLabel("Password");
+    public JPasswordField passwordText =  new JPasswordField();
+    public JButton loginButton = new JButton("Login");
+    JLabel errorMessageLabel = new JLabel("");
 
-        JPanel body = new JPanel();
-
-        JLabel userLabel = new JLabel("Username");
+    public loginInterface(){
         userLabel.setBounds(10,20,80,25);
-        body.add(userLabel);
+        add(userLabel);
 
-        JTextField userText = new JTextField();
         userText.setBounds(100,20,165,25);
-        body.add(userText);
+        add(userText);
 
-
-        JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10,50,80,25);
-        body.add(passwordLabel);
+        add(passwordLabel);
 
-
-        JPasswordField passwordText =  new JPasswordField();
         passwordText.setBounds(100,50,165,25);
-        body.add(passwordText);
+        add(passwordText);
 
-        JButton loginButton = new JButton("Login");
         loginButton.setBounds(10,80,80,25);
 
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                char[] passwordChars = passwordText.getPassword();
-                String password = new String(passwordChars);
+        add(loginButton);
+        setLayout(null);
+        setVisible(true);
 
-                String username = userText.getText();
-
-                loginLogic login =  new loginLogic();
-
-                String Password = login.hashPassword(password);
-                Boolean authenticate = login.authenticateUser(username,Password);
-                if (authenticate == true){
-                    JOptionPane.showMessageDialog(frame, "Login Successful");
-                }
-                else {
-                    JOptionPane.showMessageDialog(frame,"Invalid username or password");
-                }
-
-
-
-            }
-        });
-        body.add(loginButton);
-
-
-
-        frame.add(body);
-        body.setLayout(null);
-        frame.setSize(300,150);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-
-
-
-
-        frame.setVisible(true);
     }
 }
 

@@ -6,8 +6,6 @@ import java.sql.*;
 
 public class loginLogic {
 
-    public loginLogic(){
-    }
 
     public static boolean authenticateUser(String Username, String Password){
         String dbPassword = null;

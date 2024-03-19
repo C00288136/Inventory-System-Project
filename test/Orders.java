@@ -136,8 +136,8 @@ public class Orders extends JPanel {
                     Date orderDate = Date.valueOf(orderDateField.getText());
                     Date deliveryDate = Date.valueOf(deliveryDateField.getText());
 
-                    DeleteCRUD deleteCRUD = new DeleteCRUD();
-                    deleteCRUD.deleteFromTable(PaymentStat, Stock_ID);
+//                    DeleteCRUD deleteCRUD = new DeleteCRUD();
+//                    deleteCRUD.deleteFromTable(PaymentStat, Stock_ID);
                    } 
                 });
 
