@@ -16,6 +16,7 @@ public class Orders extends JPanel {
     JButton deleteOrder = new JButton("Delete Order");
     JButton amendOrder = new JButton("Amend Order");
     JButton insert = new JButton("Insert Data");
+    JButton delete = new JButton("Delete");
     JTextField stockIDField  = new JTextField();
     JTextField empIDField  = new JTextField();
     JTextField orderDateField  = new JTextField();
@@ -97,10 +98,52 @@ public class Orders extends JPanel {
                 });
 
 
+
         
                 addOrderFrame.pack();
                 addOrderFrame.setLocationRelativeTo(null); // Center the frame on screen
                 addOrderFrame.setVisible(true);
+            }
+        });
+
+        deleteOrder.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame deleteOrderFrame = new JFrame();
+
+                Container contentPane = deleteOrderFrame.getContentPane();
+                contentPane.setLayout(new GridLayout(7, 2, 5, 5));
+
+                contentPane.add(new JLabel("Employee ID:"));
+                contentPane.add(empIDField);
+                contentPane.add(new JLabel("Stock ID:"));
+                contentPane.add(stockIDField);
+                contentPane.add(new JLabel("Order Date:"));
+                contentPane.add(orderDateField);
+                contentPane.add(new JLabel("Total Cost:"));
+                contentPane.add(totalCostField);
+                contentPane.add(new JLabel("Payment Status:"));
+                contentPane.add(PaymentStatusField);
+                contentPane.add(new JLabel("DeliveryDate"));
+                contentPane.add(deliveryDateField);
+                contentPane.add(delete);
+
+                delete.addActionListener(new ActionListener() {
+                   public void actionPerformed(ActionEvent e) {
+                    int Emp_ID = Integer.parseInt(empIDField.getText());
+                    int Stock_ID = Integer.parseInt(stockIDField.getText());
+                    BigDecimal TotalCost = new BigDecimal(totalCostField.getText());
+                    String PaymentStat = PaymentStatusField.getText();
+                    Date orderDate = Date.valueOf(orderDateField.getText());
+                    Date deliveryDate = Date.valueOf(deliveryDateField.getText());
+
+                    DeleteCRUD deleteCRUD = new DeleteCRUD();
+                    deleteCRUD.deleteFromTable(PaymentStat, Stock_ID);
+                   } 
+                });
+
+                deleteOrderFrame.pack();
+                deleteOrderFrame.setLocationRelativeTo(null);
+                deleteOrderFrame.setVisible(true);
             }
         });
         
