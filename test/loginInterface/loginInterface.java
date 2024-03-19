@@ -13,8 +13,6 @@ public class loginInterface extends JPanel {
     JLabel passwordLabel = new JLabel("Password");
     public JPasswordField passwordText =  new JPasswordField();
     public JButton loginButton = new JButton("Login");
-    JLabel errorMessageLabel = new JLabel("");
-
     public loginInterface(){
         userLabel.setBounds(10,20,80,25);
         add(userLabel);
