@@ -3,13 +3,10 @@ import java.awt.*;
 
 public class Orders extends JPanel {
 
-<<<<<<< HEAD
     JButton addOrder = new JButton("Add Order");
     JButton deleteOrder = new JButton("Delete Order");
     JButton amendOrder = new JButton("Amend Order");
 
-=======
->>>>>>> 6c7d99fd306109e03aacd00433b5b340752026e9
     JTableExample table = new JTableExample("Orders");
 
     int tablewidth = 700;
@@ -61,7 +58,6 @@ public class Orders extends JPanel {
     }
 }
 
-<<<<<<< HEAD
 
 /*
  * import javax.swing.*;
@@ -131,6 +127,4 @@ public class Orders extends JPanel {
     }
 }
  */
-=======
 /* sales salesreport  inventory settings */
->>>>>>> 6c7d99fd306109e03aacd00433b5b340752026e9
