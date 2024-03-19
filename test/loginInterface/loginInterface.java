@@ -1,7 +1,11 @@
 package loginInterface;
 
+import com.mysql.cj.log.Log;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class loginInterface {
 
@@ -30,6 +34,30 @@ public class loginInterface {
 
         JButton loginButton = new JButton("Login");
         loginButton.setBounds(10,80,80,25);
+
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                char[] passwordChars = passwordText.getPassword();
+                String password = new String(passwordChars);
+
+                String username = userText.getText();
+
+                loginLogic login =  new loginLogic();
+
+                String Password = login.hashPassword(password);
+                Boolean authenticate = login.authenticateUser(username,Password);
+                if (authenticate == true){
+                    JOptionPane.showMessageDialog(frame, "Login Successful");
+                }
+                else {
+                    JOptionPane.showMessageDialog(frame,"Invalid username or password");
+                }
+
+
+
+            }
+        });
         body.add(loginButton);
 
 
@@ -37,6 +65,7 @@ public class loginInterface {
         frame.add(body);
         body.setLayout(null);
         frame.setSize(300,150);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
 

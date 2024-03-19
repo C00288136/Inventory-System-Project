@@ -9,6 +9,8 @@ import javax.swing.*;
 
 public class Driver {
 
+
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Inventory Monitoring Program");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
