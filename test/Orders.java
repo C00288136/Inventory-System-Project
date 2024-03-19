@@ -1,12 +1,20 @@
+
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
+
 
 public class Orders extends JPanel {
 
     JButton addOrder = new JButton("Add Order");
     JButton deleteOrder = new JButton("Delete Order");
     JButton amendOrder = new JButton("Amend Order");
-<<<<<<< HEAD
     JButton insert = new JButton("Insert Data");
     JButton delete = new JButton("Delete");
     JTextField stockIDField  = new JTextField();
@@ -17,12 +25,10 @@ public class Orders extends JPanel {
     JTextField deliveryDateField = new JTextField();
     InsertIntoDbCRUD crud = new InsertIntoDbCRUD();
 
-=======
->>>>>>> ac16acb21ffbc335eb8166328bb124448e1178a1
 
     JTableExample table = new JTableExample("Orders");
 
-    int tablewidth = 700;
+    int tablewidth = 800;
     int tableheight = 400;
     int buttonPanelHeight = 50;
 
@@ -51,7 +57,6 @@ public class Orders extends JPanel {
         buttonPanel.add(deleteOrder);
         buttonPanel.add(amendOrder);
 
-<<<<<<< HEAD
         //Action Listers for buttons
 
         addOrder.addActionListener(new ActionListener() {
@@ -143,8 +148,6 @@ public class Orders extends JPanel {
         });
         
 
-=======
->>>>>>> ac16acb21ffbc335eb8166328bb124448e1178a1
         // Add the button panel to the bottom of the Orders panel
         add(buttonPanel, BorderLayout.SOUTH);
 
@@ -234,4 +237,3 @@ public class Orders extends JPanel {
     }
 }
  */
-/* sales salesreport  inventory settings */
