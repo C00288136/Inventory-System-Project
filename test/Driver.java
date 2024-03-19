@@ -9,6 +9,8 @@ import javax.swing.*;
 
 public class Driver {
 
+
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Inventory Monitoring Program");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -18,6 +20,7 @@ public class Driver {
         InventoryPanelManager panelManager = new InventoryPanelManager();
         NavigationBar navBar = new NavigationBar(panelManager);
         header head = new header();
+
 
         panelManager.showPanel("home");
         frame.add(navBar, BorderLayout.WEST);

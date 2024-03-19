@@ -74,7 +74,7 @@ public class CRUDmain {
                             if (confirmation.equals("yes")){
                                 delete.deleteFromTable("Employees",deleteUser);
                                 //dispose of the window object and relaunch to see the updated db
-                                //table.disposeWindow();
+                                table.disposeWindow();
                             }
                             table = new JTableExample("Employees");
 
@@ -129,7 +129,7 @@ public class CRUDmain {
                             if (confirmation.equals("yes")){
                                 delete.deleteFromTable("Orders",deleteUser);
                                 //dispose of the window object and relaunch to see the updated db
-                                //table.disposeWindow();
+                                table.disposeWindow();
                             }
                             table = new JTableExample("Orders");
                             break;
@@ -181,7 +181,7 @@ public class CRUDmain {
                             if (confirmation.equals("yes")){
                                 delete.deleteFromTable("stock_items",deleteUser);
                                 //dispose of the window object and relaunch to see the updated db
-                                //table.disposeWindow();
+                                table.disposeWindow();
                             }
                             table = new JTableExample("stock_items");
                             }

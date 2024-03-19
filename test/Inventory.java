@@ -1,9 +1,10 @@
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Inventory extends JPanel {
 
-    JTableExample dataTable = new JTableExample("inventory");
+    JTableExample dataTable = new JTableExample("Stock_items");
 
 
     public Inventory(){

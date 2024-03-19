@@ -105,12 +105,8 @@ public class InsertIntoDbCRUD {
     }
 
     public void insertIntoOrders(int Emp_ID,int Stock_ID,Date date,BigDecimal TotalCost, String PaymentStat, Date delivery ){
-<<<<<<< HEAD
-        String[] columns = {"Emp_ID","Stock_ID","OrderDate","TotalCost","PaymentStatus","EstDelivery"};
-=======
-        String[] columns = {"Emp_ID","Stock_ID","OrderDate","TotalCost","PaymentStatus","Est_Delivery"};
->>>>>>> ac16acb21ffbc335eb8166328bb124448e1178a1
+        String[] columns = {"Emp_ID","Stock_ID","OrderDate","TotalCost","PaymentStatus","Est.Delivery"};
         Object[] values = {Emp_ID,Stock_ID,date,TotalCost,PaymentStat,delivery};
-        insertIntoTable("Orders", columns, values);
+        insertIntoTable("panels.Orders", columns, values);
     }
 }
