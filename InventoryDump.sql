@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 19, 2024 at 06:24 PM
+-- Generation Time: Mar 20, 2024 at 11:12 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -29,7 +29,6 @@ USE `Inventory`;
 -- Table structure for table `Employees`
 --
 
-DROP TABLE IF EXISTS `Employees`;
 CREATE TABLE `Employees` (
   `Emp_ID` int(11) NOT NULL,
   `Username` varchar(255) NOT NULL,
@@ -73,7 +72,6 @@ INSERT INTO `Employees` (`Emp_ID`, `Username`, `Password`, `Role`, `LastName`, `
 -- Table structure for table `Orders`
 --
 
-DROP TABLE IF EXISTS `Orders`;
 CREATE TABLE `Orders` (
   `Order_ID` int(8) NOT NULL,
   `Emp_ID` int(8) NOT NULL,
@@ -98,7 +96,6 @@ INSERT INTO `Orders` (`Order_ID`, `Emp_ID`, `Stock_ID`, `OrderDate`, `TotalCost`
 -- Table structure for table `Sales`
 --
 
-DROP TABLE IF EXISTS `Sales`;
 CREATE TABLE `Sales` (
   `Sale_ID` int(8) NOT NULL,
   `Emp_ID` int(8) NOT NULL,
@@ -167,7 +164,6 @@ INSERT INTO `Sales` (`Sale_ID`, `Emp_ID`, `Stock_ID`, `SaleDate`, `TotalPrice`, 
 -- Table structure for table `Stock_Items`
 --
 
-DROP TABLE IF EXISTS `Stock_Items`;
 CREATE TABLE `Stock_Items` (
   `product_ID` int(8) NOT NULL,
   `name` varchar(55) NOT NULL,
