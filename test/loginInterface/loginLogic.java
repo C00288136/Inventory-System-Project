@@ -1,16 +1,15 @@
 package loginInterface;
 
+import javax.xml.crypto.Data;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 public class loginLogic {
-
-
     public static boolean authenticateUser(String Username, String Password){
         String dbPassword = null;
 
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory","root","");
+        try(Connection connection = DatabaseConnector.connect();
             PreparedStatement statement = connection.prepareStatement("SELECT Password FROM Employees WHERE Username = ?")){
         statement.setString(1,Username);
             ResultSet resultSet = statement.executeQuery();
