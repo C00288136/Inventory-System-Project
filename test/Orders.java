@@ -94,6 +94,7 @@ public class Orders extends JPanel {
                         Date deliveryDate = Date.valueOf(deliveryDateField.getText());
                         
                         crud.insertIntoOrders(Emp_ID,Stock_ID,orderDate,TotalCost,PaymentStat,deliveryDate);
+                        table.fetchData();
                     }
                 });
 

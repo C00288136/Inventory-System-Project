@@ -1,7 +1,9 @@
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+
 
 public class home extends JPanel {
     JButton TotalSalesB = new JButton("Total Sales");
@@ -10,7 +12,7 @@ public class home extends JPanel {
     JButton Add_item = new JButton("Add item");
     JButton Create_order = new JButton("Create order");
 
-    JPanel graphPanel = new JPanel();
+    GraphPanel graphPanel = new GraphPanel();
 
 
 
@@ -23,10 +25,7 @@ public class home extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        ImageIcon graph = new ImageIcon("assets/graph.jpeg");
-        JLabel imageLabel = new JLabel(graph);
-        int imgwidth = 700;
-        int imgheight = 400 ;
+
 
         /* Set border for graphPanel */
         graphPanel.setBorder(BorderFactory.createCompoundBorder(
@@ -39,19 +38,16 @@ public class home extends JPanel {
 
         int graphwidth = 700;
         int graphheight = 400;
-        graphPanel.setPreferredSize(new Dimension(graphwidth,graphheight));
-        imageLabel.setPreferredSize(new Dimension(imgwidth,imgheight));
+
+
+
+
+
+
         gbc.gridwidth = 5;
         gbc.gridheight = 1;
 
 
-//        int tablewidth = 500;
-//        int tableheight = 500;
-//        TablePanel.setPreferredSize(new Dimension(tablewidth,tableheight));
-//        gbc.gridwidth = 5;
-//        gbc.gridheight = 1;
-
-        graphPanel.add(imageLabel);
         gbc.gridx = 0;
         gbc.gridy = 0;
 
@@ -60,15 +56,10 @@ public class home extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = 0;
 
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(graphPanel,gbc);
 
-//        graphPanel.add(TablePanel);
-//        gbc.gridx = 0;
-//        gbc.gridy = 0;
-//        add(graphPanel,gbc);
-
-
-        // graphPanel.add(imageLabel);
-        add(graphPanel, gbc);
 
         // Set sizes and spaces for buttons
         JButton[] buttons = {TotalSalesB, TotalProducts, TotalSupplier, Add_item, Create_order};
@@ -79,7 +70,11 @@ public class home extends JPanel {
 
         for (JButton button : buttons) {
             button.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-            button.setBorder(new EmptyBorder(10,12,15,12));
+            button.setBorder(BorderFactory.createCompoundBorder(
+//                    lineborder for black outside empty border for padding
+                    new LineBorder(Color.black, 2),
+                    new EmptyBorder(20, 20, 20, 20)
+            ));
             button.setContentAreaFilled(false);
             button.setBackground(Color.black);
         }
