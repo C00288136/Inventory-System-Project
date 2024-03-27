@@ -3,12 +3,16 @@
 
 // Main Class
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import logic.InventoryPanelManager;
+import loginInterface.loginInterface;
+import loginInterface.loginLogic;
+import panels.NavigationBar;
+import panels.header;
 
 import javax.swing.*;
-import loginInterface.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Driver {
 

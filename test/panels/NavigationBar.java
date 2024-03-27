@@ -1,3 +1,7 @@
+package panels;
+
+import logic.InventoryPanelManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,9 +11,9 @@ public class NavigationBar extends JPanel {
     private InventoryPanelManager panelManager;
 
     JButton home = new JButton("Home");
-    JButton orders = new JButton("Orders");
+    JButton orders = new JButton("panels.Orders");
     JButton sales = new JButton("Sales");
-    JButton inventory = new JButton("Inventory");
+    JButton inventory = new JButton("panels.Inventory");
     JButton settings = new JButton("Settings");
 
     public NavigationBar(InventoryPanelManager panelManager) {
@@ -32,8 +36,8 @@ public class NavigationBar extends JPanel {
 
         home.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                switchPanel("home"); // Assuming "Home" is the panel name
-                System.out.println("switched to home");
+                switchPanel("panels.home"); // Assuming "Home" is the panel name
+                System.out.println("switched to panels.home");
             }
         });
 
@@ -47,7 +51,7 @@ public class NavigationBar extends JPanel {
         sales.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switchPanel("sales");
+                switchPanel("panels.sales");
             }
         });
         // Add action listeners for other buttons

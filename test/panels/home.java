@@ -1,3 +1,4 @@
+package panels;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,7 +13,7 @@ public class home extends JPanel {
     JButton Add_item = new JButton("Add item");
     JButton Create_order = new JButton("Create order");
 
-    GraphPanel graphPanel = new GraphPanel();
+//    GraphPanel graphPanel = new GraphPanel();
 
 
 
@@ -28,13 +29,13 @@ public class home extends JPanel {
 
 
         /* Set border for graphPanel */
-        graphPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(Color.black),
-                        BorderFactory.createEmptyBorder(5,5,5,5)
-                ),
-                BorderFactory.createLineBorder(Color.gray,2)
-        ));
+//        graphPanel.setBorder(BorderFactory.createCompoundBorder(
+//                BorderFactory.createCompoundBorder(
+//                        BorderFactory.createLineBorder(Color.black),
+//                        BorderFactory.createEmptyBorder(5,5,5,5)
+//                ),
+//                BorderFactory.createLineBorder(Color.gray,2)
+//        ));
 
         int graphwidth = 700;
         int graphheight = 400;
@@ -58,7 +59,7 @@ public class home extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        add(graphPanel,gbc);
+//        add(graphPanel,gbc);
 
 
         // Set sizes and spaces for buttons

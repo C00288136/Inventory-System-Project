@@ -1,5 +1,5 @@
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -34,11 +34,13 @@ public class GraphPanel extends JPanel {
         dataset.setValue(40,"Profit","Feb");
         dataset.setValue(20,"Profit","March");
         dataset.setValue(60,"Profit","May");
-        JFreeChart chart = ChartFactory.createBarChart("Sales over past 3 months","Months","Sales",dataset, PlotOrientation.VERTICAL,false,true,false);
+        JFreeChart chart = ChartFactory.createLineChart("Sales over past 3 months","Months","Sales",dataset, PlotOrientation.VERTICAL,false,true,false);
         CategoryPlot p=chart.getCategoryPlot();
         p.setRangeGridlinePaint(Color.black);
-        GraphPanel graphPanel = new GraphPanel();
-        ChartFrame frame = new ChartFrame("Bar chart for sales over last 3 months",chart);
+
+        JFrame frame = new JFrame("Frame");
+        ChartPanel panel = new ChartPanel(chart);
+        frame.add(panel);
         frame.setVisible(true);
         frame.setSize(450,350);
 

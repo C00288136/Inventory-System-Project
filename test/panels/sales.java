@@ -1,11 +1,9 @@
+package panels;
+
+import logic.JTableExample;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 public class sales extends JPanel {
 
@@ -40,7 +38,7 @@ public class sales extends JPanel {
 
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Set preferred size of the Orders panel
+        // Set preferred size of the panels.Orders panel
         setPreferredSize(new Dimension(tablewidth, tableheight + buttonPanelHeight));
 
     }
