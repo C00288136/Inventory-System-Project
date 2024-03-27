@@ -1,4 +1,7 @@
+package panels;
 
+import logic.InsertIntoDbCRUD;
+import logic.JTableExample;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,9 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-
-
 
 public class Orders extends JPanel {
 
@@ -36,7 +36,7 @@ public class Orders extends JPanel {
     public Orders() {
         setLayout(new BorderLayout());
 
-        // Add the table to the center of the Orders panel
+        // Add the table to the center of the panels.Orders panel
         add(new JScrollPane(table), BorderLayout.CENTER);
 
         // Create a panel for buttons
@@ -94,6 +94,7 @@ public class Orders extends JPanel {
                         Date deliveryDate = Date.valueOf(deliveryDateField.getText());
                         
                         crud.insertIntoOrders(Emp_ID,Stock_ID,orderDate,TotalCost,PaymentStat,deliveryDate);
+                        table.fetchData();
                     }
                 });
 
@@ -148,17 +149,17 @@ public class Orders extends JPanel {
         });
         
 
-        // Add the button panel to the bottom of the Orders panel
+        // Add the button panel to the bottom of the panels.Orders panel
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Set preferred size of the Orders panel
+        // Set preferred size of the panels.Orders panel
         setPreferredSize(new Dimension(tablewidth, tableheight + buttonPanelHeight));
     }
 
     // Main method for testing
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Orders Example");
+            JFrame frame = new JFrame("panels.Orders Example");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.getContentPane().add(new Orders());
             frame.pack();
@@ -173,7 +174,7 @@ public class Orders extends JPanel {
  * import javax.swing.*;
 import java.awt.*;
 
-public class Orders extends JPanel {
+public class panels.Orders extends JPanel {
 
     JPanel orderTable = new JPanel();
     JPanel buttonPanel = new JPanel();
@@ -181,7 +182,7 @@ public class Orders extends JPanel {
     JButton deleteOrder = new JButton("Delete Order");
     JButton amendOrder = new JButton("Amend Order");
 
-    JTableExample table = new JTableExample("Orders");
+    JTableExample table = new JTableExample("panels.Orders");
 
     int tablewidth = 700;
     int tableheight = 400;
@@ -189,7 +190,7 @@ public class Orders extends JPanel {
     int buttonPanelHeight = 50;
 
     // Constructor
-    public Orders() {
+    public panels.Orders() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -210,7 +211,7 @@ public class Orders extends JPanel {
         gbc.insets = new Insets(10, 0, 0, 0); // top padding
         add(buttonPanel, gbc);
 
-        // Add the table to the center of the Orders panel
+        // Add the table to the center of the panels.Orders panel
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -220,16 +221,16 @@ public class Orders extends JPanel {
         gbc.weighty = 1.0;
         add(new JScrollPane(table), gbc);
 
-        // Set preferred size of the Orders panel
+        // Set preferred size of the panels.Orders panel
         setPreferredSize(new Dimension(tablewidth, tableheight + buttonPanelHeight));
     }
 
     // Main method for testing
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Orders Example");
+            JFrame frame = new JFrame("panels.Orders Example");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.getContentPane().add(new Orders());
+            frame.getContentPane().add(new panels.Orders());
             frame.pack();
             frame.setLocationRelativeTo(null); // Center the frame on screen
             frame.setVisible(true);

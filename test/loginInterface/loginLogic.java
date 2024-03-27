@@ -1,10 +1,13 @@
 package loginInterface;
 
-import javax.xml.crypto.Data;
+import dbCon.DatabaseConnector;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.*;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 public class loginLogic {
     public static boolean authenticateUser(String Username, String Password){
         String dbPassword = null;

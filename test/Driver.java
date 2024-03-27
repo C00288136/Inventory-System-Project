@@ -3,12 +3,16 @@
 
 // Main Class
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import logic.InventoryPanelManager;
+import loginInterface.loginInterface;
+import loginInterface.loginLogic;
+import panels.NavigationBar;
+import panels.header;
 
 import javax.swing.*;
-import loginInterface.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Driver {
 
@@ -17,7 +21,7 @@ public class Driver {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Inventory Monitoring Program");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
+        frame.setSize(1300, 850);
         frame.setLayout(new BorderLayout());
 
 //        Add login interface

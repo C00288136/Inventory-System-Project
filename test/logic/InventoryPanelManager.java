@@ -1,7 +1,12 @@
+package logic;
+
+import panels.Inventory;
+import panels.Orders;
+import panels.home;
+import panels.sales;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Calendar;
 
 // Inventory Panel Manager Class
 public class InventoryPanelManager extends JPanel {
