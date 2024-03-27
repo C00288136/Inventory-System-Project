@@ -18,7 +18,7 @@ public class header extends JPanel {
     JLabel userLabel = new JLabel(resizedUser);
 
 
-    JLabel businessName = new JLabel("panels.Inventory System Portal");
+    JLabel businessName = new JLabel("Inventory System Portal");
 
     public header(){
         int panelHeight = 70;

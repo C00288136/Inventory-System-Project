@@ -13,7 +13,7 @@ public class home extends JPanel {
     JButton Add_item = new JButton("Add item");
     JButton Create_order = new JButton("Create order");
 
-//    GraphPanel graphPanel = new GraphPanel();
+    GraphPanel graphPanel = new GraphPanel();
 
 
 
@@ -40,26 +40,21 @@ public class home extends JPanel {
         int graphwidth = 700;
         int graphheight = 400;
 
-
-
-
-
-
-        gbc.gridwidth = 5;
-        gbc.gridheight = 1;
-
+        graphPanel.setPreferredSize(new Dimension(graphwidth,graphheight));
 
         gbc.gridx = 0;
         gbc.gridy = 0;
 
         gbc.gridwidth = 4;
         gbc.gridheight = 1;
-        gbc.gridx = 1;
-        gbc.gridy = 0;
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-//        add(graphPanel,gbc);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx=1.0;
+        gbc.weighty=1.0;
+        gbc.insets = new Insets(10, 10, 10, 10); // Add padding
+
+
+        add(graphPanel,gbc);
 
 
         // Set sizes and spaces for buttons

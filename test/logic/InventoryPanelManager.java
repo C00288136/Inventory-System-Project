@@ -8,7 +8,7 @@ import panels.sales;
 import javax.swing.*;
 import java.awt.*;
 
-// panels.Inventory Panel Manager Class
+// Inventory Panel Manager Class
 public class InventoryPanelManager extends JPanel {
     private CardLayout cardLayout;
 

@@ -36,8 +36,8 @@ public class NavigationBar extends JPanel {
 
         home.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                switchPanel("panels.home"); // Assuming "Home" is the panel name
-                System.out.println("switched to panels.home");
+                switchPanel("home"); // Assuming "Home" is the panel name
+                System.out.println("switched to home");
             }
         });
 
@@ -45,13 +45,15 @@ public class NavigationBar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 switchPanel("orders");
+                System.out.println("switched to orders");
             }
         });
 
         sales.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switchPanel("panels.sales");
+                switchPanel("sales");
+                System.out.println("switched to sales");
             }
         });
         // Add action listeners for other buttons
@@ -60,6 +62,7 @@ public class NavigationBar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 switchPanel("inventory");
+                System.out.println("switched to inventory");
             }
         });
     }
