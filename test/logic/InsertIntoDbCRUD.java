@@ -103,7 +103,7 @@ public class InsertIntoDbCRUD {
     }
 
     public void insertIntoStockItems(String name, int quantity, BigDecimal unitPrice, BigDecimal salePrice, int supplierId, int aisleNum) {
-        String[] columns = {"Name", "Quantity", "UnitPrice", "SalePrice", "SupplierId", "AisleNum"};
+        String[] columns = {"Name", "quantity_in_stock", "unit_price", "sale_price", "supplier_ID", "Aisle_num"};
         Object[] values = {name, quantity, unitPrice, salePrice, supplierId, aisleNum};
         insertIntoTable("Stock_Items", columns, values);
     }

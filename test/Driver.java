@@ -63,7 +63,7 @@ public class Driver {
                 }
             }
         });
-
+        loginLogic.addEnterKeyListener(loginInterface.passwordText,loginInterface.loginButton);
         frame.setVisible(true);
         }
     }
