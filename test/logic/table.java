@@ -4,16 +4,17 @@ import dbCon.DatabaseConnector;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.sql.*;
 
-public class JTableExample extends JPanel {
+public class table extends JPanel {
     JTable table;
     Connection connection;
     ResultSetMetaData dbMeta;
     DefaultTableModel tableModel;
     String tableName;
 
-    public JTableExample(String tableName) {
+    public table(String tableName) {
         // Use JTableData to dynamically fetch data from the database
         this.tableName = tableName;
         tableModel = new DefaultTableModel();
@@ -21,8 +22,9 @@ public class JTableExample extends JPanel {
         JScrollPane sp = new JScrollPane(table);
         add(sp);
 
-        // Set preferred size for the JScrollPane to match the preferred size of the table
-        sp.setPreferredSize(table.getPreferredScrollableViewportSize());
+        // Set preferred size for the table
+//        scrollpane adjusts to the table
+        table.setPreferredScrollableViewportSize(new Dimension(700,600));
 
         // Call fetchData method on the instance of JTableExample
         fetchData();

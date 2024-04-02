@@ -2,6 +2,9 @@ package loginInterface;
 
 import dbCon.DatabaseConnector;
 
+import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -57,6 +60,18 @@ public class loginLogic {
 
         }
     }
+
+    public static void addEnterKeyListener(JTextField text, JButton button){
+        text.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    button.doClick();
+                }
+            }
+        });
+    }
+
 
 
 }

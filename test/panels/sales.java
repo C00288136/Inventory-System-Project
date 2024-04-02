@@ -1,24 +1,33 @@
 package panels;
 
-import logic.JTableExample;
+import logic.table;
+import logic.InsertIntoDbCRUD;
+import logic.table;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.math.BigDecimal;
 
 public class sales extends JPanel {
 
-    JTableExample table = new JTableExample("Sales");
+    table table = new table("Sales");
 
     JButton addSale = new JButton("Add Sale");
     JButton deleteSale = new JButton("Delete Sale");
     JButton ammendSale = new JButton("Ammend Sale");
+    JButton insert = new JButton("Add Sale");
     JTextField empIDField = new JTextField();
     JTextField stockIDField = new JTextField();
     JTextField SaleDateField = new JTextField();
     JTextField TotalPriceField = new JTextField();
     JTextField QuantityField = new JTextField();
+    JTextField PaymentMethodField = new JTextField();
+    InsertIntoDbCRUD crud = new InsertIntoDbCRUD();
 
-    int tablewidth = 700;
+    int tablewidth = 800;
     int tableheight = 400;
     int buttonPanelHeight = 50;
     public sales(){
@@ -36,11 +45,67 @@ public class sales extends JPanel {
         buttonPanel.add(deleteSale);
         buttonPanel.add(ammendSale);
 
+        addSale.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame addSaleFrame = new JFrame();
+        
+                // Add components to the frame
+                Container contentPane = addSaleFrame.getContentPane();
+                contentPane.setLayout(new GridLayout(7, 2, 5, 5));
+                contentPane.add(new JLabel("Employee ID:"));
+                contentPane.add(empIDField);
+                contentPane.add(new JLabel("Stock ID:"));
+                contentPane.add(stockIDField);
+                contentPane.add(new JLabel("Sale Date:"));
+                contentPane.add(SaleDateField);
+                contentPane.add(new JLabel("Total Price:"));
+                contentPane.add(TotalPriceField);
+                contentPane.add(new JLabel("Quantity:"));
+                contentPane.add(QuantityField);
+                contentPane.add(new JLabel("Payment Method:"));
+                contentPane.add(PaymentMethodField);
+                contentPane.add(insert);
+
+                insert.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        int empID = Integer.parseInt(empIDField.getText());
+                        int stockID = Integer.parseInt(stockIDField.getText());
+                        Date saleDate = Date.valueOf(SaleDateField.getText());
+                        BigDecimal totalPrice = new BigDecimal(TotalPriceField.getText());
+                        int quantity = Integer.parseInt(QuantityField.getText());
+                        String paymentMethod = PaymentMethodField.getText();
+
+                        crud.insertIntoSales(empID, stockID, saleDate, totalPrice, quantity, paymentMethod);
+                        table.fetchData();
+                        
+                    }
+                });
+        
+                // Pack and set size for the frame
+                addSaleFrame.pack();
+                addSaleFrame.setSize(400, 300); // Set an appropriate size
+                addSaleFrame.setLocationRelativeTo(null);
+                addSaleFrame.setVisible(true);
+            }
+        });
+
         add(buttonPanel, BorderLayout.SOUTH);
 
         // Set preferred size of the panels.Orders panel
         setPreferredSize(new Dimension(tablewidth, tableheight + buttonPanelHeight));
 
+
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Orders Example");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.getContentPane().add(new sales());
+            frame.pack();
+            frame.setLocationRelativeTo(null); // Center the frame on screen
+            frame.setVisible(true);
+        });
     }
 
 }

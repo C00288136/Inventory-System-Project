@@ -11,9 +11,9 @@ public class NavigationBar extends JPanel {
     private InventoryPanelManager panelManager;
 
     JButton home = new JButton("Home");
-    JButton orders = new JButton("panels.Orders");
+    JButton orders = new JButton("Orders");
     JButton sales = new JButton("Sales");
-    JButton inventory = new JButton("panels.Inventory");
+    JButton inventory = new JButton("Inventory");
     JButton settings = new JButton("Settings");
 
     public NavigationBar(InventoryPanelManager panelManager) {

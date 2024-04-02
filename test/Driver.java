@@ -8,6 +8,7 @@ import loginInterface.loginInterface;
 import loginInterface.loginLogic;
 import panels.NavigationBar;
 import panels.header;
+import dbCon.DatabaseConnector;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,7 @@ public class Driver {
 
 
 
-    public static void main(String[] args) {
+ public static void main(String[] args) {
         JFrame frame = new JFrame("Inventory Monitoring Program");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1300, 850);
@@ -63,7 +64,7 @@ public class Driver {
                 }
             }
         });
-
+        loginLogic.addEnterKeyListener(loginInterface.passwordText,loginInterface.loginButton);
         frame.setVisible(true);
         }
     }

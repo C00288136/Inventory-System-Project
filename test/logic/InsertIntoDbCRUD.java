@@ -103,7 +103,7 @@ public class InsertIntoDbCRUD {
     }
 
     public void insertIntoStockItems(String name, int quantity, BigDecimal unitPrice, BigDecimal salePrice, int supplierId, int aisleNum) {
-        String[] columns = {"Name", "Quantity", "UnitPrice", "SalePrice", "SupplierId", "AisleNum"};
+        String[] columns = {"Name", "quantity_in_stock", "unit_price", "sale_price", "supplier_ID", "Aisle_num"};
         Object[] values = {name, quantity, unitPrice, salePrice, supplierId, aisleNum};
         insertIntoTable("Stock_Items", columns, values);
     }
@@ -111,6 +111,12 @@ public class InsertIntoDbCRUD {
     public void insertIntoOrders(int Emp_ID,int Stock_ID,Date date,BigDecimal TotalCost, String PaymentStat, Date delivery ){
         String[] columns = {"Emp_ID","Stock_ID","OrderDate","TotalCost","PaymentStatus","Est_Delivery"};
         Object[] values = {Emp_ID,Stock_ID,date,TotalCost,PaymentStat,delivery};
-        insertIntoTable("panels.Orders", columns, values);
+        insertIntoTable("Orders", columns, values); // previously table name was "panels.Orders", dunno why
+    }
+
+    public void insertIntoSales(int Emp_ID, int Stock_ID, Date SaleDate, BigDecimal TotalPrice, int Quantity, String Payment_Method){
+        String[] columns = {"Emp_ID","Stock_ID","SaleDate","TotalPrice","Quantity","Payment_Method"};
+        Object[] values = {Emp_ID,Stock_ID,SaleDate,TotalPrice,Quantity,Payment_Method};
+        insertIntoTable("Sales", columns, values);
     }
 }
