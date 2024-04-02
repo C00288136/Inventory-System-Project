@@ -7,14 +7,14 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.*;
 
-public class JTableExample extends JPanel {
+public class table extends JPanel {
     JTable table;
     Connection connection;
     ResultSetMetaData dbMeta;
     DefaultTableModel tableModel;
     String tableName;
 
-    public JTableExample(String tableName) {
+    public table(String tableName) {
         // Use JTableData to dynamically fetch data from the database
         this.tableName = tableName;
         tableModel = new DefaultTableModel();

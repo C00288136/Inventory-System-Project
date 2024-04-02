@@ -1,7 +1,8 @@
 package panels;
 
+import logic.DeleteCRUD;
 import logic.InsertIntoDbCRUD;
-import logic.JTableExample;
+import logic.table;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,16 +18,19 @@ public class Orders extends JPanel {
     JButton amendOrder = new JButton("Amend Order");
     JButton insert = new JButton("Insert Data");
     JButton delete = new JButton("Delete");
+    JTextField tableNameField = new JTextField();
     JTextField stockIDField  = new JTextField();
     JTextField empIDField  = new JTextField();
     JTextField orderDateField  = new JTextField();
+    JTextField orderIdField = new JTextField();
     JTextField totalCostField  = new JTextField();
     JTextField PaymentStatusField  = new JTextField();
     JTextField deliveryDateField = new JTextField();
     InsertIntoDbCRUD crud = new InsertIntoDbCRUD();
+    DeleteCRUD deleteCrud = new DeleteCRUD();
 
 
-    JTableExample table = new JTableExample("Orders");
+    table table = new table("Orders");
 
     int tablewidth = 800;
     int tableheight = 400;
@@ -59,6 +63,7 @@ public class Orders extends JPanel {
 
         //Action Listers for buttons
 
+        // ADD OPERATIONS
         addOrder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -107,38 +112,31 @@ public class Orders extends JPanel {
             }
         });
 
+        // DELETE OPERATIONS
+
         deleteOrder.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFrame deleteOrderFrame = new JFrame();
 
                 Container contentPane = deleteOrderFrame.getContentPane();
-                contentPane.setLayout(new GridLayout(7, 2, 5, 5));
+                contentPane.setLayout(new GridLayout(0, 2, 5, 5));
 
-                contentPane.add(new JLabel("Employee ID:"));
-                contentPane.add(empIDField);
-                contentPane.add(new JLabel("Stock ID:"));
-                contentPane.add(stockIDField);
-                contentPane.add(new JLabel("Order Date:"));
-                contentPane.add(orderDateField);
-                contentPane.add(new JLabel("Total Cost:"));
-                contentPane.add(totalCostField);
-                contentPane.add(new JLabel("Payment Status:"));
-                contentPane.add(PaymentStatusField);
-                contentPane.add(new JLabel("DeliveryDate"));
-                contentPane.add(deliveryDateField);
+                contentPane.add(new JLabel("Table Name"));
+                contentPane.add(tableNameField);
+                contentPane.add(new JLabel("Order ID"));
+                contentPane.add(orderIdField);
                 contentPane.add(delete);
 
                 delete.addActionListener(new ActionListener() {
                    public void actionPerformed(ActionEvent e) {
-                    int Emp_ID = Integer.parseInt(empIDField.getText());
-                    int Stock_ID = Integer.parseInt(stockIDField.getText());
-                    BigDecimal TotalCost = new BigDecimal(totalCostField.getText());
-                    String PaymentStat = PaymentStatusField.getText();
-                    Date orderDate = Date.valueOf(orderDateField.getText());
-                    Date deliveryDate = Date.valueOf(deliveryDateField.getText());
+                    
 
-//                    DeleteCRUD deleteCRUD = new DeleteCRUD();
-//                    deleteCRUD.deleteFromTable(PaymentStat, Stock_ID);
+                    String tableName = tableNameField.getText();
+                    int orderID = Integer.parseInt(orderIdField.getText());
+                    
+                    deleteCrud.deleteFromTable(tableName, orderID);
+                    table.fetchData();
+
                    } 
                 });
 
@@ -159,7 +157,7 @@ public class Orders extends JPanel {
     // Main method for testing
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("panels.Orders Example");
+            JFrame frame = new JFrame("Orders Example");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.getContentPane().add(new Orders());
             frame.pack();
@@ -168,73 +166,3 @@ public class Orders extends JPanel {
         });
     }
 }
-
-
-/*
- * import javax.swing.*;
-import java.awt.*;
-
-public class panels.Orders extends JPanel {
-
-    JPanel orderTable = new JPanel();
-    JPanel buttonPanel = new JPanel();
-    JButton addOrder = new JButton("Add Order");
-    JButton deleteOrder = new JButton("Delete Order");
-    JButton amendOrder = new JButton("Amend Order");
-
-    JTableExample table = new JTableExample("panels.Orders");
-
-    int tablewidth = 700;
-    int tableheight = 400;
-    int buttonPanelWidth = 700;
-    int buttonPanelHeight = 50;
-
-    // Constructor
-    public panels.Orders() {
-        setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        // Set layout for buttonPanel
-        buttonPanel.setLayout(new GridLayout(1, 3, 10, 0)); // 1 row, 3 columns, horizontal gap of 10
-
-        // Add buttons to buttonPanel
-        buttonPanel.add(addOrder);
-        buttonPanel.add(deleteOrder);
-        buttonPanel.add(amendOrder);
-
-        // Set buttonPanel size and position
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 0, 0, 0); // top padding
-        add(buttonPanel, gbc);
-
-        // Add the table to the center of the panels.Orders panel
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        add(new JScrollPane(table), gbc);
-
-        // Set preferred size of the panels.Orders panel
-        setPreferredSize(new Dimension(tablewidth, tableheight + buttonPanelHeight));
-    }
-
-    // Main method for testing
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("panels.Orders Example");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.getContentPane().add(new panels.Orders());
-            frame.pack();
-            frame.setLocationRelativeTo(null); // Center the frame on screen
-            frame.setVisible(true);
-        });
-    }
-}
- */
