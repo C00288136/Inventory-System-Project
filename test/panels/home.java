@@ -27,16 +27,6 @@ public class home extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
 
 
-
-        /* Set border for graphPanel */
-//        graphPanel.setBorder(BorderFactory.createCompoundBorder(
-//                BorderFactory.createCompoundBorder(
-//                        BorderFactory.createLineBorder(Color.black),
-//                        BorderFactory.createEmptyBorder(5,5,5,5)
-//                ),
-//                BorderFactory.createLineBorder(Color.gray,2)
-//        ));
-
         int graphwidth = 700;
         int graphheight = 400;
 
@@ -68,7 +58,7 @@ public class home extends JPanel {
             button.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
             button.setBorder(BorderFactory.createCompoundBorder(
 //                    lineborder for black outside empty border for padding
-                    new LineBorder(Color.black, 2),
+                    new LineBorder(Color.decode("#8764EC"), 2),
                     new EmptyBorder(20, 20, 20, 20)
             ));
             button.setContentAreaFilled(false);
