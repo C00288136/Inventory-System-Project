@@ -1,23 +1,18 @@
 package panels;
 
-<<<<<<< HEAD
-import logic.InsertIntoDbCRUD;
-import logic.JTableExample;
-=======
-import logic.table;
->>>>>>> f76b9f5a5b6622407437988a17960ea1c4cd5bbc
-
+import logic.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 
 public class Inventory extends JPanel {
 
-<<<<<<< HEAD
-    JTableExample dataTable = new JTableExample("Stock_items");
+    table dataTable = new table("Stock_items");
     JButton addItem = new JButton("Add Item(s)");
     JButton deleteItem = new JButton("Delete Item");
     JButton amendItem = new JButton("Amend Item");
@@ -30,14 +25,12 @@ public class Inventory extends JPanel {
     JTextField SupplierID = new JTextField();
     JComboBox<Integer> Aisle;
     InsertIntoDbCRUD crud = new InsertIntoDbCRUD();
+    DeleteCRUD deleteCRUD = new DeleteCRUD();
 
 
     Integer[] aisles = {1,2,3,4,5,6};
 
 
-=======
-    table dataTable = new table("Stock_items");
->>>>>>> f76b9f5a5b6622407437988a17960ea1c4cd5bbc
 
 
     public Inventory(){
@@ -57,7 +50,7 @@ public class Inventory extends JPanel {
                 Aisle = new JComboBox<>(aisles);
                 int width = 100;
                 int height = 300;
-                addItemFrame.setPreferredSize(new Dimension(100,300));
+                addItemFrame.setPreferredSize(new Dimension(200,400));
 
                 JPanel panel = new JPanel();
                 panel.setLayout(new GridLayout(7,2,5,5));
@@ -76,6 +69,7 @@ public class Inventory extends JPanel {
                 panel.add(insert);
                 addItemFrame.setLocationRelativeTo(null);
                 addItemFrame.add(panel);
+                addItemFrame.pack();
                 addItemFrame.setVisible(true);
 
                 insert.addActionListener(new ActionListener() {
@@ -107,6 +101,28 @@ public class Inventory extends JPanel {
                         dataTable.fetchData();
                     }
                 });
+            }
+        });
+
+        deleteItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Object primarykey = dataTable.getSelectedPrimaryKey();
+                if (primarykey != null) {
+                    int row = (int) primarykey;
+                    int dialogBox = JOptionPane.YES_NO_OPTION;
+                    int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to delete this record", "Warning", dialogBox);
+                    if (dialogResult == JOptionPane.YES_OPTION) {
+                        deleteCRUD.deleteFromTable("Stock_items",row);
+                        System.out.println(row + " Deleted!");
+                    }
+
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Please select a row to delete.");
+                }
+                dataTable.fetchData();
             }
         });
 

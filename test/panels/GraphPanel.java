@@ -40,7 +40,7 @@ public class GraphPanel extends ChartPanel {
         ResultSet resultSet = null;
 
         try {
-            pstat = connection.prepareStatement("SELECT MONTHNAME(SaleDate) AS Month, SUM(TotalPrice) AS Total_Sales FROM sales GROUP BY MONTH(SaleDate) ORDER BY MONTH(SaleDate)");
+            pstat = connection.prepareStatement("SELECT MONTHNAME(SaleDate) AS Month, SUM(TotalPrice) AS Total_Sales FROM sales GROUP BY MONTH(SaleDate), MONTHNAME(SaleDate) ORDER BY MONTH(SaleDate);");
             resultSet = pstat.executeQuery();
 
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();

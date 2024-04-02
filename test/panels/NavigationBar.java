@@ -65,6 +65,13 @@ public class NavigationBar extends JPanel {
                 System.out.println("switched to inventory");
             }
         });
+        settings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchPanel("settings");
+                System.out.println("switched to settings");
+            }
+        });
     }
 
     // Method to add panels to switch between

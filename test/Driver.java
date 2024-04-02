@@ -46,8 +46,10 @@ public class Driver {
                 String username = loginInterface.userText.getText();
 
                 String Password = loginLogic.hashPassword(password);
-                Boolean authenticate = loginLogic.authenticateUser(username,Password);
-                if (authenticate) {
+                System.out.println("hash " + Password);
+                String authenticate = loginLogic.authenticateUser(username,Password);
+                System.out.println(username + " " + password);
+                if (authenticate != null && authenticate.equals(username)) {
                     System.out.println("Login Succesful");
                     loginInterface.setVisible(false);
                     panelManager.showPanel("home");
