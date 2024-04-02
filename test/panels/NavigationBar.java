@@ -16,22 +16,33 @@ public class NavigationBar extends JPanel {
     JButton inventory = new JButton("Inventory");
     JButton settings = new JButton("Settings");
 
+    ImageIcon[] navIcons = {
+        new ImageIcon("assets/home.png"),
+        new ImageIcon("assets/orders.png"),
+        new ImageIcon("assets/sales.png"),
+        new ImageIcon("assets/inventory.png"),
+        new ImageIcon("assets/settings.png"),
+    };
+
     public NavigationBar(InventoryPanelManager panelManager) {
         this.panelManager = panelManager;
         setBackground(Color.decode("#8764EC"));
         setLayout(new GridLayout(0, 1));
 
         JButton[] navbuttons = {home, orders, sales, inventory, settings};
-        int navbuttonWidth = 120;
+        int navbuttonWidth = 140;
         int navbuttonHeight = 40;
 
+        int i = 0;
         for (JButton button : navbuttons) {
             button.setPreferredSize(new Dimension(navbuttonWidth, navbuttonHeight));
             button.setContentAreaFilled(false);
             button.setBorderPainted(true);
             button.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             button.setForeground(Color.WHITE);
+            button.setIcon(navIcons[i]);
             add(button);
+            i++;
         }
 
         home.addActionListener(new ActionListener() {
@@ -72,11 +83,6 @@ public class NavigationBar extends JPanel {
                 System.out.println("switched to settings");
             }
         });
-    }
-
-    // Method to add panels to switch between
-    public void addPanel(String panelName, JPanel panel) {
-        // Add panel to switch between
     }
 
     // Method to handle button click events and switch panels

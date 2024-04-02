@@ -2,8 +2,7 @@
 
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.sql.*;
+import java.sql.Connection;
 
 
 
@@ -14,7 +13,7 @@ public class Jlist extends JPanel {
     public Jlist(String tableName)
     {
         this.tableName = tableName;
-        JList
+//        JList
     }
 
 }
