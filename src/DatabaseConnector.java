@@ -10,7 +10,6 @@ public class DatabaseConnector {
     private  static final String db_Name = "inventory";
     private static final String USER = "root";
     private static final String PASSWORD = "";
-    private static final String PASSWORD = ""; // no password on this version of the db
 
     private static int[] PORTS = {3306,8889};//we have different ports for the mamp and xampp sever
 

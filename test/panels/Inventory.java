@@ -1,12 +1,12 @@
 package panels;
 
-import logic.JTableExample;
+import logic.table;
 
 import javax.swing.*;
 import java.awt.*;
 public class Inventory extends JPanel {
 
-    JTableExample dataTable = new JTableExample("Stock_items");
+    table dataTable = new table("Stock_items");
 
 
     public Inventory(){
