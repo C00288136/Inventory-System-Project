@@ -20,6 +20,9 @@ public class home extends JPanel {
 
 
 
+
+
+
 //    labels
     JLabel recentOrder = new JLabel("Recent Order");
     JLabel bestSeller = new JLabel("Best selling item");
@@ -122,6 +125,22 @@ public class home extends JPanel {
         gbc.gridy = 3;
         add(Create_order, gbc);
         add(Create_order,gbc);
+
+//        Create_order.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//            panel.showPanel("orders");
+//            add.clickAddOrder();
+//            }
+//        });
+//
+//        Add_item.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                panel.showPanel("inventory");
+//                addItem.clickAddItem();
+//            }
+//        });
 
         setVisible(true);
     }
