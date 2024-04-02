@@ -14,6 +14,7 @@ public class Jlist extends JPanel {
     public Jlist(String tableName)
     {
         this.tableName = tableName;
+        JList
     }
 
 }
