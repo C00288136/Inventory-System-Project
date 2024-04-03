@@ -1,11 +1,7 @@
 package panels;
 
-<<<<<<< HEAD
 import logic.InsertIntoDbCRUD;
-import logic.JTableExample;
-=======
 import logic.table;
->>>>>>> f76b9f5a5b6622407437988a17960ea1c4cd5bbc
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,8 +12,7 @@ import java.math.BigDecimal;
 
 public class Inventory extends JPanel {
 
-<<<<<<< HEAD
-    JTableExample dataTable = new JTableExample("Stock_items");
+    table dataTable = new table("Stock_items");
     JButton addItem = new JButton("Add Item(s)");
     JButton deleteItem = new JButton("Delete Item");
     JButton amendItem = new JButton("Amend Item");
@@ -35,9 +30,6 @@ public class Inventory extends JPanel {
     Integer[] aisles = {1,2,3,4,5,6};
 
 
-=======
-    table dataTable = new table("Stock_items");
->>>>>>> f76b9f5a5b6622407437988a17960ea1c4cd5bbc
 
 
     public Inventory(){

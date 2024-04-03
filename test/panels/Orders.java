@@ -2,6 +2,7 @@ package panels;
 
 import logic.DeleteCRUD;
 import logic.InsertIntoDbCRUD;
+import logic.amendCRUD;
 import logic.table;
 
 import javax.swing.*;
@@ -28,6 +29,7 @@ public class Orders extends JPanel {
     JTextField deliveryDateField = new JTextField();
     InsertIntoDbCRUD crud = new InsertIntoDbCRUD();
     DeleteCRUD deleteCrud = new DeleteCRUD();
+    amendCRUD amendCrud = new amendCRUD();
 
 
     table table = new table("Orders");
@@ -145,6 +147,28 @@ public class Orders extends JPanel {
                 deleteOrderFrame.setVisible(true);
             }
         });
+
+        //AMMEND OPERATIONS
+
+        amendOrder.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                JFrame amendOrderFrame = new JFrame();
+                Container contentPane = amendOrderFrame.getContentPane();
+                contentPane.setLayout(new GridLayout(0, 2, 5, 5));
+
+                contentPane.add(new JLabel("Order ID: "));
+                contentPane.add(orderIdField);
+                contentPane.add(new JLabel("Emp ID: "));
+                contentPane.add(empIDField);
+                contentPane.add(new JLabel("Stock ID:"));
+                contentPane.add(stockIDField);
+
+                amendOrderFrame.pack();
+                amendOrderFrame.setLocationRelativeTo(null);
+                amendOrderFrame.setVisible(true);
+            }
+        });
         
 
         // Add the button panel to the bottom of the panels.Orders panel
@@ -154,15 +178,9 @@ public class Orders extends JPanel {
         setPreferredSize(new Dimension(tablewidth, tableheight + buttonPanelHeight));
     }
 
+
+    //TODO: validate entered data and have relevant error handling, JComboBox, JCalender
+
     // Main method for testing
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Orders Example");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.getContentPane().add(new Orders());
-            frame.pack();
-            frame.setLocationRelativeTo(null); // Center the frame on screen
-            frame.setVisible(true);
-        });
-    }
+
 }

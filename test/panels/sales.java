@@ -1,6 +1,7 @@
 package panels;
 
 import logic.table;
+import logic.DeleteCRUD;
 import logic.InsertIntoDbCRUD;
 import logic.table;
 
@@ -19,6 +20,8 @@ public class sales extends JPanel {
     JButton deleteSale = new JButton("Delete Sale");
     JButton ammendSale = new JButton("Ammend Sale");
     JButton insert = new JButton("Add Sale");
+    JButton delete = new JButton("Delete");
+    JTextField saleIDField = new JTextField();
     JTextField empIDField = new JTextField();
     JTextField stockIDField = new JTextField();
     JTextField SaleDateField = new JTextField();
@@ -26,6 +29,7 @@ public class sales extends JPanel {
     JTextField QuantityField = new JTextField();
     JTextField PaymentMethodField = new JTextField();
     InsertIntoDbCRUD crud = new InsertIntoDbCRUD();
+    DeleteCRUD deleteCrud = new DeleteCRUD();
 
     int tablewidth = 800;
     int tableheight = 400;
@@ -89,6 +93,33 @@ public class sales extends JPanel {
             }
         });
 
+        deleteSale.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame deleteSaleFrame = new JFrame();
+
+                Container contentPane = deleteSaleFrame.getContentPane();
+                contentPane.setLayout(new GridLayout(7, 2, 5, 5));
+
+                contentPane.add(new JLabel("Sale ID:"));
+                contentPane.add(saleIDField);
+                contentPane.add(delete);
+
+                delete.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        int saleID = Integer.parseInt(saleIDField.getText());
+
+                        deleteCrud.deleteFromTable("Sales", saleID);
+                        table.fetchData();
+                    }
+                });
+
+                deleteSaleFrame.pack();
+                deleteSaleFrame.setSize(400,300);
+                deleteSaleFrame.setLocationRelativeTo(null);
+                deleteSaleFrame.setVisible(true);
+            }
+        });
+
         add(buttonPanel, BorderLayout.SOUTH);
 
         // Set preferred size of the panels.Orders panel
@@ -97,15 +128,6 @@ public class sales extends JPanel {
 
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Orders Example");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.getContentPane().add(new sales());
-            frame.pack();
-            frame.setLocationRelativeTo(null); // Center the frame on screen
-            frame.setVisible(true);
-        });
-    }
+    //TODO: validate entered data and have relevant error handling
 
 }
