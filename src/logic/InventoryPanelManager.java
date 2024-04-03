@@ -18,14 +18,10 @@ public class InventoryPanelManager extends JPanel {
         Orders ordersPanel = new Orders();
         sales salesPanel = new sales();
         Inventory inventoryPanel = new Inventory();
-<<<<<<< HEAD
-        
-=======
         settings settingsPanel = new settings();
 
 
 
->>>>>>> 19a947f2c5d868e29a135152737c677257675234
         add(homePanel, "home");
         add(ordersPanel,"orders");
         add(salesPanel, "sales");

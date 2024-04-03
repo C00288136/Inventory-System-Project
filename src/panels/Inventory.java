@@ -1,9 +1,6 @@
 package panels;
 
-<<<<<<< HEAD
-=======
 import logic.DeleteCRUD;
->>>>>>> 19a947f2c5d868e29a135152737c677257675234
 import logic.InsertIntoDbCRUD;
 import logic.table;
 

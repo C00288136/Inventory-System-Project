@@ -128,26 +128,8 @@ public class home extends JPanel {
         add(Create_order, gbc);
         add(Create_order,gbc);
 
-<<<<<<< HEAD
-    
-        
-=======
-//        Create_order.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//            panel.showPanel("orders");
-//            add.clickAddOrder();
-//            }
-//        });
-//
-//        Add_item.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                panel.showPanel("inventory");
-//                addItem.clickAddItem();
-//            }
-//        });
->>>>>>> 19a947f2c5d868e29a135152737c677257675234
+
+
 
         setVisible(true);
     }
