@@ -12,17 +12,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 public class loginLogic {
-    public static boolean authenticateUser(String Username, String Password){
+
+    private static String currentUsername = null;
+
+    public static String getCurrentUsername(){
+        return currentUsername;
+    }
+    public static String authenticateUser(String Username, String Password){
         String dbPassword = null;
+        String username = null;
+
 
         try(Connection connection = DatabaseConnector.connect();
-            PreparedStatement statement = connection.prepareStatement("SELECT Password FROM Employees WHERE Username = ?")){
+            PreparedStatement statement = connection.prepareStatement("SELECT Username, Password FROM Employees WHERE Username = ?")){
         statement.setString(1,Username);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()){
+                username = resultSet.getString("Username");
                 dbPassword = resultSet.getString("Password");
-                System.out.println(dbPassword);
+
+                System.out.println("DB pass :"+dbPassword);
+                System.out.println("Entered pass: " + Password);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,12 +42,13 @@ public class loginLogic {
 
         if (dbPassword != null && dbPassword.equals(Password)){
             System.out.println("Passwords match");
-            return true;
+            currentUsername = Username;
+            return username;
         }
 
         else{
             System.out.println("No match");
-            return false;
+            return null;
         }
 
     }

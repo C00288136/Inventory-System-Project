@@ -1,10 +1,13 @@
 package logic;
 
 import dbCon.DatabaseConnector;
+import logic.DeleteCRUD;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.*;
 
 public class table extends JPanel {
@@ -13,6 +16,8 @@ public class table extends JPanel {
     ResultSetMetaData dbMeta;
     DefaultTableModel tableModel;
     String tableName;
+    private Object selectedPrimaryKey;
+
 
     public table(String tableName) {
         // Use JTableData to dynamically fetch data from the database
@@ -28,6 +33,18 @@ public class table extends JPanel {
 
         // Call fetchData method on the instance of JTableExample
         fetchData();
+
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedrow = table.getSelectedRow();
+                if (SwingUtilities.isLeftMouseButton(e)){
+                    selectedPrimaryKey = tableModel.getValueAt(selectedrow,0);
+                    System.out.println(selectedPrimaryKey);
+                }
+
+            }
+        });
     }
 
     public void fetchData() {
@@ -68,6 +85,34 @@ public class table extends JPanel {
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
+        }
+    }
+
+    public Object getSelectedPrimaryKey(){
+        return selectedPrimaryKey;
+    }
+    public void deleteEntry(Object row){
+        try {
+            Connection connection = DatabaseConnector.connect();
+            String PriamryKey = table.getColumnName(0);
+            int Row = (int) row;
+            Object primaryKeyValue = tableModel.getValueAt(Row,0);
+            String sql = "DELETE FROM" + tableName + "WHERE " + PriamryKey + " = ?";
+            PreparedStatement pstat = connection.prepareStatement(sql);
+            pstat.setObject(1,primaryKeyValue);
+            int affectedRows = pstat.executeUpdate();
+            if (affectedRows > 0 ){
+                JOptionPane.showMessageDialog(null,"Entry has been deleted");
+
+                fetchData();
+            }
+            else {
+                JOptionPane.showMessageDialog(null,"Failed to delete entry");
+            }
+            pstat.close();
+            DatabaseConnector.disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     

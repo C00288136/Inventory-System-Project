@@ -176,7 +176,9 @@ public class Orders extends JPanel {
 
         // Set preferred size of the panels.Orders panel
         setPreferredSize(new Dimension(tablewidth, tableheight + buttonPanelHeight));
-    }
+
+        }
+
 
 
     //TODO: validate entered data and have relevant error handling, JComboBox, JCalender

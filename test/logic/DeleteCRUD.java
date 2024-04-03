@@ -2,13 +2,8 @@ package logic;
 
 import dbCon.DatabaseConnector;
 
-import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
+import javax.swing.*;
+import java.sql.*;
 
 public class DeleteCRUD {
 
@@ -50,8 +45,8 @@ public class DeleteCRUD {
                 } else {
                     System.out.println("Record with ID " + ID + " not found.");
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (SQLIntegrityConstraintViolationException e) {
+                JOptionPane.showMessageDialog(null,"Cannot delete record due to a foreign key constraint");
             }
 
         } catch (SQLException e) {

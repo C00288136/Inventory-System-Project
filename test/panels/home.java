@@ -1,5 +1,7 @@
 package panels;
 
+import logic.homeLogic;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -9,13 +11,17 @@ import java.awt.event.ActionListener;
 
 
 public class home extends JPanel {
-    JButton TotalSalesB = new JButton("Total Sales");
-    JButton TotalProducts = new JButton("Total  Products");
-    JButton TotalSupplier = new JButton("Total Suppliers");
+    JLabel TotalSalesB = new JLabel();
+    JLabel TotalProducts = new JLabel("Total  Products");
+    JLabel TotalSupplier = new JLabel("Total Suppliers");
     JButton Add_item = new JButton("Add item");
     JButton Create_order = new JButton("Create order");
 
     GraphPanel graphPanel = new GraphPanel();
+    homeLogic logic = new homeLogic();
+
+
+
 
 
 
@@ -28,16 +34,6 @@ public class home extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-
-
-        /* Set border for graphPanel */
-//        graphPanel.setBorder(BorderFactory.createCompoundBorder(
-//                BorderFactory.createCompoundBorder(
-//                        BorderFactory.createLineBorder(Color.black),
-//                        BorderFactory.createEmptyBorder(5,5,5,5)
-//                ),
-//                BorderFactory.createLineBorder(Color.gray,2)
-//        ));
 
         int graphwidth = 700;
         int graphheight = 400;
@@ -60,9 +56,9 @@ public class home extends JPanel {
 
 
         // Set sizes and spaces for buttons
-        JButton[] buttons = {TotalSalesB, TotalProducts, TotalSupplier, Add_item, Create_order};
+        JButton[] buttons = {Add_item, Create_order};
         int buttonWidth = 200;
-        int buttonHeight = 100;
+        int buttonHeight = 70;
         int horizontalGap = 20;
         int verticalGap = 20;
 
@@ -70,11 +66,27 @@ public class home extends JPanel {
             button.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
             button.setBorder(BorderFactory.createCompoundBorder(
 //                    lineborder for black outside empty border for padding
-                    new LineBorder(Color.black, 2),
+                    new LineBorder(Color.decode("#8764EC"), 2),
                     new EmptyBorder(20, 20, 20, 20)
             ));
             button.setContentAreaFilled(false);
             button.setBackground(Color.black);
+        }
+
+        JLabel[] labels = {TotalSalesB,TotalProducts,TotalSupplier,recentOrder,bestSeller};
+        int labelWidth = 10;
+        int labelHeight = 100;
+
+        for (JLabel label : labels){
+            label.setPreferredSize(new Dimension(labelHeight, labelHeight));
+            label.setBorder(BorderFactory.createCompoundBorder(
+//                    lineborder for black outside empty border for padding
+                    new LineBorder(Color.decode("#8764EC"), 2),
+                    new EmptyBorder(20, 20, 20, 20)
+            ));
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+
+
         }
 
         gbc.insets = new Insets(verticalGap, horizontalGap, verticalGap, horizontalGap);
@@ -83,14 +95,20 @@ public class home extends JPanel {
         gbc.gridwidth = 1;
         gbc.gridx = 1;
         gbc.gridy = 2;
+//        html tags supported in swing
+//        the value wouldn't display below using \n
+        TotalSalesB.setText("<html>Total Sales<br>€" + logic.TotalSales() + "</html>");
+        TotalSalesB.setHorizontalAlignment(SwingConstants.CENTER);
         add(TotalSalesB, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 2;
+        TotalProducts.setText("<html>Total Products<br>" + logic.TotalProducts() + "</html>");
         add(TotalProducts, gbc);
 
         gbc.gridx = 3;
         gbc.gridy = 2;
+        TotalSupplier.setText("<html>Total Suppliers<br>" + logic.TotalSales() + "</html>");
         add(TotalSupplier, gbc);
 
         gbc.gridx = 4;
@@ -110,8 +128,26 @@ public class home extends JPanel {
         add(Create_order, gbc);
         add(Create_order,gbc);
 
+<<<<<<< HEAD
     
         
+=======
+//        Create_order.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//            panel.showPanel("orders");
+//            add.clickAddOrder();
+//            }
+//        });
+//
+//        Add_item.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                panel.showPanel("inventory");
+//                addItem.clickAddItem();
+//            }
+//        });
+>>>>>>> 19a947f2c5d868e29a135152737c677257675234
 
         setVisible(true);
     }

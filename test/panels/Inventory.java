@@ -1,5 +1,9 @@
 package panels;
 
+<<<<<<< HEAD
+=======
+import logic.DeleteCRUD;
+>>>>>>> 19a947f2c5d868e29a135152737c677257675234
 import logic.InsertIntoDbCRUD;
 import logic.table;
 
@@ -25,6 +29,7 @@ public class Inventory extends JPanel {
     JTextField SupplierID = new JTextField();
     JComboBox<Integer> Aisle;
     InsertIntoDbCRUD crud = new InsertIntoDbCRUD();
+    DeleteCRUD deleteCRUD = new DeleteCRUD();
 
 
     Integer[] aisles = {1,2,3,4,5,6};
@@ -49,7 +54,7 @@ public class Inventory extends JPanel {
                 Aisle = new JComboBox<>(aisles);
                 int width = 100;
                 int height = 300;
-                addItemFrame.setPreferredSize(new Dimension(100,300));
+                addItemFrame.setPreferredSize(new Dimension(200,400));
 
                 JPanel panel = new JPanel();
                 panel.setLayout(new GridLayout(7,2,5,5));
@@ -68,6 +73,7 @@ public class Inventory extends JPanel {
                 panel.add(insert);
                 addItemFrame.setLocationRelativeTo(null);
                 addItemFrame.add(panel);
+                addItemFrame.pack();
                 addItemFrame.setVisible(true);
 
                 insert.addActionListener(new ActionListener() {
@@ -102,6 +108,28 @@ public class Inventory extends JPanel {
             }
         });
 
+        deleteItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Object primarykey = dataTable.getSelectedPrimaryKey();
+                if (primarykey != null) {
+                    int row = (int) primarykey;
+                    int dialogBox = JOptionPane.YES_NO_OPTION;
+                    int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to delete this record", "Warning", dialogBox);
+                    if (dialogResult == JOptionPane.YES_OPTION) {
+                        deleteCRUD.deleteFromTable("Stock_items",row);
+                        System.out.println(row + " Deleted!");
+                    }
+
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Please select a row to delete.");
+                }
+                dataTable.fetchData();
+            }
+        });
+
         buttonPanel.add(addItem);
         buttonPanel.add(deleteItem);
         buttonPanel.add(amendItem);
@@ -110,4 +138,6 @@ public class Inventory extends JPanel {
 
         setVisible(true);
     }
+
+
 }

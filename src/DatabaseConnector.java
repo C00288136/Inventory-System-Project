@@ -9,7 +9,18 @@ public class DatabaseConnector {
     private static final String URL = "jdbc:mysql://localhost:";
     private  static final String db_Name = "inventory";
     private static final String USER = "root";
+<<<<<<< HEAD
     private static final String PASSWORD = "";
+=======
+
+//    private static final String PASSWORD = "root";
+     private static final String PASSWORD = ""; // no password on this version of the db
+
+
+
+
+
+>>>>>>> 19a947f2c5d868e29a135152737c677257675234
 
     private static int[] PORTS = {3306,8889};//we have different ports for the mamp and xampp sever
 
