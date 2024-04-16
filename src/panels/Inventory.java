@@ -139,12 +139,13 @@ public class Inventory extends JPanel {
         });
 
         amendItem.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e){
 
-                JFrame addItemFrame = new JFrame("Add Item");
+                JFrame AmendItemsFrame = new JFrame("Amend Item");
                 Aisle = new JComboBox<>(aisles);
 
-                addItemFrame.setPreferredSize(new Dimension(200,400));
+                AmendItemsFrame.setPreferredSize(new Dimension(200,400));
 
                 JPanel panel = new JPanel();
                 panel.setLayout(new GridLayout(7,2,5,5));
@@ -161,10 +162,10 @@ public class Inventory extends JPanel {
                 panel.add(new JLabel("Aisle Number"));
                 panel.add(Aisle);
                 panel.add(amend);
-                addItemFrame.setLocationRelativeTo(null);
-                addItemFrame.add(panel);
-                addItemFrame.pack();
-                addItemFrame.setVisible(true);
+                AmendItemsFrame.setLocationRelativeTo(getParent());
+                AmendItemsFrame.add(panel);
+                AmendItemsFrame.pack();
+                AmendItemsFrame.setVisible(true);
 
                 
                 Object primarykey = dataTable.getSelectedPrimaryKey();
@@ -198,7 +199,10 @@ public class Inventory extends JPanel {
                     catch(SQLException ex){
                         ex.printStackTrace();
                     }
-                    } 
+                    }
+                else {
+                    JOptionPane.showMessageDialog(getParent(),"Please select a entry to amend");
+                }
                     amend.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -210,23 +214,20 @@ public class Inventory extends JPanel {
                             Object selectedAisle = Aisle.getSelectedItem();
                             Integer aisleamended = (Integer) selectedAisle;
 
-                            try{
-                                int dialogBox = JOptionPane.YES_NO_OPTION;
-                                int dialogResult = JOptionPane.showConfirmDialog(getParent(),"Are you sure about the Details Entered?","Confirmation",dialogBox);
-                                if (dialogBox == dialogResult){
-                                amendCRUD.amendStockItems((int) primarykey,nameamended,qtyamended,unitPriceamended,salePriceamended,supplierIDamended,aisleamended);
-                                    JOptionPane.showMessageDialog(getParent(),"Entry Details have been updated");
-                                    dataTable.fetchData();
-                                }
+                            int dialogBox = JOptionPane.YES_NO_OPTION;
+                            int dialogResult = JOptionPane.showConfirmDialog(getParent(),"Are you sure about the Details Entered?","Confirmation",dialogBox);
+                            if (dialogResult == JOptionPane.YES_OPTION){
+
+                            amendCRUD.amendStockItems((int) primarykey,nameamended,qtyamended,unitPriceamended,salePriceamended,supplierIDamended,aisleamended);
+                                JOptionPane.showMessageDialog(getParent(),"Entry Details have been updated");
+                            }
+                            else{
 
                             }
-                            catch (Exception exception){
-                                exception.printStackTrace();
-                            }
-
+                            dataTable.fetchData();
                         }
                     });
-                        
+
             }
         });
         buttonPanel.add(addItem);
