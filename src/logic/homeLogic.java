@@ -114,4 +114,56 @@ public int TotalSuppliers(){
     }
     return totalSuppliers;
 }
+
+public int recentOrder() {
+    Connection connection = DatabaseConnector.connect();
+    int orderID = 0;
+
+    try {
+        PreparedStatement statement = connection.prepareStatement("SELECT Order_ID FROM Orders WHERE OrderDate = (SELECT MAX(OrderDate) FROM Orders)");
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            orderID = resultSet.getInt("Order_ID");
+        }
+
+        resultSet.close();
+        statement.close();
+        connection.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return orderID;
+}
+public String BestSelling(){
+    Connection con = DatabaseConnector.connect();   
+    String Best = "";
+
+    try{
+        PreparedStatement stat = con.prepareStatement("SELECT Stock_ID FROM ( SELECT Stock_ID, SUM(Quantity) AS TotalQuantity FROM sales GROUP BY Stock_ID ORDER BY TotalQuantity DESC ) AS BestSellingItem;");
+        ResultSet rs = stat.executeQuery();
+
+        int bestSellingID = 0;
+        if (rs.next()){
+            bestSellingID = rs.getInt("Stock_ID");
+        }
+
+        try{
+            PreparedStatement statement = con.prepareStatement("Select name from Stock_Items where product_ID = (?)");
+            statement.setInt(1, bestSellingID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                Best = resultSet.getString("name");
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    catch(SQLException e){
+        e.printStackTrace();
+    }
+    return Best;
+}
 }

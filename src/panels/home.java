@@ -55,30 +55,17 @@ public class home extends JPanel {
         add(graphPanel,gbc);
 
 
-        // Set sizes and spaces for buttons
-        JButton[] buttons = {Add_item, Create_order};
-        int buttonWidth = 200;
-        int buttonHeight = 70;
+      
         int horizontalGap = 20;
         int verticalGap = 20;
 
-        for (JButton button : buttons) {
-            button.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-            button.setBorder(BorderFactory.createCompoundBorder(
-//                    lineborder for black outside empty border for padding
-                    new LineBorder(Color.decode("#8764EC"), 2),
-                    new EmptyBorder(20, 20, 20, 20)
-            ));
-            button.setContentAreaFilled(false);
-            button.setBackground(Color.black);
-        }
-
+       
         JLabel[] labels = {TotalSalesB,TotalProducts,TotalSupplier,recentOrder,bestSeller};
         int labelWidth = 10;
         int labelHeight = 100;
 
         for (JLabel label : labels){
-            label.setPreferredSize(new Dimension(labelHeight, labelHeight));
+            label.setPreferredSize(new Dimension(labelWidth, labelHeight));
             label.setBorder(BorderFactory.createCompoundBorder(
 //                    lineborder for black outside empty border for padding
                     new LineBorder(Color.decode("#8764EC"), 2),
@@ -111,22 +98,16 @@ public class home extends JPanel {
         TotalSupplier.setText("<html>Total Suppliers<br>" + logic.TotalSales() + "</html>");
         add(TotalSupplier, gbc);
 
-        gbc.gridx = 4;
-        gbc.gridy = 2;
-        add(recentOrder, gbc);
-
-        gbc.gridx = 5;
-        gbc.gridy = 2;
-        add(bestSeller, gbc);
-
         gbc.gridx = 1;
         gbc.gridy = 3;
-        add(Add_item, gbc);
+        recentOrder.setText("Recent Order ID:" + logic.recentOrder());
+        add(recentOrder, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 3;
-        add(Create_order, gbc);
-        add(Create_order,gbc);
+        bestSeller.setText("Best Selling Item: " + logic.BestSelling());
+        add(bestSeller, gbc);
+
 
 
 
