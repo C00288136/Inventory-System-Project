@@ -9,9 +9,10 @@ import java.sql.SQLException;
 
 public class homeLogic {
 
-    DatabaseConnector db = new DatabaseConnector();
-
-
+    /**
+     *
+     * @return - total sales made, info from the database
+     */
     public double TotalSales(){
         Connection connection = DatabaseConnector.connect();
         PreparedStatement pstat = null;
@@ -24,7 +25,6 @@ public class homeLogic {
             if (resultSet.next()){
                 totalSales = resultSet.getDouble("Total");
             }
-
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -46,8 +46,11 @@ public class homeLogic {
         return totalSales;
     }
 
-
-public int TotalProducts(){
+    /**
+     *
+     * @return - total amount of proucts in the db
+     */
+    public int TotalProducts(){
     Connection connection = DatabaseConnector.connect();
     PreparedStatement pstat = null;
     ResultSet resultSet = null;
@@ -81,7 +84,11 @@ public int TotalProducts(){
     return totalProducts;
 }
 
-public int TotalSuppliers(){
+    /**
+     *
+     * @return - Number of suppliers
+     */
+    public int TotalSuppliers(){
     Connection connection = DatabaseConnector.connect();
     PreparedStatement pstat = null;
     ResultSet resultSet = null;
@@ -115,7 +122,11 @@ public int TotalSuppliers(){
     return totalSuppliers;
 }
 
-public int recentOrder() {
+    /**
+     *
+     * @return Order ID for the most recent order
+     */
+    public int recentOrder() {
     Connection connection = DatabaseConnector.connect();
     int orderID = 0;
 
@@ -136,7 +147,12 @@ public int recentOrder() {
 
     return orderID;
 }
-public String BestSelling(){
+
+    /**
+     *
+     * @return - Name of the best selling Item in the database
+     */
+    public String BestSelling(){
     Connection con = DatabaseConnector.connect();   
     String Best = "";
 

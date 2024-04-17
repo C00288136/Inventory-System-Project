@@ -12,12 +12,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 public class loginLogic {
-
+//save the username upon login
     private static String currentUsername = null;
 
     public static String getCurrentUsername(){
         return currentUsername;
     }
+
+    /**
+     *
+     * @param Username - username entered when loggin
+     * @param Password - password entered
+     * @return - returns the logged in username
+     */
     public static String authenticateUser(String Username, String Password){
         String dbPassword = null;
         String username = null;
@@ -31,9 +38,6 @@ public class loginLogic {
             if (resultSet.next()){
                 username = resultSet.getString("Username");
                 dbPassword = resultSet.getString("Password");
-
-                System.out.println("DB pass :"+dbPassword);
-                System.out.println("Entered pass: " + Password);
 
             }
         } catch (SQLException e) {
@@ -53,6 +57,11 @@ public class loginLogic {
 
     }
 
+    /**
+     * Method I used for hashing the password to add security
+     * @param password - the password entered as a string
+     * @return - the password hashes using the md5 method
+     */
     public static String hashPassword(String password) {
         try{
 //            use messagedigest for built-in encryption
@@ -74,6 +83,7 @@ public class loginLogic {
         }
     }
 
+//    Added a enter key listener so the user can press enter to login aswell as click on the button
     public static void addEnterKeyListener(JTextField text, JButton button){
         text.addKeyListener(new KeyAdapter() {
             @Override

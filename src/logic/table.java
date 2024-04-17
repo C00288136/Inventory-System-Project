@@ -1,7 +1,6 @@
 package logic;
 
 import dbCon.DatabaseConnector;
-import logic.DeleteCRUD;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -35,12 +34,12 @@ public class table extends JPanel {
         fetchData();
 
         table.addMouseListener(new MouseAdapter() {
+            //add a reader for the mouse right mouse click to retrieve that rows primary key
             @Override
             public void mouseClicked(MouseEvent e) {
                 int selectedrow = table.getSelectedRow();
                 if (SwingUtilities.isLeftMouseButton(e)){
                     selectedPrimaryKey = tableModel.getValueAt(selectedrow,0);
-                    System.out.println(selectedPrimaryKey);
                 }
 
             }
@@ -88,9 +87,18 @@ public class table extends JPanel {
         }
     }
 
+    /**
+     *
+     * @return - Returns The Primary key which was selected by the users right mouse click
+     */
     public Object getSelectedPrimaryKey(){
         return selectedPrimaryKey;
     }
+
+    /**
+     * \
+     * @param row - use the getSelectedPrimaryKey() to retrieve the object for the row and to delete the entry
+     */
     public void deleteEntry(Object row){
         try {
             Connection connection = DatabaseConnector.connect();

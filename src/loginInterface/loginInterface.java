@@ -4,6 +4,9 @@ package loginInterface;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * JPanel class which creates the GUI interface for the user to log in
+ */
 public class loginInterface extends JPanel {
 
     JLabel userLabel = new JLabel("Username");
@@ -11,9 +14,6 @@ public class loginInterface extends JPanel {
     JLabel passwordLabel = new JLabel("Password");
     public JPasswordField passwordText =  new JPasswordField();
     public JButton loginButton = new JButton("Login");
-
-
-
 
     int panelWidth = getWidth()/2;
 
@@ -67,8 +67,6 @@ public class loginInterface extends JPanel {
         loginPanel.add(loginButton,gbc);
 
         add(loginPanel); // Place loginPanel on the left
-
-
 
         setVisible(true);
     }

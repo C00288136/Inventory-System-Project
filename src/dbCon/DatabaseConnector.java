@@ -1,12 +1,16 @@
+/**
+ * Package used for storing the database connector
+ */
 package dbCon;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Database connector class
+ */
 public class DatabaseConnector {
-    //because for all of my parts of this program I am required to connect to the database I will make this class
-    //which can be called upon to do it instead of repeating the same code in each file
 
     private static final String URL = "jdbc:mysql://localhost:";
     private  static final String db_Name = "inventory";
@@ -29,7 +33,6 @@ public class DatabaseConnector {
             } catch (ClassNotFoundException | SQLException e) {
                 System.out.println("Failed to connect on port: " + port);
                 e.printStackTrace();
-                // Handle the exception according to your project's needs
             }
         }
         System.out.println("Failed to connect to database!");
@@ -44,7 +47,6 @@ public class DatabaseConnector {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception
         }
     }
 }

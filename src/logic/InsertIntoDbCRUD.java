@@ -8,6 +8,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * File used for inserting data into the database tables
+ */
 public class InsertIntoDbCRUD {
 
     private DatabaseConnector databaseConnector;
@@ -19,6 +22,13 @@ public class InsertIntoDbCRUD {
     public InsertIntoDbCRUD() {}
 
     //method for inserting into the database
+
+    /**
+     *
+     * @param tableName - name of the table data is insterted into
+     * @param columns - columns into which data is being inserted as per in the db
+     * @param values - values being inserted into the table
+     */
     public void insertIntoTable(String tableName, String[] columns, Object[] values) {
         Connection connection = null;
         PreparedStatement pstat = null;
@@ -96,24 +106,60 @@ public class InsertIntoDbCRUD {
     }
 
     //because as mentioned values are different for each table I made separate methods for inserting into each table
+
+    /**
+     * method used for inserting data into the Employees table
+     * @param lastName - lastname
+     * @param firstName - firstname
+     * @param age - age
+     * @param phoneNum - phone number
+     * @param address - address
+     */
     public void insertIntoEmployees(String lastName, String firstName, int age, long phoneNum, String address) {
         String[] columns = {"LastName", "FirstName", "Age", "Phone_No", "Address"};
         Object[] values = {lastName, firstName, age, phoneNum, address};
         insertIntoTable("Employees", columns, values);
     }
 
+    /**
+     *
+     * @param name -name of the item
+     * @param quantity - quantity
+     * @param unitPrice - supplier Price
+     * @param salePrice - Retail Price
+     * @param supplierId - Supplier ID
+     * @param aisleNum - Aisle number for the item
+     */
     public void insertIntoStockItems(String name, int quantity, BigDecimal unitPrice, BigDecimal salePrice, int supplierId, int aisleNum) {
         String[] columns = {"Name", "quantity_in_stock", "unit_price", "sale_price", "supplier_ID", "Aisle_num"};
         Object[] values = {name, quantity, unitPrice, salePrice, supplierId, aisleNum};
         insertIntoTable("Stock_Items", columns, values);
     }
 
+    /**
+     *
+     * @param Emp_ID - Employee ID
+     * @param Stock_ID - Stock ID
+     * @param date - Date of Order
+     * @param TotalCost - Total Cost
+     * @param PaymentStat - Payment Status
+     * @param delivery - Delivery Date
+     */
     public void insertIntoOrders(int Emp_ID,int Stock_ID,Date date,BigDecimal TotalCost, String PaymentStat, Date delivery ){
         String[] columns = {"Emp_ID","Stock_ID","OrderDate","TotalCost","PaymentStatus","Est_Delivery"};
         Object[] values = {Emp_ID,Stock_ID,date,TotalCost,PaymentStat,delivery};
         insertIntoTable("Orders", columns, values); // previously table name was "panels.Orders", dunno why
     }
 
+    /**
+     *
+     * @param Emp_ID - Employee  ID
+     * @param Stock_ID - Stock ID
+     * @param SaleDate - Sale Date
+     * @param TotalPrice - Total Price
+     * @param Quantity - Quantity
+     * @param Payment_Method - Payment Method
+     */
     public void insertIntoSales(int Emp_ID, int Stock_ID, Date SaleDate, BigDecimal TotalPrice, int Quantity, String Payment_Method){
         String[] columns = {"Emp_ID","Stock_ID","SaleDate","TotalPrice","Quantity","Payment_Method"};
         Object[] values = {Emp_ID,Stock_ID,SaleDate,TotalPrice,Quantity,Payment_Method};

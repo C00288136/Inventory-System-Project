@@ -19,6 +19,7 @@ public class amendCRUD {
     public amendCRUD() {}
 
     // Method for updating the database
+
     public void amendIntoTable(String tableName, String[] columns, Object[] values, String condition) {
         Connection connection = null;
         PreparedStatement pstat = null;

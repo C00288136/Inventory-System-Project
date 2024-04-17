@@ -8,9 +8,6 @@ import dbCon.DatabaseConnector;
 
 
 import javax.swing.*;
-
-import com.mysql.cj.xdevapi.PreparableStatement;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,7 +35,6 @@ public class Inventory extends JPanel {
     InsertIntoDbCRUD crudIn = new InsertIntoDbCRUD();
     DeleteCRUD deleteCRUD = new DeleteCRUD();
     amendCRUD amendCRUD = new amendCRUD();
-    DatabaseConnector con = new DatabaseConnector();
 
     Integer[] aisles = {1,2,3,4,5,6};
 
@@ -60,8 +56,6 @@ public class Inventory extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 JFrame addItemFrame = new JFrame("Add Item");
                 Aisle = new JComboBox<>(aisles);
-                int width = 100;
-                int height = 300;
                 addItemFrame.setPreferredSize(new Dimension(200,400));
 
                 JPanel panel = new JPanel();
@@ -220,9 +214,6 @@ public class Inventory extends JPanel {
 
                             amendCRUD.amendStockItems((int) primarykey,nameamended,qtyamended,unitPriceamended,salePriceamended,supplierIDamended,aisleamended);
                                 JOptionPane.showMessageDialog(getParent(),"Entry Details have been updated");
-                            }
-                            else{
-
                             }
                             dataTable.fetchData();
                         }
