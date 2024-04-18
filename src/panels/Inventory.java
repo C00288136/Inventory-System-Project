@@ -1,12 +1,7 @@
 package panels;
 
-import logic.DeleteCRUD;
-import logic.InsertIntoDbCRUD;
-import logic.amendCRUD;
-import logic.table;
+import logic.*;
 import dbCon.DatabaseConnector;
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/**
+ * Class for the inventory panel
+ */
 public class Inventory extends JPanel {
 
     table dataTable = new table("Stock_items");
@@ -43,7 +40,6 @@ public class Inventory extends JPanel {
 
     public Inventory(){
         setLayout(new BorderLayout());
-
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0)); // Add padding
         addItem.setPreferredSize(new Dimension(120, 30));
@@ -55,7 +51,7 @@ public class Inventory extends JPanel {
         amendItem.setFont(buttonFont);
 
 
-
+// action listener for adding an item to the database
         addItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -114,7 +110,7 @@ public class Inventory extends JPanel {
                 });
             }
         });
-
+//    action listener for deleting a stock item
         deleteItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -136,95 +132,91 @@ public class Inventory extends JPanel {
                 dataTable.fetchData();
             }
         });
+//        button for amending a stock item
+        amendItem.addActionListener(e -> {
 
-        amendItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
+            JFrame AmendItemsFrame = new JFrame("Amend Item");
+            Aisle = new JComboBox<>(aisles);
 
-                JFrame AmendItemsFrame = new JFrame("Amend Item");
-                Aisle = new JComboBox<>(aisles);
+            AmendItemsFrame.setPreferredSize(new Dimension(200,400));
 
-                AmendItemsFrame.setPreferredSize(new Dimension(200,400));
+            JPanel panel = new JPanel();
+            panel.setLayout(new GridLayout(7,2,5,5));
+            panel.add(new JLabel("Name"));
+            panel.add(ItemName);
+            panel.add(new JLabel("Quantity"));
+            panel.add(quantity);
+            panel.add(new JLabel("Unit Price"));
+            panel.add(unitP);
+            panel.add(new JLabel("Sale Price"));
+            panel.add(SaleP);
+            panel.add(new JLabel("Supplier ID"));
+            panel.add(SupplierID);
+            panel.add(new JLabel("Aisle Number"));
+            panel.add(Aisle);
+            panel.add(amend);
+            AmendItemsFrame.setLocationRelativeTo(getParent());
+            AmendItemsFrame.add(panel);
+            AmendItemsFrame.pack();
+            AmendItemsFrame.setVisible(true);
 
-                JPanel panel = new JPanel();
-                panel.setLayout(new GridLayout(7,2,5,5));
-                panel.add(new JLabel("Name"));
-                panel.add(ItemName);
-                panel.add(new JLabel("Quantity"));
-                panel.add(quantity);
-                panel.add(new JLabel("Unit Price"));
-                panel.add(unitP);
-                panel.add(new JLabel("Sale Price"));
-                panel.add(SaleP);
-                panel.add(new JLabel("Supplier ID"));
-                panel.add(SupplierID);
-                panel.add(new JLabel("Aisle Number"));
-                panel.add(Aisle);
-                panel.add(amend);
-                AmendItemsFrame.setLocationRelativeTo(getParent());
-                AmendItemsFrame.add(panel);
-                AmendItemsFrame.pack();
-                AmendItemsFrame.setVisible(true);
 
-                
-                Object primarykey = dataTable.getSelectedPrimaryKey();
-                if (primarykey != null){
-                       int id = (int) primarykey;
+            Object primarykey = dataTable.getSelectedPrimaryKey();
+            if (primarykey != null){
+                   int id = (int) primarykey;
 
-                    Connection con = DatabaseConnector.connect();
-                    try{
-                       PreparedStatement pstat = con.prepareStatement("SELECT * FROM Stock_Items where product_ID = ?");
-                       pstat.setInt(1,id);
+                Connection con = DatabaseConnector.connect();
+                try{
+                   PreparedStatement pstat = con.prepareStatement("SELECT * FROM Stock_Items where product_ID = ?");
+                   pstat.setInt(1,id);
 
-                        ResultSet rs = pstat.executeQuery();
+                    ResultSet rs = pstat.executeQuery();
 
-                        while (rs.next()){
-                            String name = rs.getString("Name");
-                            int qty = rs.getInt("quantity_in_stock");
-                            BigDecimal unitPrice = rs.getBigDecimal("unit_price");
-                            BigDecimal salePrice = rs.getBigDecimal("sale_price");
-                            int supplierID = rs.getInt("supplier_ID");
-                            int aisle = rs.getInt("Aisle_num");
-
-                            ItemName.setText(name);
-                            quantity.setText(String.valueOf(qty));
-                            unitP.setText(unitPrice.toString());
-                            SaleP.setText(salePrice.toString());
-                            SupplierID.setText(String.valueOf(supplierID));
-                            Aisle.setSelectedItem(aisle);   
-                        }
-                        rs.close();   
+                    while (rs.next()){
+                        String name = rs.getString("Name");
+                        int qty = rs.getInt("quantity_in_stock");
+                        BigDecimal unitPrice = rs.getBigDecimal("unit_price");
+                        BigDecimal salePrice = rs.getBigDecimal("sale_price");
+                        int supplierID = rs.getInt("supplier_ID");
+                        int aisle = rs.getInt("Aisle_num");
+//                            when a primary key is valid its data is autofilled into the fields to be amended
+                        ItemName.setText(name);
+                        quantity.setText(String.valueOf(qty));
+                        unitP.setText(unitPrice.toString());
+                        SaleP.setText(salePrice.toString());
+                        SupplierID.setText(String.valueOf(supplierID));
+                        Aisle.setSelectedItem(aisle);
                     }
-                    catch(SQLException ex){
-                        ex.printStackTrace();
-                    }
-                    }
-                else {
-                    JOptionPane.showMessageDialog(getParent(),"Please select a entry to amend");
+                    rs.close();
                 }
-                    amend.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            String nameamended = ItemName.getText();
-                            int qtyamended = Integer.parseInt(quantity.getText());
-                            BigDecimal unitPriceamended = new BigDecimal(unitP.getText());
-                            BigDecimal salePriceamended = new BigDecimal(SaleP.getText());
-                            int supplierIDamended = Integer.parseInt(SupplierID.getText());
-                            Object selectedAisle = Aisle.getSelectedItem();
-                            Integer aisleamended = (Integer) selectedAisle;
-
-                            int dialogBox = JOptionPane.YES_NO_OPTION;
-                            int dialogResult = JOptionPane.showConfirmDialog(getParent(),"Are you sure about the Details Entered?","Confirmation",dialogBox);
-                            if (dialogResult == JOptionPane.YES_OPTION){
-
-                            amendCRUD.amendStockItems((int) primarykey,nameamended,qtyamended,unitPriceamended,salePriceamended,supplierIDamended,aisleamended);
-                                JOptionPane.showMessageDialog(getParent(),"Entry Details have been updated");
-                            }
-                            dataTable.fetchData();
-                        }
-                    });
-
+                catch(SQLException ex){
+                    ex.printStackTrace();
+                }
+                }
+            else {
+                JOptionPane.showMessageDialog(getParent(),"Please select a entry to amend");
             }
+//                button within the amend panel for saving details and checking if there are correct
+                amend.addActionListener(e1 -> {
+                    String nameamended = ItemName.getText();
+                    int qtyamended = Integer.parseInt(quantity.getText());
+                    BigDecimal unitPriceamended = new BigDecimal(unitP.getText());
+                    BigDecimal salePriceamended = new BigDecimal(SaleP.getText());
+                    int supplierIDamended = Integer.parseInt(SupplierID.getText());
+                    Object selectedAisle = Aisle.getSelectedItem();
+                    Integer aisleamended = (Integer) selectedAisle;
+
+                    int dialogBox = JOptionPane.YES_NO_OPTION;
+                    int dialogResult = JOptionPane.showConfirmDialog(null,"Are you sure about the Details Entered?","Confirmation",dialogBox);
+                    if (dialogResult == JOptionPane.YES_OPTION){
+
+                    amendCRUD.amendStockItems((int) primarykey,nameamended,qtyamended,unitPriceamended,salePriceamended,supplierIDamended,aisleamended);
+                        JOptionPane.showMessageDialog(null,"Entry Details have been updated");
+                        AmendItemsFrame.dispose();
+                    }
+                    dataTable.fetchData();
+                });
+
         });
         buttonPanel.add(addItem);
         buttonPanel.add(deleteItem);

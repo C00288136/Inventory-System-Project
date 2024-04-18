@@ -2,8 +2,19 @@ package panels;
 
 import javax.swing.*;
 import java.awt.*;
+
+/**
+ * Class which creates the header used for the portal
+ */
 public class header extends JPanel {
 
+    /**
+     * method which is used to rescale the size of a image to a desired amount
+     * @param imageIcon - image for rescaling
+     * @param width - Desired with after the rescaling
+     * @param height - Desired Height after the rescaling
+     * @return - Images scailed to the specified size
+     */
     private ImageIcon resizeIcon(ImageIcon imageIcon, int width, int height){
         Image image = imageIcon.getImage();
         Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
