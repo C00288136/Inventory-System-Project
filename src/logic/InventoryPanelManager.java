@@ -13,7 +13,7 @@ import java.awt.*;
  */
 public class InventoryPanelManager extends JPanel {
     //card layout used to layer the Panels
-    private CardLayout cardLayout;
+    private final CardLayout cardLayout;
 
     public InventoryPanelManager() {
         cardLayout = new CardLayout();

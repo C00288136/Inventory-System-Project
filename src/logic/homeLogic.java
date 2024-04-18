@@ -48,7 +48,7 @@ public class homeLogic {
 
     /**
      *
-     * @return - total amount of proucts in the db
+     * @return - total amount of products in the db
      */
     public int TotalProducts(){
     Connection connection = DatabaseConnector.connect();
@@ -100,7 +100,6 @@ public class homeLogic {
         if (resultSet.next()){
             totalSuppliers = resultSet.getInt("Total");
         }
-
     }
     catch (SQLException e){
         e.printStackTrace();
@@ -150,7 +149,7 @@ public class homeLogic {
 
     /**
      *
-     * @return - Name of the best selling Item in the database
+     * @return - Name of the best-selling Item in the database
      */
     public String BestSelling(){
     Connection con = DatabaseConnector.connect();   

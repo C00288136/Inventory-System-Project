@@ -25,7 +25,7 @@ public class InsertIntoDbCRUD {
 
     /**
      *
-     * @param tableName - name of the table data is insterted into
+     * @param tableName - name of the table data is inserted into
      * @param columns - columns into which data is being inserted as per in the db
      * @param values - values being inserted into the table
      */

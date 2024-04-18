@@ -20,11 +20,12 @@ public class changepassword {
         char[] oldPassword = settings.getOldPassword();
         char[] newPassword = settings.getNewPassword();
         char[] confirmPass = settings.getConfirmPassword();
-
+//      validation to make sure the new password matches the confirmation
         if(!Arrays.equals(newPassword, confirmPass)){
             JOptionPane.showMessageDialog(null,"New password doesn't match the confirm");
             return;
         }
+//        check if the new password is not the same as the old
         if (Arrays.equals(oldPassword,newPassword)|| Arrays.equals(oldPassword,confirmPass) ){
             JOptionPane.showMessageDialog(null,"New password cannot be the same as the old Password");
             return;

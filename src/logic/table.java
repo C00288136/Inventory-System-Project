@@ -27,7 +27,7 @@ public class table extends JPanel {
         add(sp);
 
         // Set preferred size for the table
-//        scrollpane adjusts to the table
+//        scrollable adjusts to the table
         table.setPreferredScrollableViewportSize(new Dimension(700,600));
 
         // Call fetchData method on the instance of JTableExample
@@ -102,10 +102,10 @@ public class table extends JPanel {
     public void deleteEntry(Object row){
         try {
             Connection connection = DatabaseConnector.connect();
-            String PriamryKey = table.getColumnName(0);
+            String PrimaryKey = table.getColumnName(0);
             int Row = (int) row;
             Object primaryKeyValue = tableModel.getValueAt(Row,0);
-            String sql = "DELETE FROM" + tableName + "WHERE " + PriamryKey + " = ?";
+            String sql = "DELETE FROM" + tableName + "WHERE " + PrimaryKey + " = ?";
             PreparedStatement pstat = connection.prepareStatement(sql);
             pstat.setObject(1,primaryKeyValue);
             int affectedRows = pstat.executeUpdate();

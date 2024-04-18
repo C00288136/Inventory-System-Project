@@ -128,6 +128,4 @@ public class sales extends JPanel {
 
     }
 
-    //TODO: validate entered data and have relevant error handling
-
 }

@@ -87,7 +87,7 @@ public class home extends JPanel {
 
         gbc.gridx = 3;
         gbc.gridy = 2;
-        TotalSupplier.setText("<html>Total Suppliers<br>" + logic.TotalSales() + "</html>");
+        TotalSupplier.setText("<html>Total Suppliers<br>" + logic.TotalSuppliers() + "</html>");
         add(TotalSupplier, gbc);
 
         gbc.gridx = 1;

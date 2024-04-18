@@ -10,12 +10,6 @@ import java.sql.SQLException;
 
 public class amendCRUD {
 
-    private DatabaseConnector databaseConnector;
-
-    public amendCRUD(DatabaseConnector databaseConnector) {
-        this.databaseConnector = databaseConnector;
-    }
-
     public amendCRUD() {}
 
     // Method for updating the database
@@ -27,7 +21,7 @@ public class amendCRUD {
 
         try {
             // Get connection from the DatabaseConnector
-            connection = databaseConnector.connect();
+            connection = DatabaseConnector.connect();
 
             // Using StringBuilder to dynamically update necessary query data instead of hard coding names
             StringBuilder queryBuilder = new StringBuilder("UPDATE ")
@@ -75,7 +69,7 @@ public class amendCRUD {
                     pstat.close();
                 }
                 // Disconnect from the DatabaseConnector
-                databaseConnector.disconnect();
+                DatabaseConnector.disconnect();
             } catch (Exception exception) {
                 exception.printStackTrace();
             }

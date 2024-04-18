@@ -7,19 +7,13 @@ import java.sql.*;
 
 public class DeleteCRUD {
 
-    private DatabaseConnector databaseConnector;
-
-    public DeleteCRUD(DatabaseConnector databaseConnector) {
-        this.databaseConnector = databaseConnector;
-    }
-
     public DeleteCRUD() {}
 
     public void deleteFromTable(String tableName, int ID) {
         Connection connection = null;
 
         try {
-            connection = databaseConnector.connect();
+            connection = DatabaseConnector.connect();
             DatabaseMetaData metaData = connection.getMetaData();
 
             //used metadata to dynamically write the query for delecting the user by their primary key

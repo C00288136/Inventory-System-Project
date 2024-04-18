@@ -4,11 +4,11 @@ import logic.InventoryPanelManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+/**
+ * Navigation Bar panel for switching between the panels
+ */
 public class NavigationBar extends JPanel {
-    private InventoryPanelManager panelManager;
+    private final InventoryPanelManager panelManager;
 
     JButton home = new JButton("Home");
     JButton orders = new JButton("Orders");
@@ -24,6 +24,10 @@ public class NavigationBar extends JPanel {
         new ImageIcon("assets/settings.png"),
     };
 
+    /**
+     *
+     * @param panelManager - uses the panelmanager class object for switching between panels on button press
+     */
     public NavigationBar(InventoryPanelManager panelManager) {
         this.panelManager = panelManager;
         setBackground(Color.decode("#8764EC"));
@@ -45,43 +49,30 @@ public class NavigationBar extends JPanel {
             i++;
         }
 
-        home.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                switchPanel("home"); // Assuming "Home" is the panel name
-                System.out.println("switched to home");
-            }
+//        replaced the action listeners with lambda to shorten the code
+        home.addActionListener(e -> {
+            switchPanel("home"); // Assuming "Home" is the panel name
+            System.out.println("switched to home");
         });
 
-        orders.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                switchPanel("orders");
-                System.out.println("switched to orders");
-            }
+        orders.addActionListener(e -> {
+            switchPanel("orders");
+            System.out.println("switched to orders");
         });
 
-        sales.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                switchPanel("sales");
-                System.out.println("switched to sales");
-            }
+        sales.addActionListener(e -> {
+            switchPanel("sales");
+            System.out.println("switched to sales");
         });
         // Add action listeners for other buttons
 
-        inventory.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                switchPanel("inventory");
-                System.out.println("switched to inventory");
-            }
+        inventory.addActionListener(e -> {
+            switchPanel("inventory");
+            System.out.println("switched to inventory");
         });
-        settings.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                switchPanel("settings");
-                System.out.println("switched to settings");
-            }
+        settings.addActionListener(e -> {
+            switchPanel("settings");
+            System.out.println("switched to settings");
         });
     }
 

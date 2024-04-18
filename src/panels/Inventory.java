@@ -47,85 +47,76 @@ public class Inventory extends JPanel {
         amendItem.setPreferredSize(new Dimension(120, 30));
 
 // action listener for adding an item to the database
-        addItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame addItemFrame = new JFrame("Add Item");
-                Aisle = new JComboBox<>(aisles);
-                addItemFrame.setPreferredSize(new Dimension(200,400));
+        addItem.addActionListener(e -> {
+            JFrame addItemFrame = new JFrame("Add Item");
+            Aisle = new JComboBox<>(aisles);
+            addItemFrame.setPreferredSize(new Dimension(200,400));
 
-                JPanel panel = new JPanel();
-                panel.setLayout(new GridLayout(7,2,5,5));
-                panel.add(new JLabel("Name"));
-                panel.add(ItemName);
-                panel.add(new JLabel("Quantity"));
-                panel.add(quantity);
-                panel.add(new JLabel("Unit Price"));
-                panel.add(unitP);
-                panel.add(new JLabel("Sale Price"));
-                panel.add(SaleP);
-                panel.add(new JLabel("Supplier ID"));
-                panel.add(SupplierID);
-                panel.add(new JLabel("Aisle Number"));
-                panel.add(Aisle);
-                panel.add(insert);
-                addItemFrame.setLocationRelativeTo(null);
-                addItemFrame.add(panel);
-                addItemFrame.pack();
-                addItemFrame.setVisible(true);
+            JPanel panel = new JPanel();
+            panel.setLayout(new GridLayout(7,2,5,5));
+            panel.add(new JLabel("Name"));
+            panel.add(ItemName);
+            panel.add(new JLabel("Quantity"));
+            panel.add(quantity);
+            panel.add(new JLabel("Unit Price"));
+            panel.add(unitP);
+            panel.add(new JLabel("Sale Price"));
+            panel.add(SaleP);
+            panel.add(new JLabel("Supplier ID"));
+            panel.add(SupplierID);
+            panel.add(new JLabel("Aisle Number"));
+            panel.add(Aisle);
+            panel.add(insert);
+            addItemFrame.setLocationRelativeTo(null);
+            addItemFrame.add(panel);
+            addItemFrame.pack();
+            addItemFrame.setVisible(true);
 
-                insert.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
+            insert.addActionListener(e12 -> {
 
-                        String Name = ItemName.getText();
-                        int quant = Integer.parseInt(quantity.getText());
-                        BigDecimal unit = new BigDecimal(unitP.getText());
-                        BigDecimal sale = new BigDecimal(SaleP.getText());
+                String Name = ItemName.getText();
+                int quant = Integer.parseInt(quantity.getText());
+                BigDecimal unit = new BigDecimal(unitP.getText());
+                BigDecimal sale = new BigDecimal(SaleP.getText());
 
-                        int supp = Integer.parseInt(SupplierID.getText());
-                        Object selectedAisle = Aisle.getSelectedItem();
-                        Integer aisle = (Integer) selectedAisle;
+                int supp = Integer.parseInt(SupplierID.getText());
+                Object selectedAisle = Aisle.getSelectedItem();
+                Integer aisle = (Integer) selectedAisle;
 
 
-                        try {
+                try {
 
-                        crudIn.insertIntoStockItems(Name,quant,unit,sale,supp,aisle);
-                        JOptionPane.showMessageDialog(null,"Entry has been added successfully");
+                crudIn.insertIntoStockItems(Name,quant,unit,sale,supp,aisle);
+                JOptionPane.showMessageDialog(null,"Entry has been added successfully");
 
-                        addItemFrame.dispose();
-                        }
-                        catch (Exception exception){
-                            exception.printStackTrace();
-
-                            JOptionPane.showMessageDialog(null,"Error occured while adding the Item","Error",JOptionPane.ERROR_MESSAGE);
-                        }
-                        dataTable.fetchData();
-                    }
-                });
-            }
-        });
-//    action listener for deleting a stock item
-        deleteItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Object primarykey = dataTable.getSelectedPrimaryKey();
-                if (primarykey != null) {
-                    int row = (int) primarykey;
-                    int dialogBox = JOptionPane.YES_NO_OPTION;
-                    int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to delete this record", "Warning", dialogBox);
-                    if (dialogResult == JOptionPane.YES_OPTION) {
-                        deleteCRUD.deleteFromTable("Stock_items",row);
-                        System.out.println(row + " Deleted!");
-                    }
-
+                addItemFrame.dispose();
                 }
-                else{
-                    JOptionPane.showMessageDialog(null,"Please select a row to delete.");
+                catch (Exception exception){
+                    exception.printStackTrace();
+
+                    JOptionPane.showMessageDialog(null,"Error occured while adding the Item","Error",JOptionPane.ERROR_MESSAGE);
                 }
                 dataTable.fetchData();
+            });
+        });
+//    action listener for deleting a stock item
+        deleteItem.addActionListener(e -> {
+
+            Object primarykey = dataTable.getSelectedPrimaryKey();
+            if (primarykey != null) {
+                int row = (int) primarykey;
+                int dialogBox = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to delete this record", "Warning", dialogBox);
+                if (dialogResult == JOptionPane.YES_OPTION) {
+                    deleteCRUD.deleteFromTable("Stock_items",row);
+                    System.out.println(row + " Deleted!");
+                }
+
             }
+            else{
+                JOptionPane.showMessageDialog(null,"Please select a row to delete.");
+            }
+            dataTable.fetchData();
         });
 //        button for amending a stock item
         amendItem.addActionListener(e -> {
