@@ -18,7 +18,7 @@ public class sales extends JPanel {
 
     JButton addSale = new JButton("Add Sale");
     JButton deleteSale = new JButton("Delete Sale");
-    JButton ammendSale = new JButton("Ammend Sale");
+    JButton ammendSale = new JButton("Amend Sale");
     JButton insert = new JButton("Add Sale");
     JButton delete = new JButton("Delete");
     JTextField saleIDField = new JTextField();
@@ -44,6 +44,11 @@ public class sales extends JPanel {
         addSale.setPreferredSize(new Dimension(120, 30));
         deleteSale.setPreferredSize(new Dimension(120, 30));
         ammendSale.setPreferredSize(new Dimension(120, 30));
+        Font buttonFont = new Font("Arial", Font.PLAIN, 14);
+        addSale.setFont(buttonFont);
+        deleteSale.setFont(buttonFont);
+        ammendSale.setFont(buttonFont);
+
 
         buttonPanel.add(addSale);
         buttonPanel.add(deleteSale);
@@ -124,6 +129,7 @@ public class sales extends JPanel {
 
         // Set preferred size of the panels.Orders panel
         setPreferredSize(new Dimension(tablewidth, tableheight + buttonPanelHeight));
+        setVisible(true);
 
 
     }

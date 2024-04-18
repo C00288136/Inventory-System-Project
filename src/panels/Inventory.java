@@ -45,6 +45,11 @@ public class Inventory extends JPanel {
         addItem.setPreferredSize(new Dimension(120, 30));
         deleteItem.setPreferredSize(new Dimension(120, 30));
         amendItem.setPreferredSize(new Dimension(120, 30));
+        Font buttonFont = new Font("Arial", Font.PLAIN, 14);
+        addItem.setFont(buttonFont);
+        deleteItem.setFont(buttonFont);
+        amendItem.setFont(buttonFont);
+
 
 // action listener for adding an item to the database
         addItem.addActionListener(e -> {
