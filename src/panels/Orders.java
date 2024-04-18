@@ -19,6 +19,7 @@ public class Orders extends JPanel {
     JButton amendOrder = new JButton("Amend Order");
     JButton insert = new JButton("Insert Data");
     JButton delete = new JButton("Delete");
+    JComboBox<Integer> empID;
     JTextField tableNameField = new JTextField();
     JTextField stockIDField  = new JTextField();
     JTextField empIDField  = new JTextField();
@@ -30,6 +31,8 @@ public class Orders extends JPanel {
     InsertIntoDbCRUD crud = new InsertIntoDbCRUD();
     DeleteCRUD deleteCrud = new DeleteCRUD();
     amendCRUD amendCrud = new amendCRUD();
+
+    Integer[] empIDs = {101,102,103,104,105,106,107,109,100};
 
 
     table table = new table("Orders");
@@ -70,12 +73,13 @@ public class Orders extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame addOrderFrame = new JFrame();
+                empID = new JComboBox<>(empIDs);
 
                 Container contentPane = addOrderFrame.getContentPane();
                 contentPane.setLayout(new GridLayout(7, 2, 5, 5)); // 5 rows, 2 columns
         
                 contentPane.add(new JLabel("Employee ID:"));
-                contentPane.add(empIDField);
+                contentPane.add(empID);
                 contentPane.add(new JLabel("Stock ID:"));
                 contentPane.add(stockIDField);
                 contentPane.add(new JLabel("Order Date:"));
