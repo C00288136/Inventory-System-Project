@@ -6,23 +6,15 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-
+/**
+ * Class which creates the home page panel for the portal
+ */
 public class home extends JPanel {
     JLabel TotalSalesB = new JLabel();
     JLabel TotalProducts = new JLabel("Total  Products");
     JLabel TotalSupplier = new JLabel("Total Suppliers");
-    JButton Add_item = new JButton("Add item");
-    JButton Create_order = new JButton("Create order");
-
     GraphPanel graphPanel = new GraphPanel();
     homeLogic logic = new homeLogic();
-
-
-
-
 
 
 //    labels
@@ -107,10 +99,6 @@ public class home extends JPanel {
         gbc.gridy = 3;
         bestSeller.setText("Best Selling Item: " + logic.BestSelling());
         add(bestSeller, gbc);
-
-
-
-
 
         setVisible(true);
     }
