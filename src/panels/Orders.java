@@ -1,19 +1,24 @@
 package panels;
 
-import logic.DeleteCRUD;
-import logic.InsertIntoDbCRUD;
-import logic.amendCRUD;
-import logic.table;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.sql.Date;
+
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JFormattedTextField;
-import java.text.SimpleDateFormat;
+
+import dbCon.DatabaseConnector;
+import logic.DeleteCRUD;
+import logic.InsertIntoDbCRUD;
+import logic.amendCRUD;
+import logic.table;
 
 public class Orders extends JPanel {
 
@@ -22,6 +27,7 @@ public class Orders extends JPanel {
     JButton amendOrder = new JButton("Amend Order");
     JButton insert = new JButton("Insert Data");
     JButton delete = new JButton("Delete");
+    JButton amend = new JButton("Amend");
     JComboBox<Integer> empIDField;
     JTextField tableNameField = new JTextField();
     JTextField stockIDField  = new JTextField();
@@ -81,7 +87,7 @@ public class Orders extends JPanel {
                 Container contentPane = addOrderFrame.getContentPane();
                 contentPane.setLayout(new GridLayout(7, 2, 5, 5)); // 5 rows, 2 columns
                 empIDField = new JComboBox<>(empIds);
-        
+
                 contentPane.add(new JLabel("Employee ID:"));
                 contentPane.add(empIDField);
                 contentPane.add(new JLabel("Stock ID:"));
@@ -108,7 +114,7 @@ public class Orders extends JPanel {
                         String PaymentStat = PaymentStatusField.getText();
                         java.sql.Date orderDate = new java.sql.Date(orderDateField.getDate().getTime());
                         java.sql.Date deliveryDate = new java.sql.Date(deliveryDateField.getDate().getTime());
-                        
+
                         crud.insertIntoOrders(Emp_ID,Stock_ID,orderDate,TotalCost,PaymentStat,deliveryDate);
                         table.fetchData();
                     }
@@ -116,7 +122,6 @@ public class Orders extends JPanel {
 
 
 
-        
                 addOrderFrame.pack();
                 addOrderFrame.setLocationRelativeTo(null); // Center the frame on screen
                 addOrderFrame.setVisible(true);
@@ -139,12 +144,13 @@ public class Orders extends JPanel {
                 } else {
                     JOptionPane.showMessageDialog(null,"Please select a row to delete.");
                 }
+                table.fetchData();
             }
-        
-        });
-        
 
-        //AMMEND OPERATIONS
+        });
+
+
+        //AMEND OPERATIONS
 
         amendOrder.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -152,20 +158,95 @@ public class Orders extends JPanel {
                 JFrame amendOrderFrame = new JFrame();
                 Container contentPane = amendOrderFrame.getContentPane();
                 contentPane.setLayout(new GridLayout(0, 2, 5, 5));
+                orderDateField.setDateFormatString("yyyy-MM-dd");
+                deliveryDateField.setDateFormatString("yyyy-MM-dd");
+                empIDField = new JComboBox<>(empIds);
 
-                contentPane.add(new JLabel("Order ID: "));
-                contentPane.add(orderIdField);
-                contentPane.add(new JLabel("Emp ID: "));
+                contentPane.add(new JLabel("Employee ID:"));
                 contentPane.add(empIDField);
                 contentPane.add(new JLabel("Stock ID:"));
                 contentPane.add(stockIDField);
+                contentPane.add(new JLabel("Order Date:"));
+                contentPane.add(orderDateField);
+                contentPane.add(new JLabel("Total Cost:"));
+                contentPane.add(totalCostField);
+                contentPane.add(new JLabel("Payment Status:"));
+                contentPane.add(PaymentStatusField);
+                contentPane.add(new JLabel("DeliveryDate"));
+                contentPane.add(deliveryDateField);
+                contentPane.add(amend);
+
+                Object primarykey = table.getSelectedPrimaryKey();
+                if (primarykey != null) {
+                    int id = (int) primarykey;
+
+                    Connection con = DatabaseConnector.connect();
+                    try {
+                        PreparedStatement pstat = con.prepareStatement("SELECT * FROM Orders where Order_ID = ?");
+                        pstat.setInt(1,id);
+
+                        ResultSet rs = pstat.executeQuery();
+
+                        while (rs.next()) {
+                            int Order_ID = rs.getInt("Order_ID");
+                            int Emp_ID = rs.getInt("Emp_ID");
+                            int Stock_ID = rs.getInt("Stock_ID");
+                            Date Orderdate = rs.getDate("OrderDate");
+                            BigDecimal TotalCost = rs.getBigDecimal("TotalCost");
+                            String PaymentStat = rs.getString("PaymentStatus");
+                            Date delivery = rs.getDate("Est_Delivery");
+
+                            empIDField.setSelectedItem(Emp_ID);
+                            stockIDField.setText(String.valueOf(Stock_ID));
+                            totalCostField.setText(String.valueOf(TotalCost));
+                            PaymentStatusField.setText(PaymentStat);
+
+                            // Formatting dates
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Choose your desired date format
+                            String orderDateString = dateFormat.format(Orderdate);
+                            String deliveryDateString = dateFormat.format(delivery);
+
+                            orderDateField.setDate(Orderdate);
+                            deliveryDateField.setDate(delivery);
+                        }
+                        rs.close();
+                    }
+                    catch(SQLException ex){
+                        ex.printStackTrace();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(getParent(),"Please select a entry to amend");
+                }
+                    amend.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            Object selectedEmpId = empIDField.getSelectedItem();
+                            Integer Emp_ID = (Integer) selectedEmpId;
+                            int Stock_ID = Integer.parseInt(stockIDField.getText());
+                            BigDecimal TotalCost = new BigDecimal(totalCostField.getText());
+                            String PaymentStat = PaymentStatusField.getText();
+                            java.sql.Date orderDate = new java.sql.Date(orderDateField.getDate().getTime());
+                            java.sql.Date deliveryDate = new java.sql.Date(deliveryDateField.getDate().getTime());
+
+                            int dialogBox = JOptionPane.YES_NO_OPTION;
+                            int dialogResult = JOptionPane.showConfirmDialog(null,"Are you sure about the Details Entered?","Confirmation",dialogBox);
+                            if (dialogResult == JOptionPane.YES_OPTION){
+                                amendCRUD crud = new amendCRUD();
+                                crud.amendIntoOrders((int) primarykey, Emp_ID, Stock_ID, orderDate, TotalCost, PaymentStat, deliveryDate);
+                                table.fetchData();
+                                JOptionPane.showMessageDialog(null,"Entry Details have been updated");
+                            }
+
+                        }
+                    });
+
+
 
                 amendOrderFrame.pack();
                 amendOrderFrame.setLocationRelativeTo(null);
                 amendOrderFrame.setVisible(true);
             }
         });
-        
+
 
         // Add the button panel to the bottom of the panels.Orders panel
         add(buttonPanel, BorderLayout.SOUTH);
@@ -173,9 +254,7 @@ public class Orders extends JPanel {
         // Set preferred size of the panels.Orders panel
         setPreferredSize(new Dimension(tablewidth, tableheight + buttonPanelHeight));
 
-        }
-
-
+    }
 
     //TODO: validate entered data and have relevant error handling, JComboBox, JCalender
 

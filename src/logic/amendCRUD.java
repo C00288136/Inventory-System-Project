@@ -76,7 +76,7 @@ public class amendCRUD {
         }
     }
 
-    public void amendIntoOrders(int Order_ID, int Emp_ID,int Stock_ID,Date date,BigDecimal TotalCost, String PaymentStat, Date delivery ){
+    public void amendIntoOrders(int Order_ID,int Emp_ID,int Stock_ID,Date date,BigDecimal TotalCost, String PaymentStat, Date delivery ){
         String[] columns = {"Emp_ID","Stock_ID","OrderDate","TotalCost","PaymentStatus","Est_Delivery"};
         Object[] values = {Emp_ID,Stock_ID,date,TotalCost,PaymentStat,delivery};
         String condition = "Order_ID ="+Order_ID; // Define appropriate condition
