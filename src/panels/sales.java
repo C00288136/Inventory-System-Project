@@ -23,7 +23,8 @@ public class sales extends JPanel {
     JButton ammendSale = new JButton("Amend Sale");
     JButton insert = new JButton("Add Sale");
     JComboBox<Integer> empIDField;
-    Integer[] empIds = {101,102,103,104,105,106,107,108,109,110};
+    List<Integer> empIDs = homeLogic.fetchEmpID();
+    Integer[] empIds = empIDs.toArray(new Integer[0]);
     JComboBox<String> stockIDField;
     List<String> stockItems = homeLogic.fetchItemsFromStock();
     String[] stockItemsArray = stockItems.toArray(new String[0]);
@@ -38,6 +39,8 @@ public class sales extends JPanel {
     int tablewidth = 800;
     int tableheight = 400;
     int buttonPanelHeight = 50;
+
+
     public sales(){
         setLayout(new BorderLayout());
         add(new JScrollPane(table), BorderLayout.CENTER);
@@ -97,7 +100,9 @@ public class sales extends JPanel {
                         Object paymentMethod = paymentField.getSelectedItem();
                         String payment = (String) paymentMethod;
 
-//                        crud.insertIntoSales(empID, stockID, saleDate, totalPrice, quantity, payment);
+                        crud.insertIntoSales(empID, stockID, saleDate, totalPrice, quantity, payment);
+                        JOptionPane.showMessageDialog(null,"Entry added to the Sales table");
+                        addSaleFrame.dispose();
                         table.fetchData();
                         
                     }
