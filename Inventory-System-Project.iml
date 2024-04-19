@@ -21,5 +21,14 @@
     </orderEntry>
     <orderEntry type="library" exported="" name="java" level="project" />
     <orderEntry type="library" name="jfree.jfreechart" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/jcalendar-1.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
