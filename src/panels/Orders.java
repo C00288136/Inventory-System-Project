@@ -127,35 +127,22 @@ public class Orders extends JPanel {
 
         deleteOrder.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JFrame deleteOrderFrame = new JFrame();
-
-                Container contentPane = deleteOrderFrame.getContentPane();
-                contentPane.setLayout(new GridLayout(0, 2, 5, 5));
-
-                contentPane.add(new JLabel("Table Name"));
-                contentPane.add(tableNameField);
-                contentPane.add(new JLabel("Order ID"));
-                contentPane.add(orderIdField);
-                contentPane.add(delete);
-
-                delete.addActionListener(new ActionListener() {
-                   public void actionPerformed(ActionEvent e) {
-                    
-
-                    String tableName = tableNameField.getText();
-                    int orderID = Integer.parseInt(orderIdField.getText());
-                    
-                    deleteCrud.deleteFromTable(tableName, orderID);
-                    table.fetchData();
-
-                   } 
-                });
-
-                deleteOrderFrame.pack();
-                deleteOrderFrame.setLocationRelativeTo(null);
-                deleteOrderFrame.setVisible(true);
+                Object primarykey = table.getSelectedPrimaryKey();
+                if (primarykey != null) {
+                    int row = (int) primarykey;
+                    int dialogBox = JOptionPane.YES_NO_OPTION;
+                    int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to delete this record", "Warning", dialogBox);
+                    if (dialogResult == JOptionPane.YES_OPTION) {
+                        deleteCrud.deleteFromTable("Orders",row);
+                        System.out.println(row + " Deleted!");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null,"Please select a row to delete.");
+                }
             }
+        
         });
+        
 
         //AMMEND OPERATIONS
 
