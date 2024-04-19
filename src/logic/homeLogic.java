@@ -2,10 +2,9 @@ package logic;
 
 import dbCon.DatabaseConnector;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class homeLogic {
 
@@ -181,4 +180,26 @@ public class homeLogic {
     }
     return Best;
 }
+
+    public static List<String> fetchItemsFromStock(){
+        Connection connection = DatabaseConnector.connect();
+        List<String> items = new ArrayList<>();
+        try(PreparedStatement pstat = connection.prepareStatement("SELECT product_id as ID , name from stock_items");
+            ResultSet rs = pstat.executeQuery();){
+
+            while (rs.next()){
+                int stockID = rs.getInt("ID");
+                String name  = rs.getString("name");
+                items.add(stockID + " - " + name);
+            }
+            connection.close();
+            pstat.close();
+            rs.close();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return items;
+    }
 }

@@ -1,9 +1,10 @@
 package panels;
 
+import com.toedter.calendar.JDateChooser;
 import logic.table;
 import logic.DeleteCRUD;
 import logic.InsertIntoDbCRUD;
-import logic.table;
+import logic.homeLogic;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class sales extends JPanel {
 
@@ -20,14 +22,16 @@ public class sales extends JPanel {
     JButton deleteSale = new JButton("Delete Sale");
     JButton ammendSale = new JButton("Amend Sale");
     JButton insert = new JButton("Add Sale");
-    JButton delete = new JButton("Delete");
-    JTextField saleIDField = new JTextField();
-    JTextField empIDField = new JTextField();
-    JTextField stockIDField = new JTextField();
-    JTextField SaleDateField = new JTextField();
+    JComboBox<Integer> empIDField;
+    Integer[] empIds = {101,102,103,104,105,106,107,108,109,110};
+    JComboBox<String> stockIDField;
+    List<String> stockItems = homeLogic.fetchItemsFromStock();
+    String[] stockItemsArray = stockItems.toArray(new String[0]);
+    JDateChooser saleDateField  = new JDateChooser();
     JTextField TotalPriceField = new JTextField();
     JTextField QuantityField = new JTextField();
-    JTextField PaymentMethodField = new JTextField();
+    JComboBox<String> paymentField = new JComboBox<>();
+    String[] paymentMethods = {"cash","credit","debit"};
     InsertIntoDbCRUD crud = new InsertIntoDbCRUD();
     DeleteCRUD deleteCrud = new DeleteCRUD();
 
@@ -57,7 +61,11 @@ public class sales extends JPanel {
         addSale.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFrame addSaleFrame = new JFrame();
-        
+                saleDateField.setDateFormatString("yyyy-MM-dd");
+                empIDField = new JComboBox<>(empIds);
+                stockIDField = new JComboBox<>(stockItemsArray);
+                System.out.println(stockIDField);
+
                 // Add components to the frame
                 Container contentPane = addSaleFrame.getContentPane();
                 contentPane.setLayout(new GridLayout(7, 2, 5, 5));
@@ -66,25 +74,30 @@ public class sales extends JPanel {
                 contentPane.add(new JLabel("Stock ID:"));
                 contentPane.add(stockIDField);
                 contentPane.add(new JLabel("Sale Date:"));
-                contentPane.add(SaleDateField);
+                contentPane.add(saleDateField);
                 contentPane.add(new JLabel("Total Price:"));
                 contentPane.add(TotalPriceField);
                 contentPane.add(new JLabel("Quantity:"));
                 contentPane.add(QuantityField);
                 contentPane.add(new JLabel("Payment Method:"));
-                contentPane.add(PaymentMethodField);
+                paymentField = new JComboBox<>(paymentMethods);
+                contentPane.add(paymentField);
                 contentPane.add(insert);
 
                 insert.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        int empID = Integer.parseInt(empIDField.getText());
-                        int stockID = Integer.parseInt(stockIDField.getText());
-                        Date saleDate = Date.valueOf(SaleDateField.getText());
+                        Object selectedEmpId = empIDField.getSelectedItem();
+                        int empID = (Integer) selectedEmpId;
+                        String selectedStockID = (String) stockIDField.getSelectedItem();
+                        String[] parts = selectedStockID.split(" - ");
+                        int stockID = Integer.parseInt(parts[0]);
+                        java.sql.Date saleDate = new java.sql.Date(saleDateField.getDate().getTime());
                         BigDecimal totalPrice = new BigDecimal(TotalPriceField.getText());
                         int quantity = Integer.parseInt(QuantityField.getText());
-                        String paymentMethod = PaymentMethodField.getText();
+                        Object paymentMethod = paymentField.getSelectedItem();
+                        String payment = (String) paymentMethod;
 
-                        crud.insertIntoSales(empID, stockID, saleDate, totalPrice, quantity, paymentMethod);
+//                        crud.insertIntoSales(empID, stockID, saleDate, totalPrice, quantity, payment);
                         table.fetchData();
                         
                     }
@@ -99,31 +112,25 @@ public class sales extends JPanel {
         });
 
         deleteSale.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame deleteSaleFrame = new JFrame();
-
-                Container contentPane = deleteSaleFrame.getContentPane();
-                contentPane.setLayout(new GridLayout(7, 2, 5, 5));
-
-                contentPane.add(new JLabel("Sale ID:"));
-                contentPane.add(saleIDField);
-                contentPane.add(delete);
-
-                delete.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        int saleID = Integer.parseInt(saleIDField.getText());
-
-                        deleteCrud.deleteFromTable("Sales", saleID);
-                        table.fetchData();
+                Object primarykey = table.getSelectedPrimaryKey();
+                if (primarykey != null) {
+                    int row = (int) primarykey;
+                    int dialogBox = JOptionPane.YES_NO_OPTION;
+                    int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to delete this record", "Warning", dialogBox);
+                    if (dialogResult == JOptionPane.YES_OPTION) {
+                        deleteCrud.deleteFromTable("Sales",row);
+                        System.out.println(row + " Deleted!");
                     }
-                });
-
-                deleteSaleFrame.pack();
-                deleteSaleFrame.setSize(400,300);
-                deleteSaleFrame.setLocationRelativeTo(null);
-                deleteSaleFrame.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null,"Please select a row to delete.");
+                }
+                table.fetchData();
             }
+
         });
+
 
         add(buttonPanel, BorderLayout.SOUTH);
 
@@ -133,5 +140,7 @@ public class sales extends JPanel {
 
 
     }
+
+
 
 }
