@@ -1,24 +1,24 @@
 package panels;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import Validation.NumberOnlyTextField;
 import com.toedter.calendar.JDateChooser;
-
 import dbCon.DatabaseConnector;
 import logic.DeleteCRUD;
 import logic.InsertIntoDbCRUD;
 import logic.amendCRUD;
 import logic.table;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Orders extends JPanel {
 
@@ -26,13 +26,10 @@ public class Orders extends JPanel {
     JButton deleteOrder = new JButton("Delete Order");
     JButton amendOrder = new JButton("Amend Order");
     JButton insert = new JButton("Insert Data");
-    JButton delete = new JButton("Delete");
     JButton amend = new JButton("Amend");
     JComboBox<Integer> empIDField;
-    JTextField tableNameField = new JTextField();
-    JTextField stockIDField  = new JTextField();
+    JTextField stockIDField  = new NumberOnlyTextField(3);
     JDateChooser orderDateField  = new JDateChooser();
-    JTextField orderIdField = new JTextField();
     JTextField totalCostField  = new JTextField();
     JTextField PaymentStatusField  = new JTextField();
     JDateChooser deliveryDateField = new JDateChooser();

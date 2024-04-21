@@ -1,11 +1,14 @@
 package panels;
 
-import logic.*;
+import Validation.NumberOnlyTextField;
 import dbCon.DatabaseConnector;
+import logic.DeleteCRUD;
+import logic.InsertIntoDbCRUD;
+import logic.amendCRUD;
+import logic.table;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +27,7 @@ public class Inventory extends JPanel {
     JButton insert = new JButton("Insert Item");
     JButton amend = new JButton("Amend Details");
     JTextField ItemName = new JTextField();
-    JTextField quantity = new JTextField();
+    JTextField quantity = new NumberOnlyTextField(4);
     JTextField unitP = new JTextField();
     JTextField SaleP = new JTextField();
     JTextField SupplierID = new JTextField();

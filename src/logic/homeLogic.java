@@ -88,7 +88,7 @@ public class homeLogic {
             resultSet = pstat.executeQuery();
 
             if (resultSet.next()) {
-                totalSuppliers = resultSet.getInt("Total");
+                totalSuppliers = resultSet.getInt("Suppliers");
             }
         } catch (SQLException e) {
             e.printStackTrace();
