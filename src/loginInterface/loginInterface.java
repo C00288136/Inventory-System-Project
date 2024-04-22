@@ -1,6 +1,7 @@
 package loginInterface;
 
 
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,8 +16,6 @@ public class loginInterface extends JPanel {
     public JPasswordField passwordText =  new JPasswordField();
     public JButton loginButton = new JButton("Login");
 
-    int panelWidth = getWidth()/2;
-
     public loginInterface() {
         setLayout(new GridLayout(1,2));
 
@@ -28,11 +27,27 @@ public class loginInterface extends JPanel {
         userText.setFont(font);
         passwordLabel.setFont(font);
         loginButton.setFont(font);
+
+
         JPanel rightPanel = new JPanel();
-        rightPanel.setBackground(Color.LIGHT_GRAY); // Set the background color as needed
+//        box layout used to centre the image vertically
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        int panelWidth = 650;
+        int panelHeight = 425;
+        rightPanel.setBackground(Color.decode("#e2f3fa"));
+//        method for scaling the image to correct size
+        ImageIcon logoImage = new ImageIcon("assets/Designer.jpeg");
+        Image scaledImage = logoImage.getImage().getScaledInstance(panelWidth,panelHeight,Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        JLabel logoLabel = new JLabel(scaledIcon);
+        
+//        creates an invisible component above the logolabel
+        rightPanel.add(Box.createVerticalGlue());
+        rightPanel.add(logoLabel);
+//        creates an invisible component below the logo label essentially centering it in the frame
+        rightPanel.add(Box.createVerticalGlue());
         add(rightPanel); // Place it on the right
-
-
+        
         loginPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.CENTER;
@@ -67,6 +82,8 @@ public class loginInterface extends JPanel {
         loginPanel.add(loginButton,gbc);
 
         add(loginPanel); // Place loginPanel on the left
+
+
 
         setVisible(true);
     }

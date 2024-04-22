@@ -19,6 +19,7 @@ public class Driver {
         JFrame frame = new JFrame("Inventory Monitoring Program");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1300, 850);
+        frame.setResizable(false);
         frame.setLayout(new BorderLayout());
 
 //        Add login interface

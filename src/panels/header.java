@@ -15,17 +15,17 @@ public class header extends JPanel {
      * @param height - Desired Height after the rescaling
      * @return - Images scailed to the specified size
      */
-    private ImageIcon resizeIcon(ImageIcon imageIcon, int width, int height){
+    public ImageIcon resizeIcon(ImageIcon imageIcon, int width, int height){
         Image image = imageIcon.getImage();
         Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(scaledImage);
     }
 
-    ImageIcon logo = new ImageIcon("assets/logo.png");
-    ImageIcon resizedLogo = resizeIcon(logo,50,50);
+    ImageIcon logo = new ImageIcon("assets/Designer.jpeg");
+    ImageIcon resizedLogo = resizeIcon(logo,70,70);
     JLabel logoLabel = new JLabel(resizedLogo);
     ImageIcon user = new ImageIcon("assets/profile.png");
-    ImageIcon resizedUser = resizeIcon(user,60,60);
+    ImageIcon resizedUser = resizeIcon(user,60,70);
     JLabel userLabel = new JLabel(resizedUser);
 
 
