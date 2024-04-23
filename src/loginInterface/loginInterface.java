@@ -1,6 +1,7 @@
 package loginInterface;
 
 
+import Design.Themes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class loginInterface extends JPanel {
         JPanel loginPanel = new JPanel();
         loginPanel.setLayout(null); // Using null layout for precise positioning
 
-        Font font = new Font(Font.SANS_SERIF,Font.PLAIN,16);
+        Font font = Themes.getTextfont();
         userLabel.setFont(font);
         userText.setFont(font);
         passwordLabel.setFont(font);
@@ -79,7 +80,11 @@ public class loginInterface extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 4;
 
+
+        loginButton.setFont(Themes.getButtonfont());
+        loginButton.setBackground(Color.decode("#e2f3fa"));
         loginPanel.add(loginButton,gbc);
+
 
         add(loginPanel); // Place loginPanel on the left
 

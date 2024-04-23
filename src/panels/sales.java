@@ -1,16 +1,16 @@
 package panels;
 
+import Design.Themes;
 import com.toedter.calendar.JDateChooser;
-import logic.table;
 import logic.DeleteCRUD;
 import logic.InsertIntoDbCRUD;
 import logic.homeLogic;
+import logic.table;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -51,10 +51,9 @@ public class sales extends JPanel {
         addSale.setPreferredSize(new Dimension(120, 30));
         deleteSale.setPreferredSize(new Dimension(120, 30));
         ammendSale.setPreferredSize(new Dimension(120, 30));
-        Font buttonFont = new Font("Arial", Font.PLAIN, 14);
-        addSale.setFont(buttonFont);
-        deleteSale.setFont(buttonFont);
-        ammendSale.setFont(buttonFont);
+        Themes.applyButtonTheme(addSale);
+        Themes.applyButtonTheme(deleteSale);
+        Themes.applyButtonTheme(ammendSale);
 
 
         buttonPanel.add(addSale);

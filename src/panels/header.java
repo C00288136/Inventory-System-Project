@@ -1,5 +1,7 @@
 package panels;
 
+import Design.Themes;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -30,6 +32,8 @@ public class header extends JPanel {
 
 
     JLabel businessName = new JLabel("Inventory System Portal");
+    Font font = Themes.getButtonfont();
+
 
     public header(){
         int panelHeight = 70;
@@ -38,6 +42,7 @@ public class header extends JPanel {
         add(logoLabel,BorderLayout.WEST);
         add(userLabel,BorderLayout.EAST);
         businessName.setHorizontalAlignment(SwingConstants.CENTER);
+        businessName.setFont(font);
         add(businessName,BorderLayout.CENTER);
 
         setVisible(true);

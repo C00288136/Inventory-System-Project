@@ -1,8 +1,10 @@
 package panels;
 
+import Design.Themes;
+import logic.changepassword;
+
 import javax.swing.*;
 import java.awt.*;
-import logic.changepassword;
 
 /**
  * settings panel where to user can change their password in the current version
@@ -29,6 +31,7 @@ public class settings extends JPanel {
         gbc.gridx = 0;//column 0
         gbc.gridy = 0;
         JLabel old = new JLabel("Old Password:");
+        old.setFont(Themes.getTextfont());
         rightPanel.add(old,gbc);
         gbc.gridx = 1;//added to column 1
         oldPassword.setPreferredSize(new Dimension(200,20));
@@ -38,6 +41,7 @@ public class settings extends JPanel {
         gbc.gridx = 0;//column 0
         gbc.gridy = 1;
         JLabel newLabel = new JLabel("New Password:");
+        newLabel.setFont(Themes.getTextfont());
         rightPanel.add(newLabel,gbc);
         gbc.gridx = 1;//added to column 1
         newPassword.setPreferredSize(new Dimension(200,20));
@@ -47,6 +51,7 @@ public class settings extends JPanel {
         gbc.gridx = 0;//column 0
         gbc.gridy = 2;
         JLabel confirm = new JLabel("Confirm password:");
+        confirm.setFont(Themes.getTextfont());
         rightPanel.add(confirm,gbc);
         gbc.gridx = 1;//added to column 1
         confirmPassword.setPreferredSize(new Dimension(200,20));
@@ -57,7 +62,8 @@ public class settings extends JPanel {
         gbc.gridy = 3;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
-        JButton confirmPass = new JButton("Confirm Password:");
+        JButton confirmPass = new JButton("Confirm Password");
+        Themes.applyButtonTheme(confirmPass);
         rightPanel.add(confirmPass,gbc);
         add(rightPanel);
 

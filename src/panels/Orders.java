@@ -1,5 +1,6 @@
 package panels;
 
+import Design.Themes;
 import Validation.NumberOnlyTextField;
 import com.toedter.calendar.JDateChooser;
 import dbCon.DatabaseConnector;
@@ -61,10 +62,9 @@ public class Orders extends JPanel {
         addOrder.setPreferredSize(new Dimension(120, 30));
         deleteOrder.setPreferredSize(new Dimension(120, 30));
         amendOrder.setPreferredSize(new Dimension(120, 30));
-        Font buttonFont = new Font("Arial", Font.PLAIN, 14);
-        addOrder.setFont(buttonFont);
-        deleteOrder.setFont(buttonFont);
-        amendOrder.setFont(buttonFont);
+        Themes.applyButtonTheme(addOrder);
+        Themes.applyButtonTheme(deleteOrder);
+        Themes.applyButtonTheme(amendOrder);
 
         // Add buttons to buttonPanel
         buttonPanel.add(addOrder);

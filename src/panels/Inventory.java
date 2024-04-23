@@ -1,5 +1,6 @@
 package panels;
 
+import Design.Themes;
 import Validation.NumberOnlyTextField;
 import dbCon.DatabaseConnector;
 import logic.DeleteCRUD;
@@ -48,10 +49,10 @@ public class Inventory extends JPanel {
         addItem.setPreferredSize(new Dimension(120, 30));
         deleteItem.setPreferredSize(new Dimension(120, 30));
         amendItem.setPreferredSize(new Dimension(120, 30));
-        Font buttonFont = new Font("Arial", Font.PLAIN, 14);
-        addItem.setFont(buttonFont);
-        deleteItem.setFont(buttonFont);
-        amendItem.setFont(buttonFont);
+        Themes.applyButtonTheme(addItem);
+        Themes.applyButtonTheme(deleteItem);
+        Themes.applyButtonTheme(amendItem);
+
 
 
 // action listener for adding an item to the database

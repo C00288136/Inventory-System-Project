@@ -1,5 +1,6 @@
 package panels;
 
+import Design.Themes;
 import logic.homeLogic;
 
 import javax.swing.*;
@@ -63,6 +64,8 @@ public class home extends JPanel {
                     new LineBorder(Color.decode("#8764EC"), 2),
                     new EmptyBorder(20, 20, 20, 20)
             ));
+
+            label.setFont(Themes.getButtonfont());
             label.setHorizontalAlignment(SwingConstants.CENTER);
 
 

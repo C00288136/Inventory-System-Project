@@ -1,5 +1,6 @@
 package panels;
 
+import Design.Themes;
 import logic.InventoryPanelManager;
 
 import javax.swing.*;
@@ -43,7 +44,7 @@ public class NavigationBar extends JPanel {
             button.setContentAreaFilled(false);
             button.setBorderPainted(true);
             button.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            button.setForeground(Color.WHITE);
+            Themes.applyButtonTheme(button);
             button.setIcon(navIcons[i]);
             add(button);
             i++;
