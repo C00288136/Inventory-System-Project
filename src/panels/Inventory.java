@@ -1,7 +1,6 @@
 package panels;
 
 import Design.Themes;
-import Validation.LettersOnlyTextField;
 import Validation.NumberOnlyTextField;
 import dbCon.DatabaseConnector;
 import logic.DeleteCRUD;
@@ -28,11 +27,11 @@ public class Inventory extends JPanel {
     JButton amendItem = new JButton("Amend Item");
     JButton insert = new JButton("Insert Item");
     JButton amend = new JButton("Amend Details");
-    JTextField ItemName = new LettersOnlyTextField(50);
+    JTextField ItemName = new JTextField();
     JTextField quantity = new NumberOnlyTextField(4);
-    JTextField unitP = new NumberOnlyTextField(3);
-    JTextField SaleP = new NumberOnlyTextField(3);
-    JTextField SupplierID = new NumberOnlyTextField(3);
+    JTextField unitP = new JTextField();
+    JTextField SaleP = new JTextField();
+    JTextField SupplierID = new NumberOnlyTextField(60);
     JComboBox<Integer> Aisle;
     InsertIntoDbCRUD crudIn = new InsertIntoDbCRUD();
     DeleteCRUD deleteCRUD = new DeleteCRUD();
@@ -57,7 +56,7 @@ public class Inventory extends JPanel {
         addItem.addActionListener(e -> {
             JFrame addItemFrame = new JFrame("Add Item");
             Aisle = new JComboBox<>(aisles);
-            addItemFrame.setPreferredSize(new Dimension(200,400));
+            addItemFrame.setPreferredSize(new Dimension(300,400));
 
             JPanel panel = new JPanel();
             panel.setLayout(new GridLayout(7,2,5,5));
@@ -73,6 +72,7 @@ public class Inventory extends JPanel {
             panel.add(SupplierID);
             panel.add(new JLabel("Aisle Number"));
             panel.add(Aisle);
+            Themes.applyButtonTheme(insert);
             panel.add(insert);
             addItemFrame.setLocationRelativeTo(null);
             addItemFrame.add(panel);
@@ -90,7 +90,12 @@ public class Inventory extends JPanel {
 
                 if(name.isEmpty()||quantityText.isEmpty()||unitPriceText.isEmpty()||salePriceText.isEmpty()||supplierText.isEmpty()){
                     JOptionPane.showMessageDialog(null,"Please fill in all the fields","Error",JOptionPane.ERROR_MESSAGE);
-                    return;
+                    return;//stops further execution if condition not met
+                }
+
+                if (!NumberOnlyTextField.isValidPrice(unitPriceText) || !NumberOnlyTextField.isValidPrice(salePriceText)) {
+                    JOptionPane.showMessageDialog(null, "Unit price and sale price must contain only numbers and periods", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; // Stop further execution if condition not met
                 }
 
 
@@ -111,7 +116,7 @@ public class Inventory extends JPanel {
                 }
                 catch (Exception exception){
                     exception.printStackTrace();
-                    JOptionPane.showMessageDialog(null,"Error occured while adding the Item","Error",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Error occurred while adding the Item","Error",JOptionPane.ERROR_MESSAGE);
                 }
                 dataTable.fetchData();
             });
@@ -141,7 +146,7 @@ public class Inventory extends JPanel {
             JFrame AmendItemsFrame = new JFrame("Amend Item");
             Aisle = new JComboBox<>(aisles);
 
-            AmendItemsFrame.setPreferredSize(new Dimension(200,400));
+            AmendItemsFrame.setPreferredSize(new Dimension(300,400));
 
             JPanel panel = new JPanel();
             panel.setLayout(new GridLayout(7,2,5,5));
@@ -176,7 +181,7 @@ public class Inventory extends JPanel {
                     ResultSet rs = pstat.executeQuery();
 
                     while (rs.next()){
-                        String name = rs.getString("Name");
+                        String name = rs.getString("name");
                         int qty = rs.getInt("quantity_in_stock");
                         BigDecimal unitPrice = rs.getBigDecimal("unit_price");
                         BigDecimal salePrice = rs.getBigDecimal("sale_price");
@@ -191,6 +196,7 @@ public class Inventory extends JPanel {
                         Aisle.setSelectedItem(aisle);
                     }
                     rs.close();
+                    con.close();
                 }
                 catch(SQLException ex){
                     ex.printStackTrace();
@@ -198,24 +204,50 @@ public class Inventory extends JPanel {
                 }
             else {
                 JOptionPane.showMessageDialog(getParent(),"Please select a entry to amend");
+                return;
             }
 //                button within the amend panel for saving details and checking if there are correct
                 amend.addActionListener(e1 -> {
-                    String nameamended = ItemName.getText();
-                    int qtyamended = Integer.parseInt(quantity.getText());
-                    BigDecimal unitPriceamended = new BigDecimal(unitP.getText());
-                    BigDecimal salePriceamended = new BigDecimal(SaleP.getText());
-                    int supplierIDamended = Integer.parseInt(SupplierID.getText());
-                    Object selectedAisle = Aisle.getSelectedItem();
-                    Integer aisleamended = (Integer) selectedAisle;
 
-                    int dialogBox = JOptionPane.YES_NO_OPTION;
-                    int dialogResult = JOptionPane.showConfirmDialog(null,"Are you sure about the Details Entered?","Confirmation",dialogBox);
-                    if (dialogResult == JOptionPane.YES_OPTION){
+                    String name = ItemName.getText();
+                    String quantityText = quantity.getText();
+                    String unitPriceText = unitP.getText();
+                    String salePriceText = SaleP.getText();
+                    String supplierText = SupplierID.getText();
 
-                    amendCRUD.amendStockItems((int) primarykey,nameamended,qtyamended,unitPriceamended,salePriceamended,supplierIDamended,aisleamended);
-                        JOptionPane.showMessageDialog(null,"Entry Details have been updated");
-                        AmendItemsFrame.dispose();
+                    if (name.isEmpty() || quantityText.isEmpty() || unitPriceText.isEmpty() || salePriceText.isEmpty() || supplierText.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Please fill in all the fields", "Error", JOptionPane.ERROR_MESSAGE);
+                        return; // Stop further execution if condition not met
+                    }
+
+                    // Validate unit price and sale price
+                    if (!NumberOnlyTextField.isValidPrice(unitPriceText) || !NumberOnlyTextField.isValidPrice(salePriceText)) {
+                        JOptionPane.showMessageDialog(null, "Unit price and sale price must contain only numbers and periods", "Error", JOptionPane.ERROR_MESSAGE);
+                        return; // Stop further execution if condition not met
+                    }
+                    try {
+
+
+                        String nameamended = ItemName.getText();
+                        int qtyamended = Integer.parseInt(quantity.getText());
+                        BigDecimal unitPriceamended = new BigDecimal(unitP.getText());
+                        BigDecimal salePriceamended = new BigDecimal(SaleP.getText());
+                        int supplierIDamended = Integer.parseInt(SupplierID.getText());
+                        Object selectedAisle = Aisle.getSelectedItem();
+                        Integer aisleamended = (Integer) selectedAisle;
+
+                        int dialogBox = JOptionPane.YES_NO_OPTION;
+                        int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure about the Details Entered?", "Confirmation", dialogBox);
+                        if (dialogResult == JOptionPane.YES_OPTION) {
+
+                            amendCRUD.amendStockItems((int) primarykey, nameamended, qtyamended, unitPriceamended, salePriceamended, supplierIDamended, aisleamended);
+                            JOptionPane.showMessageDialog(null, "Entry Details have been updated");
+                            AmendItemsFrame.dispose();
+                        }
+                    }
+                    catch (Exception exception){
+                        exception.printStackTrace();
+                        JOptionPane.showMessageDialog(null,"Error occurred while adding Item","Error",JOptionPane.ERROR_MESSAGE);
                     }
                     dataTable.fetchData();
                 });
@@ -229,6 +261,8 @@ public class Inventory extends JPanel {
 
         setVisible(true);
     }
+
+
 
 
 }

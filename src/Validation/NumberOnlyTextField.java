@@ -42,5 +42,9 @@ public class NumberOnlyTextField extends JTextField {
             super.insertString(offs, str, a);
         }
     }
+
+    public static boolean isValidPrice(String text){
+        return text.matches("[0-9.]+");
+    }
 }
 

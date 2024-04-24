@@ -44,6 +44,10 @@ public class LettersOnlyTextField extends JTextField {
                 super.insertString(offs, str, a);
             }
         }
+
+
+
+
 }
 
 
