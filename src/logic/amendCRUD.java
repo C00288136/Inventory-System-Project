@@ -120,4 +120,11 @@ public class amendCRUD {
         String condition = "product_ID =" + product_ID;
         amendIntoTable("Stock_Items",columns,values,condition);
     }
+
+    public void amendSale(int SaleID,int EmpID, int StockID,Date SaleDate, BigDecimal TotalPrice, int Quantity, String Payment) {
+        String[] columns = {"Sale_ID ","Emp_ID ", "Stock_ID ", "SaleDate", "TotalPrice", "Quantity", "Payment_Method"};
+        Object[] values = {SaleID,EmpID, StockID,SaleDate, TotalPrice, Quantity, Payment};
+        String condition = "Sale_ID =" + SaleID;
+        amendIntoTable("sales",columns,values,condition);
+    }
 }

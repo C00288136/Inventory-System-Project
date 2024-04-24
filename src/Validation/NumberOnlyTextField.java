@@ -43,6 +43,11 @@ public class NumberOnlyTextField extends JTextField {
         }
     }
 
+    /**
+     * A method for checking if the number entered is positive and allows a decimal
+     * @param text - input from the Jtextfield
+     * @return - returns a true or false depending on the text field
+     */
     public static boolean isValidPrice(String text){
         return text.matches("[0-9.]+");
     }
