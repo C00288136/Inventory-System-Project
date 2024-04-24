@@ -14,6 +14,10 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.List;
 
+/*
+ * class for sales panel
+ */
+
 public class sales extends JPanel {
 
     table table = new table("Sales");
