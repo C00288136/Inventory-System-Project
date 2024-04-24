@@ -9,6 +9,12 @@ public class DeleteCRUD {
 
     public DeleteCRUD() {}
 
+    /**
+     * Deletes a record from the specified table based on the provided ID.
+     *
+     * @param tableName the name of the table from which to delete the record
+     * @param ID        the ID of the record to delete
+     */
     public void deleteFromTable(String tableName, int ID) {
         Connection connection = null;
 
@@ -16,7 +22,7 @@ public class DeleteCRUD {
             connection = DatabaseConnector.connect();
             DatabaseMetaData metaData = connection.getMetaData();
 
-            //used metadata to dynamically write the query for delecting the user by their primary key
+            // Used metadata to dynamically write the query for deleting the user by their primary key
             String idColumnName = null;
             ResultSet resultSet = metaData.getPrimaryKeys(null, null, tableName);
 
