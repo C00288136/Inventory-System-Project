@@ -9,6 +9,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.*;
 
+/*
+ * table class contains method to create, update, and return primary key
+ */
 public class table extends JPanel {
     JTable table;
     Connection connection;
@@ -18,6 +21,11 @@ public class table extends JPanel {
     private Object selectedPrimaryKey;
 
 
+    /**
+     * Constructs a new Table object with the specified table name.
+     *
+     * @param tableName the name of the database table
+     */
     public table(String tableName) {
         // Use JTableData to dynamically fetch data from the database
         this.tableName = tableName;
@@ -46,26 +54,29 @@ public class table extends JPanel {
         });
     }
 
+    /**
+     * Fetches data from the specified table and populates the JTable.
+     */
     public void fetchData() {
         connection = DatabaseConnector.connect();
         PreparedStatement pstat = null;
         ResultSet resultSet = null;
-    
+
         try {
             pstat = connection.prepareStatement("SELECT * FROM " + tableName);
             resultSet = pstat.executeQuery();
             dbMeta = resultSet.getMetaData();
             int columnCount = dbMeta.getColumnCount();
-    
+
             // Clear existing data from the table model
             tableModel.setRowCount(0);
             tableModel.setColumnCount(0);
-    
+
             // Add columns to the table model
             for (int i = 1; i <= columnCount; i++) {
                 tableModel.addColumn(dbMeta.getColumnName(i));
             }
-    
+
             // Add rows to the table model
             while (resultSet.next()) {
                 Object[] row = new Object[columnCount];
@@ -88,16 +99,18 @@ public class table extends JPanel {
     }
 
     /**
+     * Retrieves the primary key selected by the user.
      *
-     * @return - Returns The Primary key which was selected by the users right mouse click
+     * @return the primary key selected by the user
      */
     public Object getSelectedPrimaryKey(){
         return selectedPrimaryKey;
     }
 
     /**
-     * \
-     * @param row - use the getSelectedPrimaryKey() to retrieve the object for the row and to delete the entry
+     * Deletes an entry from the table based on the provided primary key.
+     *
+     * @param row the primary key of the row to delete
      */
     public void deleteEntry(Object row){
         try {
@@ -105,7 +118,7 @@ public class table extends JPanel {
             String PrimaryKey = table.getColumnName(0);
             int Row = (int) row;
             Object primaryKeyValue = tableModel.getValueAt(Row,0);
-            String sql = "DELETE FROM" + tableName + "WHERE " + PrimaryKey + " = ?";
+            String sql = "DELETE FROM " + tableName + " WHERE " + PrimaryKey + " = ?";
             PreparedStatement pstat = connection.prepareStatement(sql);
             pstat.setObject(1,primaryKeyValue);
             int affectedRows = pstat.executeUpdate();
@@ -123,5 +136,4 @@ public class table extends JPanel {
             e.printStackTrace();
         }
     }
-    
 }

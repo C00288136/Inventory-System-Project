@@ -24,7 +24,7 @@ public class InsertIntoDbCRUD {
     //method for inserting into the database
 
     /**
-     *
+     * class used for inserting data into specified table
      * @param tableName - name of the table data is inserted into
      * @param columns - columns into which data is being inserted as per in the db
      * @param values - values being inserted into the table

@@ -6,9 +6,12 @@ import javax.swing.*;
 import java.sql.*;
 
 /**
- * Class which deletes entries from the database
+ * class deletes entries in database
  */
 public class DeleteCRUD {
+    /*
+     * Deletes a record from the specified table based on the provided ID.
+     */
 
     public DeleteCRUD() {}
 
