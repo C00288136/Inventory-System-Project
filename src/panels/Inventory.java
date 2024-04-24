@@ -1,6 +1,7 @@
 package panels;
 
 import Design.Themes;
+import Validation.LettersOnlyTextField;
 import Validation.NumberOnlyTextField;
 import dbCon.DatabaseConnector;
 import logic.DeleteCRUD;
@@ -27,20 +28,17 @@ public class Inventory extends JPanel {
     JButton amendItem = new JButton("Amend Item");
     JButton insert = new JButton("Insert Item");
     JButton amend = new JButton("Amend Details");
-    JTextField ItemName = new JTextField();
+    JTextField ItemName = new LettersOnlyTextField(50);
     JTextField quantity = new NumberOnlyTextField(4);
-    JTextField unitP = new JTextField();
-    JTextField SaleP = new JTextField();
-    JTextField SupplierID = new JTextField();
+    JTextField unitP = new NumberOnlyTextField(3);
+    JTextField SaleP = new NumberOnlyTextField(3);
+    JTextField SupplierID = new NumberOnlyTextField(3);
     JComboBox<Integer> Aisle;
     InsertIntoDbCRUD crudIn = new InsertIntoDbCRUD();
     DeleteCRUD deleteCRUD = new DeleteCRUD();
     amendCRUD amendCRUD = new amendCRUD();
 
     Integer[] aisles = {1,2,3,4,5,6};
-
-
-
 
     public Inventory(){
         setLayout(new BorderLayout());
@@ -83,6 +81,20 @@ public class Inventory extends JPanel {
 
             insert.addActionListener(e12 -> {
 
+                String name = ItemName.getText();
+                String quantityText = quantity.getText();
+                String unitPriceText = unitP.getText();
+                String salePriceText = SaleP.getText();
+                String supplierText = SupplierID.getText();
+
+
+                if(name.isEmpty()||quantityText.isEmpty()||unitPriceText.isEmpty()||salePriceText.isEmpty()||supplierText.isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Please fill in all the fields","Error",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+
+                try {
                 String Name = ItemName.getText();
                 int quant = Integer.parseInt(quantity.getText());
                 BigDecimal unit = new BigDecimal(unitP.getText());
@@ -92,9 +104,6 @@ public class Inventory extends JPanel {
                 Object selectedAisle = Aisle.getSelectedItem();
                 Integer aisle = (Integer) selectedAisle;
 
-
-                try {
-
                 crudIn.insertIntoStockItems(Name,quant,unit,sale,supp,aisle);
                 JOptionPane.showMessageDialog(null,"Entry has been added successfully");
 
@@ -102,7 +111,6 @@ public class Inventory extends JPanel {
                 }
                 catch (Exception exception){
                     exception.printStackTrace();
-
                     JOptionPane.showMessageDialog(null,"Error occured while adding the Item","Error",JOptionPane.ERROR_MESSAGE);
                 }
                 dataTable.fetchData();
