@@ -21,6 +21,9 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/*
+ * class for Orders panel
+ */
 public class Orders extends JPanel {
 
     JButton addOrder = new JButton("Add Order");
