@@ -23,7 +23,7 @@ public class loginLogic {
      *
      * @param Username - username entered when loggin
      * @param Password - password entered
-     * @return - returns the logged in username
+     * @return - returns the logg   ed in username
      */
     public static String authenticateUser(String Username, String Password){
         String dbPassword = null;
