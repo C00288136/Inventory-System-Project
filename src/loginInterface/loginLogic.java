@@ -11,6 +11,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+/**
+ * Class with logic for the login
+ */
 public class loginLogic {
 //save the username upon login
     private static String currentUsername = null;

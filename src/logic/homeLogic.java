@@ -6,6 +6,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Home logic class contains methods to retrieve data from the database for the home panel and the tables
+ */
 public class homeLogic {
 
     /**
@@ -165,6 +168,10 @@ public class homeLogic {
         return Best;
     }
 
+    /**
+     * SQL query which fetches the stock items from the database and saves them in a list
+     * @return - list of strings containing all the item entries in the database
+     */
     public static List<String> fetchItemsFromStock() {
         Connection connection = DatabaseConnector.connect();
         List<String> items = new ArrayList<>();
@@ -186,6 +193,10 @@ public class homeLogic {
         return items;
     }
 
+    /**
+     * method for making a list of integers of the employees from the database
+     * @return - list of employee IDs
+     */
     public static List<Integer> fetchEmpID() {
         List<Integer> id = new ArrayList<>();
         try (

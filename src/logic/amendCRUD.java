@@ -8,6 +8,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Amend Class used for changing the details and upadting them to the database
+ */
 public class amendCRUD {
 
     public amendCRUD() {}

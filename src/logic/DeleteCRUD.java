@@ -5,6 +5,9 @@ import dbCon.DatabaseConnector;
 import javax.swing.*;
 import java.sql.*;
 
+/**
+ * Class which deletes entries from the database
+ */
 public class DeleteCRUD {
 
     public DeleteCRUD() {}

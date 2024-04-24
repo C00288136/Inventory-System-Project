@@ -15,7 +15,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/**
+ * Graph panel class used to create the graph in the home panel
+ */
 public class GraphPanel extends ChartPanel {
     Connection connection;
     /**
