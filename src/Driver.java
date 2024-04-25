@@ -57,7 +57,7 @@ public class Driver {
                 head.setVisible(true);
             }
             else{
-                JOptionPane.showMessageDialog(frame,"Incorrect Password or Username");
+                JOptionPane.showMessageDialog(frame,"Incorrect Password or Username\nDEFAULT USERNAME : admin\nDEFAULT PASSWORD:admin");
             }
         });
         loginLogic.addEnterKeyListener(loginInterface.passwordText,loginInterface.loginButton);
