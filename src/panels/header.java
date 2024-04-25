@@ -23,10 +23,10 @@ public class header extends JPanel {
         return new ImageIcon(scaledImage);
     }
 
-    ImageIcon logo = new ImageIcon("assets/Designer.jpeg");
+    ImageIcon logo = new ImageIcon(getClass().getResource("/assets/Designer.jpeg"));
     ImageIcon resizedLogo = resizeIcon(logo,70,70);
     JLabel logoLabel = new JLabel(resizedLogo);
-    ImageIcon user = new ImageIcon("assets/profile.png");
+    ImageIcon user = new ImageIcon(getClass().getResource("/assets/profile.png"));
     ImageIcon resizedUser = resizeIcon(user,60,70);
     JLabel userLabel = new JLabel(resizedUser);
 

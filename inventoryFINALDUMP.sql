@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Apr 18, 2024 at 09:32 AM
--- Server version: 5.7.39
--- PHP Version: 7.4.33
+-- Host: localhost:3306
+-- Generation Time: Apr 25, 2024 at 03:03 PM
+-- Server version: 5.7.24
+-- PHP Version: 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,19 +18,18 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `Inventory`
+-- Database: `inventory`
 --
-DROP DATABASE IF EXISTS `Inventory`;
-CREATE DATABASE IF NOT EXISTS `Inventory` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `Inventory`;
+CREATE DATABASE IF NOT EXISTS `inventory` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `inventory`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Employees`
+-- Table structure for table `employees`
 --
 
-CREATE TABLE `Employees` (
+CREATE TABLE `employees` (
   `Emp_ID` int(11) NOT NULL,
   `Username` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
@@ -43,11 +42,11 @@ CREATE TABLE `Employees` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `Employees`
+-- Dumping data for table `employees`
 --
 
-INSERT INTO `Employees` (`Emp_ID`, `Username`, `Password`, `Role`, `LastName`, `FirstName`, `Age`, `Phone_No`, `Address`) VALUES
-(101, 'admin', 'e00cf25ad42683b3df678c61f42c6bda', '', 'Higgins', 'Bob', 22, '87435384953', '16 hills Av'),
+INSERT INTO `employees` (`Emp_ID`, `Username`, `Password`, `Role`, `LastName`, `FirstName`, `Age`, `Phone_No`, `Address`) VALUES
+(101, 'admin', '21232f297a57a5a743894a0e4a801fc3', '', 'Higgins', 'Bob', 22, '87435384953', '16 hills Av'),
 (106, '', '', '', 'Power', 'Mark', 60, '894623784', '230 Carmody Square'),
 (108, '', '', '', 'Smith', 'John', 30, '555-1234', '123 Main St'),
 (109, '', '', '', 'Johnson', 'Alice', 28, '555-5678', '456 Oak St'),
@@ -70,48 +69,59 @@ INSERT INTO `Employees` (`Emp_ID`, `Username`, `Password`, `Role`, `LastName`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Orders`
+-- Table structure for table `orders`
 --
 
-CREATE TABLE `Orders` (
+CREATE TABLE `orders` (
   `Order_ID` int(8) NOT NULL,
   `Emp_ID` int(8) NOT NULL,
   `Stock_ID` int(8) NOT NULL,
   `OrderDate` date NOT NULL,
-  `TotalCost` decimal(4,2) NOT NULL,
+  `TotalCost` decimal(6,2) NOT NULL,
   `PaymentStatus` enum('paid','pending') NOT NULL,
   `Est_Delivery` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `Orders`
+-- Dumping data for table `orders`
 --
 
-INSERT INTO `Orders` (`Order_ID`, `Emp_ID`, `Stock_ID`, `OrderDate`, `TotalCost`, `PaymentStatus`, `Est_Delivery`) VALUES
-(1, 110, 20, '2023-01-02', '23.55', 'paid', '2024-02-01'),
-(2, 110, 20, '2024-01-01', '23.55', 'paid', '2024-02-01');
+INSERT INTO `orders` (`Order_ID`, `Emp_ID`, `Stock_ID`, `OrderDate`, `TotalCost`, `PaymentStatus`, `Est_Delivery`) VALUES
+(1, 109, 4, '2024-04-25', '30.00', 'pending', '2024-04-27'),
+(2, 106, 2, '2024-04-14', '25.00', 'paid', '2024-04-15'),
+(4, 101, 1, '2024-04-09', '12.00', 'paid', '2024-04-27'),
+(26, 101, 1, '2023-09-28', '50.00', 'paid', '2023-10-05'),
+(27, 106, 2, '2023-10-05', '75.50', 'pending', '2023-10-12'),
+(28, 108, 3, '2023-10-13', '100.25', 'paid', '2023-10-20'),
+(29, 112, 4, '2023-10-26', '45.75', 'pending', '2023-11-02'),
+(30, 117, 5, '2023-11-03', '120.00', 'paid', '2023-11-10'),
+(31, 121, 6, '2023-11-11', '65.00', 'pending', '2023-11-18'),
+(32, 124, 7, '2023-11-18', '85.25', 'paid', '2023-11-25'),
+(33, 110, 8, '2023-11-28', '95.50', 'pending', '2023-12-05'),
+(34, 111, 9, '2023-12-05', '110.75', 'paid', '2023-12-12'),
+(35, 110, 10, '2023-12-13', '200.00', 'paid', '2023-12-20');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Sales`
+-- Table structure for table `sales`
 --
 
-CREATE TABLE `Sales` (
+CREATE TABLE `sales` (
   `Sale_ID` int(8) NOT NULL,
   `Emp_ID` int(8) NOT NULL,
   `Stock_ID` int(8) NOT NULL,
   `SaleDate` date NOT NULL,
-  `TotalPrice` decimal(4,2) NOT NULL,
+  `TotalPrice` decimal(6,2) NOT NULL,
   `Quantity` int(3) NOT NULL,
   `Payment_Method` enum('cash','credit','debit','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `Sales`
+-- Dumping data for table `sales`
 --
 
-INSERT INTO `Sales` (`Sale_ID`, `Emp_ID`, `Stock_ID`, `SaleDate`, `TotalPrice`, `Quantity`, `Payment_Method`) VALUES
+INSERT INTO `sales` (`Sale_ID`, `Emp_ID`, `Stock_ID`, `SaleDate`, `TotalPrice`, `Quantity`, `Payment_Method`) VALUES
 (104, 106, 5, '2023-11-30', '15.49', 3, 'credit'),
 (320, 109, 20, '2023-12-15', '19.47', 4, 'credit'),
 (321, 110, 25, '2023-11-15', '2.98', 1, 'cash'),
@@ -157,29 +167,29 @@ INSERT INTO `Sales` (`Sale_ID`, `Emp_ID`, `Stock_ID`, `SaleDate`, `TotalPrice`, 
 (361, 116, 20, '2023-12-16', '2.98', 1, 'cash'),
 (362, 117, 25, '2023-11-24', '11.25', 2, 'credit'),
 (363, 118, 22, '2023-10-11', '5.50', 1, 'debit'),
-(364, 119, 25, '2023-11-23', '14.75', 3, 'cash');
+(364, 119, 6, '2023-11-23', '14.75', 20, 'credit');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Stock_Items`
+-- Table structure for table `stock_items`
 --
 
-CREATE TABLE `Stock_Items` (
+CREATE TABLE `stock_items` (
   `product_ID` int(8) NOT NULL,
   `name` varchar(55) NOT NULL,
   `quantity_in_stock` int(11) NOT NULL,
-  `unit_price` decimal(4,2) NOT NULL,
-  `sale_price` decimal(4,2) NOT NULL,
+  `unit_price` decimal(6,2) NOT NULL,
+  `sale_price` decimal(6,2) NOT NULL,
   `supplier_ID` int(8) NOT NULL,
   `Aisle_num` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `Stock_Items`
+-- Dumping data for table `stock_items`
 --
 
-INSERT INTO `Stock_Items` (`product_ID`, `name`, `quantity_in_stock`, `unit_price`, `sale_price`, `supplier_ID`, `Aisle_num`) VALUES
+INSERT INTO `stock_items` (`product_ID`, `name`, `quantity_in_stock`, `unit_price`, `sale_price`, `supplier_ID`, `Aisle_num`) VALUES
 (1, 'Apple', 150, '1.25', '1.99', 12345678, 1),
 (2, 'Banana', 200, '0.75', '1.29', 87654321, 2),
 (3, 'Milk (1 gallon)', 50, '2.50', '3.99', 23456789, 3),
@@ -202,54 +212,53 @@ INSERT INTO `Stock_Items` (`product_ID`, `name`, `quantity_in_stock`, `unit_pric
 (20, 'Flour (5 pounds)', 100, '2.00', '2.99', 11223344, 2),
 (21, 'Cheese (per pound)', 75, '4.00', '5.99', 99887766, 3),
 (22, 'Yogurt (per cup)', 110, '1.25', '1.99', 44332211, 4),
-(23, 'Applesauce (jar)', 40, '2.50', '3.99', 76543210, 5),
+(23, 'Applesauce (jar)', 45, '2.50', '3.99', 76543210, 5),
 (24, 'Carrots (per pound)', 80, '0.75', '1.29', 98765432, 6),
 (25, 'Broccoli (per pound)', 130, '1.50', '2.29', 13579246, 1),
 (26, 'Ground Beef (per pound)', 70, '4.00', '5.99', 11223344, 2),
 (27, 'Salmon Fillet (per pound)', 95, '7.00', '9.99', 99887766, 3),
 (28, 'Frozen Pizza', 120, '5.00', '7.99', 44332211, 4),
-(29, 'Ice Cream (1 quart)', 25, '3.50', '4.99', 76543210, 5),
-(31, 'Soda (6-pack)', 55, '4.00', '5.99', 13579246, 1),
+(29, 'Ice Cream (1 quart)', 50, '3.50', '4.99', 76543210, 5),
+(30, 'Chips (bag)', 110, '2.00', '2.99', 98765432, 6),
+(31, 'Soda (6-pack)', 100, '4.00', '5.99', 13579246, 1),
 (32, 'Water (case)', 90, '3.00', '4.99', 11223344, 2),
 (33, 'Detergent (bottle)', 40, '5.00', '7.99', 99887766, 3),
 (34, 'Soap Bars (pack)', 100, '1.50', '2.29', 44332211, 4),
 (35, 'Shampoo', 65, '3.00', '4.99', 76543210, 5),
 (36, 'Toothpaste', 80, '2.00', '2.99', 98765432, 6),
-(37, 'Toilet Paper (pack)', 150, '6.00', '8.99', 13579246, 1),
-(38, 'Applesauce (jar)', 40, '2.50', '3.99', 76543210, 5),
-(39, 'apple juice', 55, '25.00', '45.00', 12312, 3);
+(37, 'Toilet Paper (pack)', 150, '6.00', '8.99', 13579246, 1);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `Employees`
+-- Indexes for table `employees`
 --
-ALTER TABLE `Employees`
+ALTER TABLE `employees`
   ADD PRIMARY KEY (`Emp_ID`);
 
 --
--- Indexes for table `Orders`
+-- Indexes for table `orders`
 --
-ALTER TABLE `Orders`
+ALTER TABLE `orders`
   ADD PRIMARY KEY (`Order_ID`),
   ADD KEY `emps` (`Emp_ID`),
   ADD KEY `products` (`Stock_ID`);
 
 --
--- Indexes for table `Sales`
+-- Indexes for table `sales`
 --
-ALTER TABLE `Sales`
+ALTER TABLE `sales`
   ADD PRIMARY KEY (`Sale_ID`),
   ADD KEY `Emp_ID` (`Emp_ID`),
   ADD KEY `product_ID` (`Stock_ID`),
   ADD KEY `Emp_ID_2` (`Emp_ID`,`Stock_ID`);
 
 --
--- Indexes for table `Stock_Items`
+-- Indexes for table `stock_items`
 --
-ALTER TABLE `Stock_Items`
+ALTER TABLE `stock_items`
   ADD PRIMARY KEY (`product_ID`);
 
 --
@@ -257,46 +266,46 @@ ALTER TABLE `Stock_Items`
 --
 
 --
--- AUTO_INCREMENT for table `Employees`
+-- AUTO_INCREMENT for table `employees`
 --
-ALTER TABLE `Employees`
+ALTER TABLE `employees`
   MODIFY `Emp_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
--- AUTO_INCREMENT for table `Orders`
+-- AUTO_INCREMENT for table `orders`
 --
-ALTER TABLE `Orders`
-  MODIFY `Order_ID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `orders`
+  MODIFY `Order_ID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
--- AUTO_INCREMENT for table `Sales`
+-- AUTO_INCREMENT for table `sales`
 --
-ALTER TABLE `Sales`
-  MODIFY `Sale_ID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=365;
+ALTER TABLE `sales`
+  MODIFY `Sale_ID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=367;
 
 --
--- AUTO_INCREMENT for table `Stock_Items`
+-- AUTO_INCREMENT for table `stock_items`
 --
-ALTER TABLE `Stock_Items`
-  MODIFY `product_ID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+ALTER TABLE `stock_items`
+  MODIFY `product_ID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `Orders`
+-- Constraints for table `orders`
 --
-ALTER TABLE `Orders`
-  ADD CONSTRAINT `emps` FOREIGN KEY (`Emp_ID`) REFERENCES `Employees` (`Emp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `products` FOREIGN KEY (`Stock_ID`) REFERENCES `Stock_Items` (`product_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `orders`
+  ADD CONSTRAINT `emps` FOREIGN KEY (`Emp_ID`) REFERENCES `employees` (`Emp_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `products` FOREIGN KEY (`Stock_ID`) REFERENCES `stock_items` (`product_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `Sales`
+-- Constraints for table `sales`
 --
-ALTER TABLE `Sales`
-  ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`Stock_ID`) REFERENCES `Stock_Items` (`product_ID`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`Emp_ID`) REFERENCES `Employees` (`Emp_ID`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE `sales`
+  ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`Stock_ID`) REFERENCES `stock_items` (`product_ID`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`Emp_ID`) REFERENCES `employees` (`Emp_ID`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -2,7 +2,6 @@ package loginInterface;
 
 
 import Design.Themes;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -37,7 +36,7 @@ public class loginInterface extends JPanel {
         int panelHeight = 425;
         rightPanel.setBackground(Color.decode("#e2f3fa"));
 //        method for scaling the image to correct size
-        ImageIcon logoImage = new ImageIcon("assets/Designer.jpeg");
+        ImageIcon logoImage = new ImageIcon(getClass().getResource("/assets/Designer.jpeg"));
         Image scaledImage = logoImage.getImage().getScaledInstance(panelWidth,panelHeight,Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         JLabel logoLabel = new JLabel(scaledIcon);

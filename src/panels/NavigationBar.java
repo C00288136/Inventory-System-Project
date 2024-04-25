@@ -18,11 +18,13 @@ public class NavigationBar extends JPanel {
     JButton settings = new JButton("Settings");
 
     ImageIcon[] navIcons = {
-        new ImageIcon("assets/home.png"),
-        new ImageIcon("assets/orders.png"),
-        new ImageIcon("assets/sales.png"),
-        new ImageIcon("assets/inventory.png"),
-        new ImageIcon("assets/settings.png"),
+
+
+        new ImageIcon(getClass().getResource("/assets/home.png")),
+        new ImageIcon(getClass().getResource("/assets/orders.png")),
+        new ImageIcon(getClass().getResource("/assets/sales.png")),
+        new ImageIcon(getClass().getResource("/assets/inventory.png")),
+        new ImageIcon(getClass().getResource("/assets/settings.png"))
     };
 
     /**
