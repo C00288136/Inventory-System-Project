@@ -76,6 +76,7 @@ public class sales extends JPanel {
         addSale.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFrame addSaleFrame = new JFrame();
+                addSaleFrame.setPreferredSize(new Dimension(300,400));
                 saleDateField.setDateFormatString("yyyy-MM-dd");
                 empIDField = new JComboBox<>(empIds);
                 stockIDField = new JComboBox<>(stockItemsArray);
@@ -249,8 +250,8 @@ public class sales extends JPanel {
 
             amend.addActionListener(e1 ->{
 
-                String empIDText = String.valueOf(empIDField.getSelectedItem());  // Assuming empIDField returns a String value
-                String stockIDText = (String) stockIDField.getSelectedItem();  // Assuming stockIDField returns a String value
+                String empIDText = String.valueOf(empIDField.getSelectedItem());
+                String stockIDText = (String) stockIDField.getSelectedItem();
                 String saleDateText = saleDateField.getDateFormatString();
                 String totalPriceText = TotalPriceField.getText();
                 String quantityText = QuantityField.getText();
@@ -268,8 +269,8 @@ public class sales extends JPanel {
                     int empID = Integer.parseInt(empIDText);
                     String[] parts = stockIDText.split(" - ");
                     String StockID = parts[0];
-                    int stockID = Integer.parseInt(StockID);  // Assuming stockID is an integer
-                    java.sql.Date saleDate = new java.sql.Date(saleDateField.getDate().getTime()); // Assuming valid date format
+                    int stockID = Integer.parseInt(StockID);
+                    java.sql.Date saleDate = new java.sql.Date(saleDateField.getDate().getTime());
                     BigDecimal totalPrice = new BigDecimal(totalPriceText);
                     int quantity = Integer.parseInt(quantityText);
                     String paymentMethodText = (String) paymentField.getSelectedItem();
