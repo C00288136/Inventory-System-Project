@@ -6,6 +6,9 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
+/**
+ * Class overides Textfield and only allows numbers to be entered
+ */
 public class NumberOnlyTextField extends JTextField {
 
     /**

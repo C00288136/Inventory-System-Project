@@ -6,7 +6,9 @@ import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
     import javax.swing.JTextField;
 
-
+/**
+ * Class which overides the default textbox and only allows Letters
+ */
 public class LettersOnlyTextField extends JTextField {
 
 
