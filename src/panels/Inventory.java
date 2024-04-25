@@ -142,6 +142,9 @@ public class Inventory extends JPanel {
         });
 //        button for amending a stock item
         amendItem.addActionListener(e -> {
+            Object primarykey = dataTable.getSelectedPrimaryKey();
+            if (primarykey != null){
+                int id = (int) primarykey;
 
             JFrame AmendItemsFrame = new JFrame("Amend Item");
             Aisle = new JComboBox<>(aisles);
@@ -168,10 +171,6 @@ public class Inventory extends JPanel {
             AmendItemsFrame.pack();
             AmendItemsFrame.setVisible(true);
 
-
-            Object primarykey = dataTable.getSelectedPrimaryKey();
-            if (primarykey != null){
-                   int id = (int) primarykey;
 
                 Connection con = DatabaseConnector.connect();
                 try{
@@ -201,12 +200,7 @@ public class Inventory extends JPanel {
                 catch(SQLException ex){
                     ex.printStackTrace();
                 }
-                }
-            else {
-                JOptionPane.showMessageDialog(getParent(),"Please select a entry to amend");
-                return;
-            }
-//                button within the amend panel for saving details and checking if there are correct
+                //                button within the amend panel for saving details and checking if there are correct
                 amend.addActionListener(e1 -> {
 
                     String name = ItemName.getText();
@@ -251,6 +245,12 @@ public class Inventory extends JPanel {
                     }
                     dataTable.fetchData();
                 });
+                }
+            else {
+                JOptionPane.showMessageDialog(getParent(),"Please select a entry to amend");
+
+            }
+
 
         });
         buttonPanel.add(addItem);

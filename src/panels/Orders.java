@@ -182,7 +182,9 @@ public class Orders extends JPanel {
 
         amendOrder.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                Object primarykey = table.getSelectedPrimaryKey();
+                if (primarykey != null) {
+                    int id = (int) primarykey;
                 JFrame amendOrderFrame = new JFrame();
                 amendOrderFrame.setPreferredSize(new Dimension(300,400));
                 Container contentPane = amendOrderFrame.getContentPane();
@@ -210,9 +212,6 @@ public class Orders extends JPanel {
                 amendOrderFrame.setLocationRelativeTo(null);
                 amendOrderFrame.setVisible(true);
 
-                Object primarykey = table.getSelectedPrimaryKey();
-                if (primarykey != null) {
-                    int id = (int) primarykey;
 
                     Connection con = DatabaseConnector.connect();
                     try {
@@ -248,9 +247,6 @@ public class Orders extends JPanel {
                     catch(SQLException ex){
                         ex.printStackTrace();
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null,"Please select a entry to amend");
-                }
                     amend.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
 
@@ -269,38 +265,41 @@ public class Orders extends JPanel {
                             }
 
                             try {
-                            Object selectedEmpId = empIDField.getSelectedItem();
-                            Integer Emp_ID = (Integer) selectedEmpId;
-                            String selectedStockID = (String) stockIDField.getSelectedItem();
-                            String[] parts = selectedStockID.split(" - ");
-                            int Stock_ID = Integer.parseInt(parts[0]);
-                            BigDecimal TotalCost = new BigDecimal(totalCostField.getText());
-                            Object payment = paymentStatusfield.getSelectedItem();
-                            String PaymentStat = (String) payment;
-                            java.sql.Date orderDate = new java.sql.Date(orderDateField.getDate().getTime());
-                            java.sql.Date deliveryDate = new java.sql.Date(deliveryDateField.getDate().getTime());
+                                Object selectedEmpId = empIDField.getSelectedItem();
+                                Integer Emp_ID = (Integer) selectedEmpId;
+                                String selectedStockID = (String) stockIDField.getSelectedItem();
+                                String[] parts = selectedStockID.split(" - ");
+                                int Stock_ID = Integer.parseInt(parts[0]);
+                                BigDecimal TotalCost = new BigDecimal(totalCostField.getText());
+                                Object payment = paymentStatusfield.getSelectedItem();
+                                String PaymentStat = (String) payment;
+                                java.sql.Date orderDate = new java.sql.Date(orderDateField.getDate().getTime());
+                                java.sql.Date deliveryDate = new java.sql.Date(deliveryDateField.getDate().getTime());
 
-                            int dialogBox = JOptionPane.YES_NO_OPTION;
-                            int dialogResult = JOptionPane.showConfirmDialog(null,"Are you sure about the Details Entered?","Confirmation",dialogBox);
-                            if (dialogResult == JOptionPane.YES_OPTION){
-                                amendCRUD crud = new amendCRUD();
-                                crud.amendIntoOrders((int) primarykey, Emp_ID, Stock_ID, orderDate, TotalCost, PaymentStat, deliveryDate);
-                                JOptionPane.showMessageDialog(null,"Entry Details have been updated");
+                                int dialogBox = JOptionPane.YES_NO_OPTION;
+                                int dialogResult = JOptionPane.showConfirmDialog(null,"Are you sure about the Details Entered?","Confirmation",dialogBox);
+                                if (dialogResult == JOptionPane.YES_OPTION){
+                                    amendCRUD crud = new amendCRUD();
+                                    crud.amendIntoOrders((int) primarykey, Emp_ID, Stock_ID, orderDate, TotalCost, PaymentStat, deliveryDate);
+                                    JOptionPane.showMessageDialog(null,"Entry Details have been updated");
+                                    amendOrderFrame.dispose();
+                                }
 
-                            }
-
-                        }catch (Exception exception){
+                            }catch (Exception exception){
                                 exception.printStackTrace();
                                 JOptionPane.showMessageDialog(null, "Error occurred while updating orders", "Error", JOptionPane.ERROR_MESSAGE);
                             }
                             table.fetchData();
-                            }
+                        }
                     });
+                } else {
+                    JOptionPane.showMessageDialog(null,"Please select a entry to amend");
+
+                }
 
 
             }
         });
-
         // Add the button panel to the bottom of the panels.Orders panel
         add(buttonPanel, BorderLayout.SOUTH);
 
