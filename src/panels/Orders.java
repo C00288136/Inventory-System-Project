@@ -39,7 +39,7 @@ public class Orders extends JPanel {
     JDateChooser deliveryDateField = new JDateChooser();
     InsertIntoDbCRUD crud = new InsertIntoDbCRUD();
     DeleteCRUD deleteCrud = new DeleteCRUD();
-    amendCRUD amendCrud = new amendCRUD();
+
 
     Integer[] empIds = {100,101,102,103,104,105,106,107,108,109,110};
 
@@ -74,7 +74,7 @@ public class Orders extends JPanel {
         buttonPanel.add(deleteOrder);
         buttonPanel.add(amendOrder);
 
-        //Action Listers for buttons
+        //Action Listeners for buttons
 
         // ADD OPERATIONS
         addOrder.addActionListener(new ActionListener() {
