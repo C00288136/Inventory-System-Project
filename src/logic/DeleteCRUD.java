@@ -13,6 +13,11 @@ public class DeleteCRUD {
      * Deletes a record from the specified table based on the provided ID.
      */
 
+    private int rowsAffected;
+
+    public int getRowsAffected(){
+        return rowsAffected;
+    }
     public DeleteCRUD() {}
 
     /**
@@ -44,7 +49,7 @@ public class DeleteCRUD {
             try (PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
                 preparedStatement.setInt(1, ID);
 
-                int rowsAffected = preparedStatement.executeUpdate();
+                rowsAffected = preparedStatement.executeUpdate();
 
                 if (rowsAffected > 0) {
                     System.out.println("Record deleted successfully.");

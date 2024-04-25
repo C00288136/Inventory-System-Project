@@ -31,7 +31,7 @@ public class sales extends JPanel {
 
     JButton addSale = new JButton("Add Sale");
     JButton deleteSale = new JButton("Delete Sale");
-    JButton ammendSale = new JButton("Amend Sale");
+    JButton amendSale = new JButton("Amend Sale");
     JButton insert = new JButton("Add Sale");
     JButton amend = new JButton("Amend");
     JComboBox<Integer> empIDField;
@@ -63,15 +63,15 @@ public class sales extends JPanel {
 
         addSale.setPreferredSize(new Dimension(120, 30));
         deleteSale.setPreferredSize(new Dimension(120, 30));
-        ammendSale.setPreferredSize(new Dimension(120, 30));
+        amendSale.setPreferredSize(new Dimension(120, 30));
         Themes.applyButtonTheme(addSale);
         Themes.applyButtonTheme(deleteSale);
-        Themes.applyButtonTheme(ammendSale);
+        Themes.applyButtonTheme(amendSale);
 
 
         buttonPanel.add(addSale);
         buttonPanel.add(deleteSale);
-        buttonPanel.add(ammendSale);
+        buttonPanel.add(amendSale);
 
         addSale.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -173,7 +173,7 @@ public class sales extends JPanel {
 
         });
 
-        ammendSale.addActionListener(e -> {
+        amendSale.addActionListener(e -> {
             JFrame AmendSaleFrame = new JFrame();
             saleDateField.setDateFormatString("yyyy-MM-dd");
             empIDField = new JComboBox<>(empIds);
