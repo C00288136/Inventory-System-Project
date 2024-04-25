@@ -138,7 +138,7 @@ public class sales extends JPanel {
                         }
                         catch (Exception exception){
                             exception.printStackTrace();
-                            JOptionPane.showMessageDialog(null,"Error occurred while adding the Item","Error",JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null,"Error occurred while adding the sale","Error",JOptionPane.ERROR_MESSAGE);
 
                         }
                         table.fetchData();
@@ -148,7 +148,6 @@ public class sales extends JPanel {
         
                 // Pack and set size for the frame
                 addSaleFrame.pack();
-                addSaleFrame.setSize(400, 300); // Set an appropriate size
                 addSaleFrame.setLocationRelativeTo(null);
                 addSaleFrame.setVisible(true);
             }
@@ -176,6 +175,7 @@ public class sales extends JPanel {
 
         amendSale.addActionListener(e -> {
             JFrame AmendSaleFrame = new JFrame();
+            AmendSaleFrame.setPreferredSize(new Dimension(300,400));
             saleDateField.setDateFormatString("yyyy-MM-dd");
             empIDField = new JComboBox<>(empIds);
             stockIDField = new JComboBox<>(stockItemsArray);

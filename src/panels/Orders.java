@@ -4,11 +4,7 @@ import Design.Themes;
 import Validation.NumberOnlyTextField;
 import com.toedter.calendar.JDateChooser;
 import dbCon.DatabaseConnector;
-import logic.DeleteCRUD;
-import logic.InsertIntoDbCRUD;
-import logic.amendCRUD;
-import logic.homeLogic;
-import logic.table;
+import logic.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -85,6 +81,7 @@ public class Orders extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame addOrderFrame = new JFrame();
+                addOrderFrame.setPreferredSize(new Dimension(300,400));
                 orderDateField.setDateFormatString("yyyy-MM-dd");
                 deliveryDateField.setDateFormatString("yyyy-MM-dd");
                 stockIDField = new JComboBox<>(stockItemsArray);
@@ -107,6 +104,7 @@ public class Orders extends JPanel {
                 contentPane.add(paymentStatusfield);
                 contentPane.add(new JLabel("DeliveryDate"));
                 contentPane.add(deliveryDateField);
+                Themes.applyButtonTheme(insert);
                 contentPane.add(insert);
 
 
@@ -114,23 +112,43 @@ public class Orders extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
 
-                        Object selectedEmpId = empIDField.getSelectedItem();
-                        Integer Emp_ID = (Integer) selectedEmpId;
-                        String selectedStockID = (String) stockIDField.getSelectedItem();
-                        String[] parts = selectedStockID.split(" - ");
-                        int Stock_ID = Integer.parseInt(parts[0]);
-                        BigDecimal TotalCost = new BigDecimal(totalCostField.getText());
-                        Object payment = paymentStatusfield.getSelectedItem();
-                        String PaymentStat = (String) payment;
-                        java.sql.Date orderDate = new java.sql.Date(orderDateField.getDate().getTime());
-                        java.sql.Date deliveryDate = new java.sql.Date(deliveryDateField.getDate().getTime());
+                        String OrderDateText = orderDateField.getDateFormatString();
+                        String TotalCostText = totalCostField.getText();
+                        String DeliveryDate = deliveryDateField.getDateFormatString();
 
-                        crud.insertIntoOrders(Emp_ID,Stock_ID,orderDate,TotalCost,PaymentStat,deliveryDate);
+                        if(OrderDateText.isEmpty()||TotalCostText.isEmpty()||DeliveryDate.isEmpty()){
+                            JOptionPane.showMessageDialog(null,"Please fill in all the fields","Error",JOptionPane.ERROR_MESSAGE);
+                            return;//stops further execution if condition not met
+                        }
+
+                        if (!NumberOnlyTextField.isValidPrice(TotalCostText)) {
+                            JOptionPane.showMessageDialog(null, "Total Cost Price must contain only numbers and periods", "Error", JOptionPane.ERROR_MESSAGE);
+                            return; // Stop further execution if condition not met
+                        }
+
+                        try {
+                            Object selectedEmpId = empIDField.getSelectedItem();
+                            Integer Emp_ID = (Integer) selectedEmpId;
+                            String selectedStockID = (String) stockIDField.getSelectedItem();
+                            String[] parts = selectedStockID.split(" - ");
+                            int Stock_ID = Integer.parseInt(parts[0]);
+                            BigDecimal TotalCost = new BigDecimal(totalCostField.getText());
+                            Object payment = paymentStatusfield.getSelectedItem();
+                            String PaymentStat = (String) payment;
+                            java.sql.Date orderDate = new java.sql.Date(orderDateField.getDate().getTime());
+                            java.sql.Date deliveryDate = new java.sql.Date(deliveryDateField.getDate().getTime());
+
+                            crud.insertIntoOrders(Emp_ID,Stock_ID,orderDate,TotalCost,PaymentStat,deliveryDate);
+                            JOptionPane.showMessageDialog(null, "Entry added to the Orders table");
+                            addOrderFrame.dispose();
+                        } catch (Exception exception){
+                            exception.printStackTrace();
+                            JOptionPane.showMessageDialog(null,"Error occurred while adding the Order","Error",JOptionPane.ERROR_MESSAGE);
+
+                        }
                         table.fetchData();
                     }
                 });
-
-
 
                 addOrderFrame.pack();
                 addOrderFrame.setLocationRelativeTo(null); // Center the frame on screen
@@ -166,6 +184,7 @@ public class Orders extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
                 JFrame amendOrderFrame = new JFrame();
+                amendOrderFrame.setPreferredSize(new Dimension(300,400));
                 Container contentPane = amendOrderFrame.getContentPane();
                 contentPane.setLayout(new GridLayout(0, 2, 5, 5));
                 orderDateField.setDateFormatString("yyyy-MM-dd");
@@ -185,7 +204,11 @@ public class Orders extends JPanel {
                 contentPane.add(paymentStatusfield);
                 contentPane.add(new JLabel("DeliveryDate"));
                 contentPane.add(deliveryDateField);
+                Themes.applyButtonTheme(amend);
                 contentPane.add(amend);
+                amendOrderFrame.pack();
+                amendOrderFrame.setLocationRelativeTo(null);
+                amendOrderFrame.setVisible(true);
 
                 Object primarykey = table.getSelectedPrimaryKey();
                 if (primarykey != null) {
@@ -226,10 +249,26 @@ public class Orders extends JPanel {
                         ex.printStackTrace();
                     }
                 } else {
-                    JOptionPane.showMessageDialog(getParent(),"Please select a entry to amend");
+                    JOptionPane.showMessageDialog(null,"Please select a entry to amend");
                 }
                     amend.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
+
+                            String OrderDateText = orderDateField.getDateFormatString();
+                            String TotalCostText = totalCostField.getText();
+                            String DeliveryDate = deliveryDateField.getDateFormatString();
+
+                            if(OrderDateText.isEmpty()||TotalCostText.isEmpty()||DeliveryDate.isEmpty()){
+                                JOptionPane.showMessageDialog(null,"Please fill in all the fields","Error",JOptionPane.ERROR_MESSAGE);
+                                return;//stops further execution if condition not met
+                            }
+
+                            if (!NumberOnlyTextField.isValidPrice(TotalCostText)) {
+                                JOptionPane.showMessageDialog(null, "Unit price and sale price must contain only numbers and periods", "Error", JOptionPane.ERROR_MESSAGE);
+                                return; // Stop further execution if condition not met
+                            }
+
+                            try {
                             Object selectedEmpId = empIDField.getSelectedItem();
                             Integer Emp_ID = (Integer) selectedEmpId;
                             String selectedStockID = (String) stockIDField.getSelectedItem();
@@ -246,21 +285,21 @@ public class Orders extends JPanel {
                             if (dialogResult == JOptionPane.YES_OPTION){
                                 amendCRUD crud = new amendCRUD();
                                 crud.amendIntoOrders((int) primarykey, Emp_ID, Stock_ID, orderDate, TotalCost, PaymentStat, deliveryDate);
-                                table.fetchData();
                                 JOptionPane.showMessageDialog(null,"Entry Details have been updated");
+
                             }
 
-                        }
+                        }catch (Exception exception){
+                                exception.printStackTrace();
+                                JOptionPane.showMessageDialog(null, "Error occurred while updating orders", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                            table.fetchData();
+                            }
                     });
 
 
-
-                amendOrderFrame.pack();
-                amendOrderFrame.setLocationRelativeTo(null);
-                amendOrderFrame.setVisible(true);
             }
         });
-
 
         // Add the button panel to the bottom of the panels.Orders panel
         add(buttonPanel, BorderLayout.SOUTH);
@@ -269,9 +308,4 @@ public class Orders extends JPanel {
         setPreferredSize(new Dimension(tablewidth, tableheight + buttonPanelHeight));
 
     }
-
-    //TODO: validate entered data and have relevant error handling, JComboBox, JCalender
-
-    // Main method for testing
-
 }
